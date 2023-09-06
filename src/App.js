@@ -56,10 +56,10 @@ import ForgotPassword from './screens/Auth/ForgotPassword';
 import Profile from './screens/BottomScreens/Profile';
 import EditProfile from './screens/Profile/EditProfile';
 import ChangePasswordProfile from './screens/Profile/ChangePasswordProfile';
-import {Provider} from 'react-redux';
-import {store, persistor} from '../src/redux/store';
+import { Provider } from 'react-redux';
+import { store, persistor } from '../src/redux/store';
 // import { persistor } from './src/redux/store'
-import {PersistGate} from 'redux-persist/integration/react';
+import { PersistGate } from 'redux-persist/integration/react';
 import Chat from './screens/Chat';
 import Support from './screens/Profile/Support';
 import TutorialProfile from './screens/Profile/TurotialProfile';
@@ -114,20 +114,20 @@ const App = () => {
 
   return (
     <>
-    <Provider store={store}>
-    {/* { console.log(user?.access_token)} */}
-    <PersistGate loading={null} persistor={persistor}>
-    {/* <Provider> */}
-      <SafeAreaView style={backgroundStyle}>
-        <StatusBar 
-          backgroundColor={'#754d7d'} />
-        <NavigationContainer>
-          <RootStack />
-        </NavigationContainer>
-      </SafeAreaView>
-    {/* </Provider> */}
-    </PersistGate>
-    </Provider>
+      <Provider store={store}>
+        {/* { console.log(user?.access_token)} */}
+        <PersistGate loading={null} persistor={persistor}>
+          {/* <Provider> */}
+          <SafeAreaView style={backgroundStyle}>
+            <StatusBar
+              backgroundColor={'#754d7d'} />
+            <NavigationContainer>
+              <RootStack />
+            </NavigationContainer>
+          </SafeAreaView>
+          {/* </Provider> */}
+        </PersistGate>
+      </Provider>
     </>
   );
 };
@@ -143,7 +143,10 @@ const Stack = createSharedElementStackNavigator();
 
 const RootStack = () => {
   return (
-    <Stack.Navigator screenOptions={options}>
+    <Stack.Navigator screenOptions={options}
+      initialRouteName='PainAnalog'
+    >
+
       <Stack.Screen name="Tutorial" component={Tutorial} />
       <Stack.Screen name="SplashScreen" component={SplashScreen} />
       <Stack.Screen name="languageChange" component={languageChange} />
@@ -225,7 +228,7 @@ const RootStack = () => {
       <Stack.Screen name="DeleteProfile" component={DeleteProfile} />
 
 
-      
+
 
       {/* <Stack.Screen name="Fab" component={Fab} /> */}
       {/* <Stack.Screen name="Drawer1" component={DrawerNav1} /> */}
