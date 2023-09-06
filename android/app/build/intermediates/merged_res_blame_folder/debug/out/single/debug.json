@@ -1,0 +1,338 @@
+[
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_vector2185.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_vector2185.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_onlinesurvey.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_onlinesurvey.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_rectangle226082.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_rectangle226082.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_layerx00201.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_layerx00201.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_hurtslittlemore.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_hurtslittlemore.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_hugeiconinterfaceoutlineremovecircle.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_hugeiconinterfaceoutlineremovecircle.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_hugeiconfinanceandpaymentoutlineshield.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_hugeiconfinanceandpaymentoutlineshield.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_bell01.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_bell01.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_rectangle226041.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_rectangle226041.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_frame.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_frame.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable_rn_edit_text_material.xml.flat",
+        "source": "com.circlecare.app-main-34:/drawable/rn_edit_text_material.xml"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxxhdpi_node_modules_reactnavigation_elements_src_assets_backicon.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxxhdpi/node_modules_reactnavigation_elements_src_assets_backicon.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_hurtslittlebit.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_hurtslittlebit.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_group1000001448.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_group1000001448.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_image4.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_image4.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_rightside.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_rightside.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_group1000005758.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_group1000005758.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-mdpi_node_modules_reactnativedropdownpicker_src_themes_dark_icons_arrowup.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-mdpi/node_modules_reactnativedropdownpicker_src_themes_dark_icons_arrowup.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-mdpi_node_modules_reactnativedropdownpicker_src_themes_dark_icons_tick.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-mdpi/node_modules_reactnativedropdownpicker_src_themes_dark_icons_tick.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-mdpi_node_modules_reactnativepaper_src_assets_backchevron.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-mdpi/node_modules_reactnativepaper_src_assets_backchevron.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_home.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_home.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "com.circlecare.app-main-34:/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_kanban.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_kanban.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_group.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_group.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "com.circlecare.app-main-34:/mipmap-xxhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "com.circlecare.app-main-34:/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_maskgroup1.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_maskgroup1.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-mdpi_node_modules_reactnativedropdownpicker_src_themes_dark_icons_close.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-mdpi/node_modules_reactnativedropdownpicker_src_themes_dark_icons_close.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_rectangle226044.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_rectangle226044.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "com.circlecare.app-main-34:/mipmap-xhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_hugeiconinterfaceoutlinelogout.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_hugeiconinterfaceoutlinelogout.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-mdpi_assets_applelogo.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-mdpi/assets_applelogo.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_group2.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_group2.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_play.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_play.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_headache11.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_headache11.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "com.circlecare.app-main-34:/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_vector2186.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_vector2186.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "com.circlecare.app-main-34:/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_rectangle226031.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_rectangle226031.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-mdpi_node_modules_reactnativedropdownpicker_src_themes_light_icons_arrowdown.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-mdpi/node_modules_reactnativedropdownpicker_src_themes_light_icons_arrowdown.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_rectangle22608.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_rectangle22608.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_vector.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_vector.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_hurtsworst1.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_hurtsworst1.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "com.circlecare.app-main-34:/mipmap-mdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_videolesson1.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_videolesson1.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-hdpi_node_modules_reactnavigation_elements_src_assets_backicon.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-hdpi/node_modules_reactnavigation_elements_src_assets_backicon.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-mdpi_assets_video.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-mdpi/assets_video.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "com.circlecare.app-main-34:/mipmap-hdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_nohurt.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_nohurt.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_hurtsevenmore.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_hurtsevenmore.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_rectangle226043.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_rectangle226043.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_settings1.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_settings1.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "com.circlecare.app-main-34:/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_group1.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_group1.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_node_modules_reactnavigation_elements_src_assets_backicon.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/node_modules_reactnavigation_elements_src_assets_backicon.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_vector2187.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_vector2187.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_vector2161.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_vector2161.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_smile.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_smile.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_rectangle22604.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_rectangle22604.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-mdpi_node_modules_reactnavigation_elements_src_assets_backicon.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-mdpi/node_modules_reactnavigation_elements_src_assets_backicon.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-mdpi_node_modules_reactnativedropdownpicker_src_themes_light_icons_close.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-mdpi/node_modules_reactnativedropdownpicker_src_themes_light_icons_close.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-mdpi_assets_google.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-mdpi/assets_google.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_user03.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_user03.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_facebook31.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_facebook31.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-mdpi_node_modules_reactnativedropdownpicker_src_themes_light_icons_tick.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-mdpi/node_modules_reactnativedropdownpicker_src_themes_light_icons_tick.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-mdpi_assets_facebook.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-mdpi/assets_facebook.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_rectangle226045.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_rectangle226045.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xhdpi_node_modules_reactnavigation_elements_src_assets_backicon.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xhdpi/node_modules_reactnavigation_elements_src_assets_backicon.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_group1000005767.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_group1000005767.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_vector2188.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_vector2188.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_rectangle226081.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_rectangle226081.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-mdpi_node_modules_reactnativedropdownpicker_src_themes_dark_icons_arrowdown.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-mdpi/node_modules_reactnativedropdownpicker_src_themes_dark_icons_arrowdown.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-mdpi_node_modules_reactnavigation_elements_src_assets_backiconmask.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-mdpi/node_modules_reactnavigation_elements_src_assets_backiconmask.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_hurtswholelot.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_hurtswholelot.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_rectangle226042.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_rectangle226042.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_searchrefraction.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_searchrefraction.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_iconlycurvedprofile.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_iconlycurvedprofile.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-mdpi_node_modules_reactnativedropdownpicker_src_themes_light_icons_arrowup.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-mdpi/node_modules_reactnativedropdownpicker_src_themes_light_icons_arrowup.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_hugeiconinterfaceoutlinehelp.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_hugeiconinterfaceoutlinehelp.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "com.circlecare.app-main-34:/mipmap-xxxhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_vector2162.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_vector2162.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_group1000001450.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_group1000001450.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_rectangle22603.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_rectangle22603.png"
+    },
+    {
+        "merged": "com.circlecare.app-merged_res-32:/drawable-xxhdpi_assets_maskgroup.png.flat",
+        "source": "com.circlecare.app-main-34:/drawable-xxhdpi/assets_maskgroup.png"
+    }
+]
