@@ -57,8 +57,10 @@ import Profile from './screens/BottomScreens/Profile';
 import EditProfile from './screens/Profile/EditProfile';
 import ChangePasswordProfile from './screens/Profile/ChangePasswordProfile';
 import { Provider } from 'react-redux';
+
 import { store, persistor } from '../src/redux/store';
 // import { persistor } from './src/redux/store'
+
 import { PersistGate } from 'redux-persist/integration/react';
 import Chat from './screens/Chat';
 import Support from './screens/Profile/Support';
@@ -104,6 +106,7 @@ import PainScale from './screens/Recordandprogress/PainScale';
 import Records from './screens/Recordandprogress/Records';
 import DeleteProfile from './screens/Profile/DeleteProfile';
 
+
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -122,7 +125,8 @@ const App = () => {
             <StatusBar
               backgroundColor={'#754d7d'} />
             <NavigationContainer>
-              <RootStack />
+              {/* <Appstack /> */}
+              <Authstack />
             </NavigationContainer>
           </SafeAreaView>
           {/* </Provider> */}
@@ -141,33 +145,23 @@ const options = {
 
 const Stack = createSharedElementStackNavigator();
 
-const RootStack = () => {
+const Appstack = () => {
   return (
     <Stack.Navigator screenOptions={options}
-      initialRouteName='PainAnalog'
+    // initialRouteName='PainAnalog'
     >
 
-      <Stack.Screen name="Tutorial" component={Tutorial} />
-      <Stack.Screen name="SplashScreen" component={SplashScreen} />
-      <Stack.Screen name="languageChange" component={languageChange} />
+
+      {/* after login screen  */}
       <Stack.Screen name="Tab2" component={AnimTab2} />
-      {/* <Stack.Screen name="Home1" component={Home1} /> */}
       <Stack.Screen name="Screen" component={Screen} />
       <Stack.Screen name="MyHeader" component={MyHeader} />
       <Stack.Screen name="BottomHome" component={BottomHome} />
       <Stack.Screen name="Discover" component={Discover} />
       <Stack.Screen name="Relax" component={Relax} />
       <Stack.Screen name="Care" component={Care} />
-      <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="ColorScreen" component={ColorScreen} />
-      <Stack.Screen name="OTP" component={OTP} />
-      <Stack.Screen name="VerifyEmail" component={VerifyEmail} />
-      <Stack.Screen name="CreateNewPassword" component={CreateNewPassword} />
-      <Stack.Screen name="Signup" component={Signup} />
       <Stack.Screen name="LanguageChange" component={LanguageChange} />
-      <Stack.Screen name="Demographics" component={Demographics} />
-      <Stack.Screen name="Demographics2" component={Demographics2} />
-      <Stack.Screen name="Acknowledgement" component={Acknowledgement} />
       <Stack.Screen name="Question1" component={Question1} />
       <Stack.Screen name="Question2" component={Question2} />
       <Stack.Screen name="Question3" component={Question3} />
@@ -179,7 +173,6 @@ const RootStack = () => {
       <Stack.Screen name="Question9" component={Question9} />
       <Stack.Screen name="Question10" component={Question10} />
       <Stack.Screen name="Question11" component={Question11} />
-      <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="EditProfile" component={EditProfile} />
       <Stack.Screen name="Chat" component={Chat} />
@@ -232,6 +225,33 @@ const RootStack = () => {
 
       {/* <Stack.Screen name="Fab" component={Fab} /> */}
       {/* <Stack.Screen name="Drawer1" component={DrawerNav1} /> */}
+    </Stack.Navigator>
+  )
+}
+const Authstack = () => {
+  return (
+    <Stack.Navigator screenOptions={options}
+    // initialRouteName='PainAnalog'
+    >
+      {/* authscreens  */}
+      <Stack.Screen name="Tutorial" component={Tutorial} />
+      <Stack.Screen name="SplashScreen" component={SplashScreen} />
+      <Stack.Screen name="languageChange" component={languageChange} />
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Signup" component={Signup} />
+      <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+      <Stack.Screen name="OTP" component={OTP} />
+      <Stack.Screen name="VerifyEmail" component={VerifyEmail} />
+      <Stack.Screen name="CreateNewPassword" component={CreateNewPassword} />
+      <Stack.Screen name="Demographics" component={Demographics} />
+      <Stack.Screen name="Demographics2" component={Demographics2} />
+      <Stack.Screen name="Acknowledgement" component={Acknowledgement} />
+
+      {/* after login screen  */}
+
+
+
+
     </Stack.Navigator>
   )
 }

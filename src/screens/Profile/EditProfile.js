@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -23,8 +23,8 @@ import {
   Padding,
 } from '../../../GlobalStyles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useDispatch} from 'react-redux';
-import {firstform} from '../../redux';
+import { useDispatch } from 'react-redux';
+// import {firstform} from '../../redux';
 import DatePicker from 'react-native-date-picker';
 import moment from 'moment';
 import Colors from '../../constants/Colors';
@@ -32,7 +32,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 
-const EditProfile = ({navigation}) => {
+const EditProfile = ({ navigation }) => {
   const dispatch = useDispatch();
   const [date, setDate] = useState(new Date());
   const [datePlaceholder, setDatePlaceholder] = useState('Date of birth');
@@ -42,12 +42,12 @@ const EditProfile = ({navigation}) => {
   console.log(drop1, '==========');
   console.log(drop2, 'haahha');
 
-  
+
   const [firstname, setFisrtname] = useState('');
   const [lastname, setLastname] = useState('');
   const [dob, setDob] = useState('');
   // const [age,setAge] = useState('')
-  console.log(dob,'====dob')
+  console.log(dob, '====dob')
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   // const [cpassword, setCPassword] = useState('');
@@ -61,18 +61,18 @@ const EditProfile = ({navigation}) => {
   const [gender, setGender] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
-    {label: 'Male', value: 'Male'},
-    {label: 'Female', value: 'Female'},
-    {label: 'Prefer not to say', value: 'prefer'},
+    { label: 'Male', value: 'Male' },
+    { label: 'Female', value: 'Female' },
+    { label: 'Prefer not to say', value: 'prefer' },
   ]);
 
   const [open2, setOpen2] = useState(false);
   const [value2, setValue2] = useState(null);
   const [items2, setItems2] = useState([
-    {label: 'Single', value: 'Single'},
-    {label: 'Married', value: 'Married'},
-    {label: 'Divorced', value: 'Divorced'},
-    {label: 'Prefer not to say', value: 'prefer'},
+    { label: 'Single', value: 'Single' },
+    { label: 'Married', value: 'Married' },
+    { label: 'Divorced', value: 'Divorced' },
+    { label: 'Prefer not to say', value: 'prefer' },
   ]);
 
   const [error, setError] = useState(null)
@@ -81,69 +81,69 @@ const EditProfile = ({navigation}) => {
 
   const [securetextentry, setSecuretextentry] = useState(true)
   const [securetextentry1, setSecuretextentry1] = useState(true)
-  const [token,setToken] = React.useState('')
+  const [token, setToken] = React.useState('')
 
 
 
 
-//   const validation = () => {
-//     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-//     const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
-//     const uppercaseCharRegex = /[A-Z]/;
+  //   const validation = () => {
+  //     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  //     const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+  //     const uppercaseCharRegex = /[A-Z]/;
 
-//     if(firstname === ''){
-//       setError({firstname: 'Please enter first name'});
-//       return false;
-//     }else if(lastname === ''){
-//       setError({lastname: 'Please enter last name'});
-//       return false;
-//     }else if(drop1 === ''){
-//       setError({drop1: 'Please select gender'});
-//       return false;
-//     } else if(dob === ''){
-//         setError({dob: 'Please select date of birth'});
-//         return false;
-//     }else if(drop2 === ''){
-//       setError({drop2: 'Please select status'});
-//       return false;
-//     }else if (!emailRegex.test(email)) {
-//       setError({email: 'Invalid email format'});
-//       return false;
-//     }
-//     else if(password === ''){
-//       setError({password: 'Please enter password'});
-//       return false;
-//   }
-//   else if(password.length < 6){
-//     setError({password: 'Password must be at least 6 characters long'});
-//     return false;
-// }
-// else if (!specialCharRegex.test(password)) {
-//   setError({password: 'Password must contain at least one special character'});
-//   return false;
-// }
-// else if (!uppercaseCharRegex.test(password)) {
-//   setError({password: 'Password must contain at least one uppercase character'});
-//   return false;
-// }
-//     else if(password !== cpassword){
-//        setError({cpassword: 'Password Does Not Match'});
-//        return false;
-//     }else{
-//       return true;
-//     }
-//   }
+  //     if(firstname === ''){
+  //       setError({firstname: 'Please enter first name'});
+  //       return false;
+  //     }else if(lastname === ''){
+  //       setError({lastname: 'Please enter last name'});
+  //       return false;
+  //     }else if(drop1 === ''){
+  //       setError({drop1: 'Please select gender'});
+  //       return false;
+  //     } else if(dob === ''){
+  //         setError({dob: 'Please select date of birth'});
+  //         return false;
+  //     }else if(drop2 === ''){
+  //       setError({drop2: 'Please select status'});
+  //       return false;
+  //     }else if (!emailRegex.test(email)) {
+  //       setError({email: 'Invalid email format'});
+  //       return false;
+  //     }
+  //     else if(password === ''){
+  //       setError({password: 'Please enter password'});
+  //       return false;
+  //   }
+  //   else if(password.length < 6){
+  //     setError({password: 'Password must be at least 6 characters long'});
+  //     return false;
+  // }
+  // else if (!specialCharRegex.test(password)) {
+  //   setError({password: 'Password must contain at least one special character'});
+  //   return false;
+  // }
+  // else if (!uppercaseCharRegex.test(password)) {
+  //   setError({password: 'Password must contain at least one uppercase character'});
+  //   return false;
+  // }
+  //     else if(password !== cpassword){
+  //        setError({cpassword: 'Password Does Not Match'});
+  //        return false;
+  //     }else{
+  //       return true;
+  //     }
+  //   }
 
-const gettoken = async () => {
-  let token1 = await AsyncStorage.getItem('token')
-  console.log(token1,'token')
-  console.log('hello')
-  setToken(token1)
-  
+  const gettoken = async () => {
+    let token1 = await AsyncStorage.getItem('token')
+    console.log(token1, 'token')
+    console.log('hello')
+    setToken(token1)
 
-  
 
-}
+
+
+  }
 
 
 
@@ -165,7 +165,7 @@ const gettoken = async () => {
 
   const editprofile = async () => {
 
-    
+
     await fetch('https://ntamtech.com/appuser/app-user', {
       method: 'PUT',
       headers: {
@@ -182,11 +182,11 @@ const gettoken = async () => {
         password: password,
       })
     })
-    .then(response => response.json())
-    .then(responseJson => {
-      console.log(responseJson)
-        if(responseJson?.success === 1) {
-          console.log(responseJson?.success,'responseJson?.sucess')
+      .then(response => response.json())
+      .then(responseJson => {
+        console.log(responseJson)
+        if (responseJson?.success === 1) {
+          console.log(responseJson?.success, 'responseJson?.sucess')
           // AsyncStorage.setItem('email',email)
           navigation.replace('Tab2')
 
@@ -194,104 +194,104 @@ const gettoken = async () => {
         else {
           setError(responseJson?.error)
         }
-        
-    })
-    .catch(error => {
-        
-        console.log(error,'hello')
-        
+
+      })
+      .catch(error => {
+
+        console.log(error, 'hello')
+
         // return error;
-        
-    })
+
+      })
   }
-  
-
-  
 
 
 
-  
+
+
+
+
 
   return (
-    <View style={{flex:1,backgroundColor:Colors.backgroundColor}}>
-    <ScrollView>
-      <View style={{}}>
-      <View style={{ marginTop: 20, flexDirection:'row',alignItems:'center'}}>
-        <View style={{marginLeft:20,}}>
-          <TouchableOpacity onPress={handleBackButton}>
-            <Ionicons
-              name='arrow-back'
-              size={25}
-              color={Colors.purple} />
-          </TouchableOpacity>
+    <View style={{ flex: 1, backgroundColor: Colors.backgroundColor }}>
+      <ScrollView>
+        <View style={{}}>
+          <View style={{ marginTop: 20, flexDirection: 'row', alignItems: 'center' }}>
+            <View style={{ marginLeft: 20, }}>
+              <TouchableOpacity onPress={handleBackButton}>
+                <Ionicons
+                  name='arrow-back'
+                  size={25}
+                  color={Colors.purple} />
+              </TouchableOpacity>
+            </View>
+            <View style={{ marginHorizontal: '30%' }}><Text style={{ color: Colors.purple, fontSize: 20, fontWeight: 'bold' }}>Edit Profile</Text></View>
           </View>
-          <View style={{marginHorizontal:'30%'}}><Text style={{color:Colors.purple,fontSize:20,fontWeight:'bold'}}>Edit Profile</Text></View>
-        </View>
 
-        <View>
-          <Text
+          <View>
+            <Text
+              style={{
+                color: 'red',
+                fontWeight: 'bold',
+                textAlign: 'center',
+                marginTop: 10,
+              }}>
+              {passerror !== '' ? passerror : ''}
+            </Text>
+          </View>
+
+          <View
             style={{
-              color: 'red',
-              fontWeight: 'bold',
-              textAlign: 'center',
-              marginTop: 10,
+              height: 55,
+              width: '90%',
+              backgroundColor: 'transparent',
+              alignSelf: 'center',
+
+              borderRadius: 10,
+              // paddingLeft: 10,
+              // paddingRight: 5,
+              borderWidth: 1,
+              borderColor: 'lightgrey',
+              marginTop: 20,
             }}>
-            {passerror !== '' ? passerror : ''}
-          </Text>
-        </View>
+            <TextInput
+              style={{ fontSize: 16, color: Color.systemBlack, marginTop: 5 }}
+              placeholder=" First Name"
+              placeholderTextColor={'lightgrey'}
+              placeholderStyle={{}}
+              value={firstname}
+              onChangeText={value => setFisrtname(value)}
+            />
+          </View>
+          {error?.firstname && <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginTop: 10 }}>{error?.firstname}</Text>}
 
-        <View
-          style={{
-            height: 55,
-            width: '90%',
-            backgroundColor: 'transparent',
-            alignSelf: 'center',
+          <View
+            style={{
+              height: 55,
+              width: '90%',
+              backgroundColor: 'transparent',
+              alignSelf: 'center',
 
-            borderRadius: 10,
-            // paddingLeft: 10,
-            // paddingRight: 5,
-            borderWidth: 1,
-            borderColor: 'lightgrey',
-            marginTop: 20,
-          }}>
-          <TextInput
-            style={{fontSize: 16, color: Color.systemBlack, marginTop: 5}}
-            placeholder=" First Name"
-            placeholderTextColor={'lightgrey'}
-            placeholderStyle={{}}
-            value={firstname}
-            onChangeText={value => setFisrtname(value)}
-          />
-        </View>
-        {error?.firstname && <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginTop: 10 }}>{error?.firstname}</Text>}
-
-        <View
-          style={{
-            height: 55,
-            width: '90%',
-            backgroundColor: 'transparent',
-            alignSelf: 'center',
-
-            borderRadius: 10,
-            // paddingLeft: 10,
-            // paddingRight: 5,
-            borderWidth: 1,
-            borderColor: 'lightgrey',
-            marginTop: 15,
-          }}>
-          <TextInput
-            style={{fontSize: 16, color: Color.systemBlack, marginTop: 5}}
-            placeholder=" Last Name"
-            placeholderTextColor={'lightgrey'}
-            placeholderStyle={{}}
-            value={lastname}
-            onChangeText={value => setLastname(value)}
-          />
-        </View>
-        {error?.lastname && <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginTop: 10 }}>{error?.lastname}</Text>}
+              borderRadius: 10,
+              // paddingLeft: 10,
+              // paddingRight: 5,
+              borderWidth: 1,
+              borderColor: 'lightgrey',
+              marginTop: 15,
+            }}>
+            <TextInput
+              style={{ fontSize: 16, color: Color.systemBlack, marginTop: 5 }}
+              placeholder=" Last Name"
+              placeholderTextColor={'lightgrey'}
+              placeholderStyle={{}}
+              value={lastname}
+              onChangeText={value => setLastname(value)}
+            />
+          </View>
+          {error?.lastname && <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginTop: 10 }}>{error?.lastname}</Text>}
 
 
-        {/* <View style={{marginTop: 5}}>
+          {/* <View style={{marginTop: 5}}>
           <DropDown
             placeholder={'Gender'}
             items={items}
@@ -307,55 +307,55 @@ const gettoken = async () => {
             }}
           />
         </View> */}
-        {/* <View style={{top:30,}}>
+          {/* <View style={{top:30,}}>
         {error?.drop1 && <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginTop: 10 }}>{error?.drop1}</Text>}
         </View> */}
-        <TouchableOpacity
-          onPress={() => {
-            setOpen(true);
-            setDatePlaceholder('');
-          }}
-          style=
-          {{
-            height: 55,
-            width: '90%',
-            backgroundColor: 'transparent',
-            alignSelf: 'center',
+          <TouchableOpacity
+            onPress={() => {
+              setOpen(true);
+              setDatePlaceholder('');
+            }}
+            style=
+            {{
+              height: 55,
+              width: '90%',
+              backgroundColor: 'transparent',
+              alignSelf: 'center',
 
-            borderRadius: 10,
-            // paddingLeft: 10,
-            // paddingRight: 5,
-            borderWidth: 1,
-            borderColor: 'lightgrey',
-            marginTop: 20,
-          }}
+              borderRadius: 10,
+              // paddingLeft: 10,
+              // paddingRight: 5,
+              borderWidth: 1,
+              borderColor: 'lightgrey',
+              marginTop: 20,
+            }}
           >
-          <View style={{ top: 10, left: 10 }}>
-          <Text style={{fontSize: 16,marginTop:5,color: dob === '' ? 'lightgrey' : 'black' }}>
-            {datePlaceholder || moment(date).format('DD-MM-YYYY')}
-          </Text>
-        </View>
-          <DatePicker
-            modal
-            open={open}
-            date={date}
-            onConfirm={date => {
-              setOpen(false);
-              setDate(date);
-             const a = moment(date).format('DD-MM-YYYY')
-              setDob(a)
-            }}
-            onCancel={() => {
-              setOpen(false);
-            }}
-            mode="date"
-            onDateChange={setDate}
-          />
-        </TouchableOpacity>
-        <View style={{top:10,}}>
-        {error?.dob && <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center',marginBottom:5 }}>{error?.dob}</Text>}
-        </View>
-        {/* <View style ={{flexDirection:'row',alignItems:'center',marginLeft:20,marginTop:10}}>
+            <View style={{ top: 10, left: 10 }}>
+              <Text style={{ fontSize: 16, marginTop: 5, color: dob === '' ? 'lightgrey' : 'black' }}>
+                {datePlaceholder || moment(date).format('DD-MM-YYYY')}
+              </Text>
+            </View>
+            <DatePicker
+              modal
+              open={open}
+              date={date}
+              onConfirm={date => {
+                setOpen(false);
+                setDate(date);
+                const a = moment(date).format('DD-MM-YYYY')
+                setDob(a)
+              }}
+              onCancel={() => {
+                setOpen(false);
+              }}
+              mode="date"
+              onDateChange={setDate}
+            />
+          </TouchableOpacity>
+          <View style={{ top: 10, }}>
+            {error?.dob && <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginBottom: 5 }}>{error?.dob}</Text>}
+          </View>
+          {/* <View style ={{flexDirection:'row',alignItems:'center',marginLeft:20,marginTop:10}}>
 
         <CheckBox
     disabled={false}
@@ -370,11 +370,11 @@ const gettoken = async () => {
 
 
         </View> */}
-        {/* <View style={{width:'90%',marginHorizontal:22,borderWidth:0.5,padding:5,borderRadius:5,marginTop:10,}}>
+          {/* <View style={{width:'90%',marginHorizontal:22,borderWidth:0.5,padding:5,borderRadius:5,marginTop:10,}}>
           <Text style={{fontSize:16,fontWeight:'bold'}}>Note<Text style={{fontSize:14,fontWeight:'400'}}> : You must be 18 years or above to use this app , otherwise you wont be able to signup</Text> </Text>
         </View> */}
 
-        {/* <View style={{marginTop: 0}}>
+          {/* <View style={{marginTop: 0}}>
           <DropDown
             placeholder={'Marital Status'}
             items={items2}
@@ -393,82 +393,82 @@ const gettoken = async () => {
         <View style={{top:20,}}>
         {error?.drop2 && <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginTop: 10 }}>{error?.drop2}</Text>}
         </View> */}
-        {/* <View>
+          {/* <View>
         <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginTop: 10 }}>
           {emailError}
         </Text>
       </View> */}
-        <View
-          style={{
-            height: 55,
-            width: '90%',
-            backgroundColor: 'transparent',
-            alignSelf: 'center',
+          <View
+            style={{
+              height: 55,
+              width: '90%',
+              backgroundColor: 'transparent',
+              alignSelf: 'center',
 
-            borderRadius: 10,
-            // paddingLeft: 10,
-            // paddingRight: 5,
-            borderWidth: 1,
-            borderColor: 'lightgrey',
-            marginTop: 20,
-          }}>
-          <TextInput
-            style={{fontSize: 16, color: Color.systemBlack, marginTop: 5}}
-            placeholder=" Email"
-            placeholderTextColor={'lightgrey'}
-            placeholderStyle={{}}
-            value={email}
-            onChangeText={value => setEmail(value)}
-          />
-        </View>
-        {error?.email && <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginTop: 10 }}>{error?.email}</Text>}
+              borderRadius: 10,
+              // paddingLeft: 10,
+              // paddingRight: 5,
+              borderWidth: 1,
+              borderColor: 'lightgrey',
+              marginTop: 20,
+            }}>
+            <TextInput
+              style={{ fontSize: 16, color: Color.systemBlack, marginTop: 5 }}
+              placeholder=" Email"
+              placeholderTextColor={'lightgrey'}
+              placeholderStyle={{}}
+              value={email}
+              onChangeText={value => setEmail(value)}
+            />
+          </View>
+          {error?.email && <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginTop: 10 }}>{error?.email}</Text>}
 
-        <View
-          style={{
-            height: 55,
-            width: '90%',
-            backgroundColor: 'transparent',
-            alignSelf: 'center',
+          <View
+            style={{
+              height: 55,
+              width: '90%',
+              backgroundColor: 'transparent',
+              alignSelf: 'center',
 
-            borderRadius: 10,
-            // paddingLeft: 10,
-            // paddingRight: 5,
-            borderWidth: 1,
-            borderColor: 'lightgrey',
-            marginTop: 15,
-            flexDirection: 'row', justifyContent: 'space-between'
-          }}>
-          <TextInput
-            style={{fontSize: 16, color: Color.systemBlack, marginTop: 5,width:'85%'}}
-            placeholder=" Password"
-            placeholderTextColor={'lightgrey'}
-            placeholderStyle={{}}
-            value={password}
-            onChangeText={value => setPassword(value)}
-            secureTextEntry={securetextentry}
-          />
+              borderRadius: 10,
+              // paddingLeft: 10,
+              // paddingRight: 5,
+              borderWidth: 1,
+              borderColor: 'lightgrey',
+              marginTop: 15,
+              flexDirection: 'row', justifyContent: 'space-between'
+            }}>
+            <TextInput
+              style={{ fontSize: 16, color: Color.systemBlack, marginTop: 5, width: '85%' }}
+              placeholder=" Password"
+              placeholderTextColor={'lightgrey'}
+              placeholderStyle={{}}
+              value={password}
+              onChangeText={value => setPassword(value)}
+              secureTextEntry={securetextentry}
+            />
 
-{/* {password != '' ? */}
-                    <View style={{justifyContent:'center'}}>
-                        {/* <Ionicons
+            {/* {password != '' ? */}
+            <View style={{ justifyContent: 'center' }}>
+              {/* <Ionicons
                             name={securetextentry ? 'eye-off' : 'eye'}
                             color={Colors.white}
                             size={20}
                             style={{  marginRight: 10 }}
                             onPress={() => setSecuretextentry(!securetextentry)}
                         /> */}
-                         <Feather name={securetextentry ? 'eye-off' : 'eye'} size={18} color={Colors.purple}
-                          style={{  marginRight: 10 }}
-                          onPress={() => setSecuretextentry(!securetextentry)}
-                          />
-                        </View>
-                         {/* : null} */}
+              <Feather name={securetextentry ? 'eye-off' : 'eye'} size={18} color={Colors.purple}
+                style={{ marginRight: 10 }}
+                onPress={() => setSecuretextentry(!securetextentry)}
+              />
+            </View>
+            {/* : null} */}
 
-        </View>
-         <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginTop: 10 }}>{error}</Text>
-        
+          </View>
+          <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginTop: 10 }}>{error}</Text>
 
-        {/* <View style={{alignSelf: 'center'}}>
+
+          {/* <View style={{alignSelf: 'center'}}>
           <Text
             style={{
               color: 'lightgrey',
@@ -519,9 +519,9 @@ const gettoken = async () => {
           </Text>
         </View> */}
 
-        
 
-        {/* <View style={{alignSelf: 'center'}}>
+
+          {/* <View style={{alignSelf: 'center'}}>
           <TouchableOpacity onPress={() => navigation.navigate('Login')}>
             <Text
               style={{
@@ -537,29 +537,29 @@ const gettoken = async () => {
             </Text>
           </TouchableOpacity>
         </View> */}
-        {/* <View style={{alignSelf:'center',marginTop:15,}}>
+          {/* <View style={{alignSelf:'center',marginTop:15,}}>
         <Text style={{color:'black'}}>Powered by <Text style={{color:'black',fontWeight:'500',fontSize:12}}>NTAM Group</Text></Text>
         </View>
         <View style={{marginTop: 10}}></View> */}
-      </View>
-    </ScrollView>
-    <View style={{width:'80%',height:'5%',alignSelf:'center',marginBottom:10,}}>
-    <LinearGradient
-    style={{borderRadius:20}}
+        </View>
+      </ScrollView>
+      <View style={{ width: '80%', height: '5%', alignSelf: 'center', marginBottom: 10, }}>
+        <LinearGradient
+          style={{ borderRadius: 20 }}
           locations={[0, 1]}
           colors={['#bf6bbb', '#716eaa']}
           useAngle={true}
           angle={180}>
           <Pressable
-          onPress={editprofile}
+            onPress={editprofile}
             style={[styles.pressable, styles.buttonFlexBox]}
-            >
+          >
             <View style={[styles.button, styles.buttonFlexBox]}>
               <Text style={styles.button1}>Update</Text>
             </View>
           </Pressable>
         </LinearGradient>
-        </View>
+      </View>
     </View>
   );
 };

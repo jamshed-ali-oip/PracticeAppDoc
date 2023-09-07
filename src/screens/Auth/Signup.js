@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -23,14 +23,14 @@ import {
   Padding,
 } from '../../../GlobalStyles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useDispatch} from 'react-redux';
-import {firstform} from '../../redux';
+import { useDispatch } from 'react-redux';
+// import {firstform} from '../../redux';
 import DatePicker from 'react-native-date-picker';
 import moment from 'moment';
 import Colors from '../../constants/Colors';
 import Feather from 'react-native-vector-icons/Feather';
 
-const Signup = ({navigation}) => {
+const Signup = ({ navigation }) => {
   const dispatch = useDispatch();
   const [date, setDate] = useState(new Date());
   const [datePlaceholder, setDatePlaceholder] = useState('Date of birth');
@@ -40,12 +40,12 @@ const Signup = ({navigation}) => {
   console.log(drop1, '==========');
   console.log(drop2, 'haahha');
 
-  
+
   const [firstname, setFisrtname] = useState('');
   const [lastname, setLastname] = useState('');
   const [dob, setDob] = useState('');
   // const [age,setAge] = useState('')
-  console.log(dob,'====dob')
+  console.log(dob, '====dob')
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [cpassword, setCPassword] = useState('');
@@ -59,18 +59,18 @@ const Signup = ({navigation}) => {
   const [gender, setGender] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
-    {label: 'Male', value: 'Male'},
-    {label: 'Female', value: 'Female'},
-    {label: 'Prefer not to say', value: 'prefer'},
+    { label: 'Male', value: 'Male' },
+    { label: 'Female', value: 'Female' },
+    { label: 'Prefer not to say', value: 'prefer' },
   ]);
 
   const [open2, setOpen2] = useState(false);
   const [value2, setValue2] = useState(null);
   const [items2, setItems2] = useState([
-    {label: 'Single', value: 'Single'},
-    {label: 'Married', value: 'Married'},
-    {label: 'Divorced', value: 'Divorced'},
-    {label: 'Prefer not to say', value: 'prefer'},
+    { label: 'Single', value: 'Single' },
+    { label: 'Married', value: 'Married' },
+    { label: 'Divorced', value: 'Divorced' },
+    { label: 'Prefer not to say', value: 'prefer' },
   ]);
 
   const [error, setError] = useState(null)
@@ -87,45 +87,45 @@ const Signup = ({navigation}) => {
     const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
     const uppercaseCharRegex = /[A-Z]/;
 
-    if(firstname === ''){
-      setError({firstname: 'Please enter first name'});
+    if (firstname === '') {
+      setError({ firstname: 'Please enter first name' });
       return false;
-    }else if(lastname === ''){
-      setError({lastname: 'Please enter last name'});
+    } else if (lastname === '') {
+      setError({ lastname: 'Please enter last name' });
       return false;
-    }else if(drop1 === ''){
-      setError({drop1: 'Please select gender'});
+    } else if (drop1 === '') {
+      setError({ drop1: 'Please select gender' });
       return false;
-    } else if(dob === ''){
-        setError({dob: 'Please select date of birth'});
-        return false;
-    }else if(drop2 === ''){
-      setError({drop2: 'Please select status'});
+    } else if (dob === '') {
+      setError({ dob: 'Please select date of birth' });
       return false;
-    }else if (!emailRegex.test(email)) {
-      setError({email: 'Invalid email format'});
+    } else if (drop2 === '') {
+      setError({ drop2: 'Please select status' });
+      return false;
+    } else if (!emailRegex.test(email)) {
+      setError({ email: 'Invalid email format' });
       return false;
     }
-    else if(password === ''){
-      setError({password: 'Please enter password'});
+    else if (password === '') {
+      setError({ password: 'Please enter password' });
       return false;
-  }
-  else if(password.length < 6){
-    setError({password: 'Password must be at least 6 characters long'});
-    return false;
-}
-else if (!specialCharRegex.test(password)) {
-  setError({password: 'Password must contain at least one special character'});
-  return false;
-}
-else if (!uppercaseCharRegex.test(password)) {
-  setError({password: 'Password must contain at least one uppercase character'});
-  return false;
-}
-    else if(password !== cpassword){
-       setError({cpassword: 'Password Does Not Match'});
-       return false;
-    }else{
+    }
+    else if (password.length < 6) {
+      setError({ password: 'Password must be at least 6 characters long' });
+      return false;
+    }
+    else if (!specialCharRegex.test(password)) {
+      setError({ password: 'Password must contain at least one special character' });
+      return false;
+    }
+    else if (!uppercaseCharRegex.test(password)) {
+      setError({ password: 'Password must contain at least one uppercase character' });
+      return false;
+    }
+    else if (password !== cpassword) {
+      setError({ cpassword: 'Password Does Not Match' });
+      return false;
+    } else {
       return true;
     }
   }
@@ -133,7 +133,7 @@ else if (!uppercaseCharRegex.test(password)) {
   const onSignUp = () => {
     validate = validation();
     console.log('ssd====', validate)
-    if(validate){
+    if (validate) {
       const body = {
         first_name: firstname,
         last_name: lastname,
@@ -143,26 +143,26 @@ else if (!uppercaseCharRegex.test(password)) {
         email: email,
         password: password,
       };
-      dispatch(firstform(body));
+      // dispatch(firstform(body));
       AsyncStorage.setItem('email', email);
       navigation.navigate('Demographics');
-    } 
-    
+    }
+
   };
 
   useEffect(() => {
     setDatePlaceholder('Date of birth');
   }, []);
 
-      
-  
+
+
 
   return (
     <ScrollView>
-      <View style={{flex: 1,backgroundColor:Colors.white,marginBottom:10,}}>
-        <View style={{marginTop: 20, alignItems: 'center'}}>
+      <View style={{ flex: 1, backgroundColor: Colors.white, marginBottom: 10, }}>
+        <View style={{ marginTop: 20, alignItems: 'center' }}>
           <Image
-            style={{width: '40%', height: 150}}
+            style={{ width: '40%', height: 150 }}
             resizeMode="contain"
             source={require('../../../assets/group1.png')}
           />
@@ -204,7 +204,7 @@ else if (!uppercaseCharRegex.test(password)) {
             marginTop: 20,
           }}>
           <TextInput
-            style={{fontSize: 16, color: Color.systemBlack,alignItems:'center',marginTop:15,marginLeft:5,}}
+            style={{ fontSize: 16, color: Color.systemBlack, alignItems: 'center', marginTop: 15, marginLeft: 5, }}
             placeholder=" First Name"
             placeholderTextColor={'lightgrey'}
             placeholderStyle={{}}
@@ -212,7 +212,7 @@ else if (!uppercaseCharRegex.test(password)) {
             onChangeText={value => setFisrtname(value)}
           />
         </View>
-        {error?.firstname && <Text style={{ color: 'red', fontWeight: 'bold',textAlign:'center',}}>{error?.firstname}</Text>}
+        {error?.firstname && <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', }}>{error?.firstname}</Text>}
 
         <View
           style={{
@@ -229,7 +229,7 @@ else if (!uppercaseCharRegex.test(password)) {
             marginTop: 15,
           }}>
           <TextInput
-            style={{fontSize: 16, color: Color.systemBlack, marginTop: 15,marginLeft:5,}}
+            style={{ fontSize: 16, color: Color.systemBlack, marginTop: 15, marginLeft: 5, }}
             placeholder=" Last Name"
             placeholderTextColor={'lightgrey'}
             placeholderStyle={{}}
@@ -240,7 +240,7 @@ else if (!uppercaseCharRegex.test(password)) {
         {error?.lastname && <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginTop: 10 }}>{error?.lastname}</Text>}
 
 
-        <View style={{marginTop: 5,zIndex:9999}}>
+        <View style={{ marginTop: 5, zIndex: 9999 }}>
           <DropDown
             placeholder={'Gender'}
             items={items}
@@ -256,8 +256,8 @@ else if (!uppercaseCharRegex.test(password)) {
             }}
           />
         </View>
-        <View style={{top:30,}}>
-        {error?.drop1 && <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginTop: 10 }}>{error?.drop1}</Text>}
+        <View style={{ top: 30, }}>
+          {error?.drop1 && <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginTop: 10 }}>{error?.drop1}</Text>}
         </View>
         <TouchableOpacity
           onPress={() => {
@@ -278,12 +278,12 @@ else if (!uppercaseCharRegex.test(password)) {
             borderColor: 'lightgrey',
             marginTop: 40,
           }}
-          >
+        >
           <View style={{ top: 10, left: 10 }}>
-          <Text style={{fontSize: 16,marginTop:5,color: dob === '' ? 'lightgrey' : 'black' }}>
-            {datePlaceholder || moment(date).format('DD-MM-YYYY')}
-          </Text>
-        </View>
+            <Text style={{ fontSize: 16, marginTop: 5, color: dob === '' ? 'lightgrey' : 'black' }}>
+              {datePlaceholder || moment(date).format('DD-MM-YYYY')}
+            </Text>
+          </View>
           <DatePicker
             modal
             open={open}
@@ -291,7 +291,7 @@ else if (!uppercaseCharRegex.test(password)) {
             onConfirm={date => {
               setOpen(false);
               setDate(date);
-             const a = moment(date).format('DD-MM-YYYY')
+              const a = moment(date).format('DD-MM-YYYY')
               setDob(a)
             }}
             onCancel={() => {
@@ -301,8 +301,8 @@ else if (!uppercaseCharRegex.test(password)) {
             onDateChange={setDate}
           />
         </TouchableOpacity>
-        <View style={{top:10,}}>
-        {error?.dob && <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center',marginBottom:5 }}>{error?.dob}</Text>}
+        <View style={{ top: 10, }}>
+          {error?.dob && <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginBottom: 5 }}>{error?.dob}</Text>}
         </View>
         {/* <View style ={{flexDirection:'row',alignItems:'center',marginLeft:20,marginTop:10}}>
 
@@ -323,7 +323,7 @@ else if (!uppercaseCharRegex.test(password)) {
           <Text style={{fontSize:16,fontWeight:'bold'}}>Note<Text style={{fontSize:14,fontWeight:'400'}}> : You must be 18 years or above to use this app , otherwise you wont be able to signup</Text> </Text>
         </View> */}
 
-        <View style={{marginTop: 0,zIndex:9999}}>
+        <View style={{ marginTop: 0, zIndex: 9999 }}>
           <DropDown
             placeholder={'Marital Status'}
             items={items2}
@@ -339,8 +339,8 @@ else if (!uppercaseCharRegex.test(password)) {
             }}
           />
         </View>
-        <View style={{top:20,}}>
-        {error?.drop2 && <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginTop: 10 }}>{error?.drop2}</Text>}
+        <View style={{ top: 20, }}>
+          {error?.drop2 && <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginTop: 10 }}>{error?.drop2}</Text>}
         </View>
         {/* <View>
         <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginTop: 10 }}>
@@ -362,7 +362,7 @@ else if (!uppercaseCharRegex.test(password)) {
             marginTop: 40,
           }}>
           <TextInput
-            style={{fontSize: 16, color: Color.systemBlack, marginTop: 15, zIndex: 1,marginLeft:5,}}
+            style={{ fontSize: 16, color: Color.systemBlack, marginTop: 15, zIndex: 1, marginLeft: 5, }}
             placeholder=" Email"
             placeholderTextColor={'lightgrey'}
             placeholderStyle={{}}
@@ -388,7 +388,7 @@ else if (!uppercaseCharRegex.test(password)) {
             flexDirection: 'row', justifyContent: 'space-between'
           }}>
           <TextInput
-            style={{fontSize: 16, color: Color.systemBlack, marginTop: 5,width:'85%'}}
+            style={{ fontSize: 16, color: Color.systemBlack, marginTop: 5, width: '85%' }}
             placeholder=" Password"
             placeholderTextColor={'lightgrey'}
             placeholderStyle={{}}
@@ -397,21 +397,21 @@ else if (!uppercaseCharRegex.test(password)) {
             secureTextEntry={securetextentry}
           />
 
-{/* {password != '' ? */}
-                    <View style={{justifyContent:'center'}}>
-                        {/* <Ionicons
+          {/* {password != '' ? */}
+          <View style={{ justifyContent: 'center' }}>
+            {/* <Ionicons
                             name={securetextentry ? 'eye-off' : 'eye'}
                             color={Colors.white}
                             size={20}
                             style={{  marginRight: 10 }}
                             onPress={() => setSecuretextentry(!securetextentry)}
                         /> */}
-                         <Feather name={securetextentry ? 'eye-off' : 'eye'} size={18} color={Colors.purple}
-                          style={{  marginRight: 10 }}
-                          onPress={() => setSecuretextentry(!securetextentry)}
-                          />
-                        </View>
-                         {/* : null} */}
+            <Feather name={securetextentry ? 'eye-off' : 'eye'} size={18} color={Colors.purple}
+              style={{ marginRight: 10 }}
+              onPress={() => setSecuretextentry(!securetextentry)}
+            />
+          </View>
+          {/* : null} */}
 
         </View>
         {error?.password && <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginTop: 10 }}>{error?.password}</Text>}
@@ -431,7 +431,7 @@ else if (!uppercaseCharRegex.test(password)) {
             flexDirection: 'row', justifyContent: 'space-between'
           }}>
           <TextInput
-            style={{fontSize: 16, color: Color.systemBlack, marginTop: 5,width:'85%'}}
+            style={{ fontSize: 16, color: Color.systemBlack, marginTop: 5, width: '85%' }}
             placeholder=" Confirm Password"
             placeholderTextColor={'lightgrey'}
             placeholderStyle={{}}
@@ -440,26 +440,26 @@ else if (!uppercaseCharRegex.test(password)) {
             secureTextEntry={securetextentry1}
           />
           {/* {cpassword != '' ? */}
-                    <View style={{justifyContent:'center'}}>
-                        {/* <Ionicons
+          <View style={{ justifyContent: 'center' }}>
+            {/* <Ionicons
                             name={securetextentry ? 'eye-off' : 'eye'}
                             color={Colors.white}
                             size={20}
                             style={{  marginRight: 10 }}
                             onPress={() => setSecuretextentry(!securetextentry)}
                         /> */}
-                         <Feather name={securetextentry1 ? 'eye-off' : 'eye'} size={18} color={Colors.purple}
-                          style={{  marginRight: 10 }}
-                          onPress={() => setSecuretextentry1(!securetextentry1)}
-                          />
-                        </View>
-                         {/* : null} */}
+            <Feather name={securetextentry1 ? 'eye-off' : 'eye'} size={18} color={Colors.purple}
+              style={{ marginRight: 10 }}
+              onPress={() => setSecuretextentry1(!securetextentry1)}
+            />
+          </View>
+          {/* : null} */}
 
 
         </View>
         {error?.cpassword && <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginTop: 10 }}>{error?.cpassword}</Text>}
 
-        <View style={{alignSelf: 'center'}}>
+        <View style={{ alignSelf: 'center' }}>
           <Text
             style={{
               color: 'lightgrey',
@@ -479,26 +479,26 @@ else if (!uppercaseCharRegex.test(password)) {
             marginTop: 10,
           }}>
           <Image
-            style={{width: '15%', height: 35}}
+            style={{ width: '15%', height: 35 }}
             resizeMode="contain"
             source={require('../../../assets/google.png')}
           />
           <Image
-            style={{width: '15%', height: 35}}
+            style={{ width: '15%', height: 35 }}
             resizeMode="contain"
             source={require('../../../assets/facebook.png')}
           />
 
           <Image
-            style={{width: '15%', height: 35}}
+            style={{ width: '15%', height: 35 }}
             resizeMode="contain"
             source={require('../../../assets/apple-logo.png')}
           />
         </View>
-        <View style={{alignSelf: 'center',width:350,}}>
+        <View style={{ alignSelf: 'center', width: 350, }}>
           <Text
             style={{
-              
+
               color: 'black',
               fontSize: 12,
               marginTop: 15,
@@ -506,8 +506,8 @@ else if (!uppercaseCharRegex.test(password)) {
               fontFamily: FontFamily.poppinsSemibold,
             }}>
             By signing up to you account, you are agree to our{' '}
-            <Text style={{fontWeight: 'bold'}}>Privacy & Policy</Text> and{' '}
-            <Text style={{fontWeight: 'bold'}}>Terms & Conditions.</Text>
+            <Text style={{ fontWeight: 'bold' }}>Privacy & Policy</Text> and{' '}
+            <Text style={{ fontWeight: 'bold' }}>Terms & Conditions.</Text>
           </Text>
         </View>
 
@@ -520,14 +520,14 @@ else if (!uppercaseCharRegex.test(password)) {
           <Pressable
             style={[styles.pressable, styles.buttonFlexBox]}
             onPress={onSignUp}
-            >
+          >
             <View style={[styles.button, styles.buttonFlexBox]}>
               <Text style={styles.button1}>Sign Up</Text>
             </View>
           </Pressable>
         </LinearGradient>
 
-        <View style={{alignSelf: 'center'}}>
+        <View style={{ alignSelf: 'center' }}>
           <TouchableOpacity onPress={() => navigation.navigate('Login')}>
             <Text
               style={{
@@ -537,16 +537,16 @@ else if (!uppercaseCharRegex.test(password)) {
                 fontFamily: FontFamily.poppinsSemibold,
               }}>
               Have an account?{' '}
-              <Text style={{color: 'black', fontSize: 16, fontWeight: 'bold'}}>
+              <Text style={{ color: 'black', fontSize: 16, fontWeight: 'bold' }}>
                 Sign In
               </Text>
             </Text>
           </TouchableOpacity>
         </View>
-        <View style={{alignSelf:'center',marginTop:15,}}>
-        <Text style={{color:'black'}}>Powered by <Text style={{color:'black',fontWeight:'500',fontSize:12}}>NTAM Group</Text></Text>
+        <View style={{ alignSelf: 'center', marginTop: 15, }}>
+          <Text style={{ color: 'black' }}>Powered by <Text style={{ color: 'black', fontWeight: '500', fontSize: 12 }}>NTAM Group</Text></Text>
         </View>
-        <View style={{marginTop: 10}}></View>
+        <View style={{ marginTop: 10 }}></View>
       </View>
     </ScrollView>
   );

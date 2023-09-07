@@ -6,7 +6,7 @@ import Colors from '../../constants/Colors';
 import LinearGradient from "react-native-linear-gradient";
 import { Color, FontFamily, Border, FontSize, Padding } from "../../../GlobalStyles";
 import { useDispatch } from 'react-redux';
-import { secondform } from '../../redux';
+// import { secondform } from '../../redux';
 import { ScrollView } from 'react-native-gesture-handler';
 
 
@@ -15,7 +15,7 @@ const Demographics = ({ navigation }) => {
   const [iam, setIam] = useState(null)
   const [lang, setLang] = useState(null)
   const [edu, setEdu] = useState(null)
-  const [error,setError] = useState('')
+  const [error, setError] = useState('')
 
   const data = [
     {
@@ -59,94 +59,94 @@ const Demographics = ({ navigation }) => {
 
     }
     else {
-    const body = {
-      user_type: iam,
-      linguistic_prefrences: lang,
-      education_level: edu,
+      const body = {
+        user_type: iam,
+        linguistic_prefrences: lang,
+        education_level: edu,
+      }
+      // dispatch(secondform(body))
+      navigation.navigate("Demographics2")
     }
-    dispatch(secondform(body))
-    navigation.navigate("Demographics2")
-  }
   }
 
   return (
     <View style={{ flex: 1, }}>
       <ScrollView>
-      <View style={{ width: '95%', marginHorizontal: 20, }}>
-        <View style={{ marginTop: 20, }}>
-          <TouchableOpacity onPress={handleBackButton}>
-            <Ionicons
-              name='arrow-back'
-              size={25}
-              color={Colors.purple} />
-          </TouchableOpacity>
-        </View>
-        <View style={{ marginTop: 15, }}>
-          <Text style={{ color: Colors.purple, fontWeight: 'bold', fontSize: 20, }}>We would like to know more about you</Text>
-          <View>
-          <Text style={{color: 'red', fontWeight: 'bold', textAlign: 'center',marginTop:10}}>{error !== '' ? error : ''}</Text>
+        <View style={{ width: '95%', marginHorizontal: 20, }}>
+          <View style={{ marginTop: 20, }}>
+            <TouchableOpacity onPress={handleBackButton}>
+              <Ionicons
+                name='arrow-back'
+                size={25}
+                color={Colors.purple} />
+            </TouchableOpacity>
           </View>
-          <Text style={{ fontSize: 18, fontWeight: '600', marginTop: 20, color: 'black' }}>i am a:</Text>
-        </View>
-        <View style={{ marginTop: 10, }}>
-          <RadioButtonRN
-            activeColor={Colors.purple}
-            box={false}
-            // boxStyle={{backgroundColor:Colors.white,border:0,}}
-            data={data}
-            selectedBtn={(e) => setIam(e.label)}
-          />
-        </View>
-
-
-        <View>
-
-          <Text style={{ fontSize: 18, fontWeight: '600', marginTop: 30, color: 'black' }}>Linguistic Preferences</Text>
-        </View>
-        <View style={{ marginTop: 10, }}>
-          <RadioButtonRN
-            activeColor={Colors.purple}
-            box={false}
-            // boxStyle={{backgroundColor:Colors.white,border:0,}}
-            data={data1}
-            selectedBtn={(e) => setLang(e.label)}
-          />
-        </View>
-
-
-
-        <View>
-
-          <Text style={{ fontSize: 18, fontWeight: '600', marginTop: 30, color: 'black' }}>Educational Level</Text>
-        </View>
-        <View style={{ marginTop: 10, }}>
-          <RadioButtonRN
-            activeColor={Colors.purple}
-            box={false}
-            // boxStyle={{backgroundColor:Colors.white,border:0,}}
-            data={data2}
-            selectedBtn={(e) => setEdu(e.label)}
-          />
-        </View>
-
-
-        <LinearGradient
-          style={[styles.buttons, styles.buttonsPosition]}
-          locations={[0, 1]}
-          colors={["#bf6bbb", "#716eaa"]}
-          useAngle={true}
-          angle={180}
-        >
-          <TouchableOpacity
-            style={[styles.pressable, styles.parentFlexBox]}
-            onPress={onNext}
-          >
-            <View >
-              <Text style={styles.button1}>Next</Text>
+          <View style={{ marginTop: 15, }}>
+            <Text style={{ color: Colors.purple, fontWeight: 'bold', fontSize: 20, }}>We would like to know more about you</Text>
+            <View>
+              <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginTop: 10 }}>{error !== '' ? error : ''}</Text>
             </View>
-          </TouchableOpacity>
-        </LinearGradient>
-      </View>
+            <Text style={{ fontSize: 18, fontWeight: '600', marginTop: 20, color: 'black' }}>i am a:</Text>
+          </View>
+          <View style={{ marginTop: 10, }}>
+            <RadioButtonRN
+              activeColor={Colors.purple}
+              box={false}
+              // boxStyle={{backgroundColor:Colors.white,border:0,}}
+              data={data}
+              selectedBtn={(e) => setIam(e.label)}
+            />
+          </View>
+
+
+          <View>
+
+            <Text style={{ fontSize: 18, fontWeight: '600', marginTop: 30, color: 'black' }}>Linguistic Preferences</Text>
+          </View>
+          <View style={{ marginTop: 10, }}>
+            <RadioButtonRN
+              activeColor={Colors.purple}
+              box={false}
+              // boxStyle={{backgroundColor:Colors.white,border:0,}}
+              data={data1}
+              selectedBtn={(e) => setLang(e.label)}
+            />
+          </View>
+
+
+
+          <View>
+
+            <Text style={{ fontSize: 18, fontWeight: '600', marginTop: 30, color: 'black' }}>Educational Level</Text>
+          </View>
+          <View style={{ marginTop: 10, }}>
+            <RadioButtonRN
+              activeColor={Colors.purple}
+              box={false}
+              // boxStyle={{backgroundColor:Colors.white,border:0,}}
+              data={data2}
+              selectedBtn={(e) => setEdu(e.label)}
+            />
+          </View>
+
+
+          <LinearGradient
+            style={[styles.buttons, styles.buttonsPosition]}
+            locations={[0, 1]}
+            colors={["#bf6bbb", "#716eaa"]}
+            useAngle={true}
+            angle={180}
+          >
+            <TouchableOpacity
+              style={[styles.pressable, styles.parentFlexBox]}
+              onPress={onNext}
+            >
+              <View >
+                <Text style={styles.button1}>Next</Text>
+              </View>
+            </TouchableOpacity>
+          </LinearGradient>
+        </View>
       </ScrollView>
     </View>
   );
