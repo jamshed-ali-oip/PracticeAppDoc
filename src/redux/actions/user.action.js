@@ -105,4 +105,16 @@ export const Activating = (data) => async (dispatch) => {
 //     }
 //   };
 
+// export const VehicleInfoAdd = (data, navigation) => async (dispatch) => {
 
+//     try {
+//       const response = await instance.post(`/vehicle`, data);
+//       console.log('ottp ', response);
+//       if (response?.data) {
+//         navigation.navigate("Scanner")
+//       }
+//     } catch (error) {
+//       console.log('ottp', error.response.data);
+//     }
+  
+//   };
