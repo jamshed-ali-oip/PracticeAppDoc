@@ -76,6 +76,33 @@ export const Activating = (data) => async (dispatch) => {
         alert(JSON.stringify(error))
     }
 };
-
+// export const registerUser = (data, navigation, setcode, setLoading) => async (dispatch) => {
+//     try {
+//       console.log(data);
+//       const response = await instance.post(`${base_URL}/auth/signup`, data);
+//       console.log('register api ', response);
+//       const token = response?.data?.data?.tokens?.accessToken
+//       console.log("tokennnnn+======>", token)
+//       await AsyncStorage.setItem("Token", token);
+  
+//       if (response?.data) {
+//         setcode(response)
+//         setLoading(false)
+//         // alert("your code is" + response?.data?.data?.token?.shot_code)
+//         dispatch({
+//           type: types.REGISTER,
+//           payload: response?.data,
+//         });
+//         dispatch({
+//           type: types.USER,
+//           payload: response?.data?.data?.user,
+//         });
+//         navigation.navigate("OttpSignup")
+//       }
+//     } catch (error) {
+//       setLoading(false)
+//       console.log('registererror', error);
+//     }
+//   };
 
 
