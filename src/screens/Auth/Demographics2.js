@@ -10,6 +10,7 @@ import DropDown from '../../components/DropDown';
 import { useDispatch } from 'react-redux';
 // import { thirdform } from '../../redux';
 import { ScrollView } from 'react-native-gesture-handler';
+import { FORMTHREE } from '../../redux/const/const';
 
 
 const Demographics2 = ({ navigation }) => {
@@ -166,9 +167,14 @@ const Demographics2 = ({ navigation }) => {
         regular_checkup_reminders: drop6,
         regular_doctors_appointments: '',
       }
-      // dispatch(thirdform(body))
+      dispatch({
+        type: FORMTHREE,
+        payload: body
+      })
       navigation.navigate("Acknowledgement")
     }
+    // navigation.navigate("Acknowledgement")
+
   }
 
   return (

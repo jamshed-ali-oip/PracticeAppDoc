@@ -1,5 +1,5 @@
-import  React, { useState } from "react";
-import { Image, StyleSheet, Text, View, Pressable,TextInput,ScrollView } from "react-native";
+import React, { useState } from "react";
+import { Image, StyleSheet, Text, View, Pressable, TextInput, ScrollView } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import { FontFamily, Border, FontSize, Color, Padding } from "../../../GlobalStyles";
@@ -10,17 +10,19 @@ import ColorScreen from "../ColorScreen";
 // import AnimTab1 from "../../bottomTab/AnimTab1";
 import Feather from 'react-native-vector-icons/Feather';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useDispatch } from "react-redux";
+import { mytest, userLogin } from "../../redux/actions/user.action";
 
 
 const Login1 = () => {
   const navigation = useNavigation();
-
+  const dispatch = useDispatch()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [securetextentry, setSecuretextentry] = useState(true)
-  const  [error,setError] = useState(null);
+  const [error, setError] = useState(null);
 
   const validateEmail = () => {
     // Simple email validation regex pattern
@@ -30,7 +32,7 @@ const Login1 = () => {
       setEmailError('Enter email');
       return false
     }
-   else if (!emailPattern.test(email)) {
+    else if (!emailPattern.test(email)) {
       setEmailError('Invalid email');
       return false
     } else {
@@ -44,7 +46,7 @@ const Login1 = () => {
       setPasswordError('Enter password');
       return false
     }
-   else if (password.length < 6) {
+    else if (password.length < 6) {
       setPasswordError('Password must be at least 6 characters');
       return false
     } else {
@@ -52,212 +54,192 @@ const Login1 = () => {
       return true
     }
   };
+  // JSD WORK 
 
   const handleSignIn = async () => {
-    
-    // Validate email and password
-   let validatemail = validateEmail();
-   let validatepass = validatePassword();
-   
-    if (validatemail == true && validatepass == true) {
-await fetch('https://ntamtech.com/appuser/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-        email:email,
-        password:password
-      })
-    })
-    .then(response => response.json())
-    .then(responseJson => {
-      console.log(responseJson)
-        if(responseJson?.success === 1) {
-          console.log(responseJson?.access_token,'responseJson?.sucess')
-          AsyncStorage.setItem('token',responseJson?.access_token)
-          // AsyncStorage.setItem('email',email)
-          navigation.replace('Tab2')
-        }
-        else {
-            // alert(responseJson?.error)
-            setError(responseJson?.error)
-            console.log(responseJson?.error)
-        }
-        
-    })
-    .catch(error => {
-        // alert(responseJson?.error)
-        setError(responseJson?.error)
-        // return error;
-        
-    })
-  }
-  
+    const data = {
+      email: email,
+      password: password
+      // email: "mzaryabuddin@gmail.com",
+      // password: "Test@12345"
+    }
 
-    
-  };
+    // alert("login api work")
+    // Validate email and password
+    let validatemail = validateEmail();
+    let validatepass = validatePassword();
+
+    if (validatemail == true && validatepass == true) {
+      dispatch(userLogin(data))
+    }
+    // console.log(data)
+    // dispatch(userLogin(data))
+  }
+
+
+
+
 
 
   return (
-    <View style={{backgroundColor:Color.labelColorDarkPrimary,flex:1,}}>
-       <ScrollView>
-    <View style={{alignItems:'center',justifyContent:'center',marginTop:'10%',}}>
-     
-     
-     
-      <View style={styles.groupParent}>
-        <Image
-          style={styles.groupIcon}
-          resizeMode="cover"
-          source={require("../../../assets/group2.png")}
-        />
-        <View style={styles.titleContainer}>
-          <View style={[styles.textContainer, styles.buttonFlexBox]}>
-            <Text style={[styles.logIn, styles.logInTypo]}>Log in</Text>
-          </View>
-          <View style={[styles.textContainer, styles.buttonFlexBox]}>
-            {error && <Text style={{color:'red'}}>{error}</Text>  } 
-          </View>
-        </View>
-        
-       
-        <View style={styles.inputFieldParent}>
-        <View>
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        placeholderTextColor='black'
-        value={email}
-        onChangeText={(text) => setEmail(text)}
-        // onBlur={validateEmail}
-        keyboardType="email-address"
-      />
-      
-      </View>
-      <View>
-      {emailError ? <Text style={styles.error}>{emailError}</Text> : null}
-      </View>
-<View  style={{
-             height: 40 ,
-             width: 310,
-             backgroundColor: 'transparent',
-             alignSelf: 'center',
-             borderRadius: 7,
-             borderWidth: 1,
-             borderColor: Colors.light,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            paddingHorizontal:5
-          }}>
-      <TextInput
-        style={{ fontSize:14,color: Color.systemBlack, width:'85%'}}
-        placeholder="Password"
-        placeholderTextColor='black'
-        value={password}
-        onChangeText={(text) => setPassword(text)}
-        // onBlur={validatePassword}
-        secureTextEntry={securetextentry}
+    <View style={{ backgroundColor: Color.labelColorDarkPrimary, flex: 1, }}>
+      <ScrollView>
+        <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: '10%', }}>
 
 
 
-      />
-      <View style={{justifyContent:'center'}}>
-                        {/* <Ionicons
+          <View style={styles.groupParent}>
+            <Image
+              style={styles.groupIcon}
+              resizeMode="cover"
+              source={require("../../../assets/group2.png")}
+            />
+            <View style={styles.titleContainer}>
+              <View style={[styles.textContainer, styles.buttonFlexBox]}>
+                <Text style={[styles.logIn, styles.logInTypo]}>Log in</Text>
+              </View>
+              <View style={[styles.textContainer, styles.buttonFlexBox]}>
+                {error && <Text style={{ color: 'red' }}>{error}</Text>}
+              </View>
+            </View>
+
+
+            <View style={styles.inputFieldParent}>
+              <View>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Email"
+                  placeholderTextColor='black'
+                  value={email}
+                  onChangeText={(text) => setEmail(text)}
+                  // onBlur={validateEmail}
+                  keyboardType="email-address"
+                />
+
+              </View>
+              <View>
+                {emailError ? <Text style={styles.error}>{emailError}</Text> : null}
+              </View>
+              <View style={{
+                height: 40,
+                width: 310,
+                backgroundColor: 'transparent',
+                alignSelf: 'center',
+                borderRadius: 7,
+                borderWidth: 1,
+                borderColor: Colors.light,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                paddingHorizontal: 5
+              }}>
+                <TextInput
+                  style={{ fontSize: 14, color: Color.systemBlack, width: '85%' }}
+                  placeholder="Password"
+                  placeholderTextColor='black'
+                  value={password}
+                  onChangeText={(text) => setPassword(text)}
+                  // onBlur={validatePassword}
+                  secureTextEntry={securetextentry}
+
+
+
+                />
+                <View style={{ justifyContent: 'center' }}>
+                  {/* <Ionicons
                             name={securetextentry ? 'eye-off' : 'eye'}
                             color={Colors.white}
                             size={20}
                             style={{  marginRight: 10 }}
                             onPress={() => setSecuretextentry(!securetextentry)}
                         /> */}
-                         <Feather name={securetextentry ? 'eye-off' : 'eye'} size={18} color={Colors.purple}
-                          style={{  marginRight: 10 }}
-                          onPress={() => setSecuretextentry(!securetextentry)}
-                          />
-                        </View>
+                  <Feather name={securetextentry ? 'eye-off' : 'eye'} size={18} color={Colors.purple}
+                    style={{ marginRight: 10 }}
+                    onPress={() => setSecuretextentry(!securetextentry)}
+                  />
+                </View>
 
-</View>
-<View style={{marginTop:10}}>
-{passwordError ? <Text style={styles.error}>{passwordError}</Text> : null}
-</View>
-      
-    
-          <Pressable
-            style={styles.forgotPassword}
-            onPress={() => navigation.navigate('ForgotPassword')}
-          >
-            <Text style={[styles.forgotPassword1, styles.dontHaveAnTypo]}>
-              Forgot Password
-            </Text>
-          </Pressable>
-        </View>
-        <View style={styles.groupContainer}>
-          <View style={styles.vectorParent}>
-            <Image
-              style={styles.groupChild}
-              resizeMode="cover"
-              source={require("../../../assets/vector-2161.png")}
-            />
-            <View style={[styles.rectangleParent, styles.groupItemLayout]}>
-              <View style={[styles.groupItem, styles.groupItemLayout]} />
-              <Text style={[styles.orSignIn, styles.orSignInTypo]}>
-                or sign in using
-              </Text>
-            </View>
-          </View>
-          <View style={styles.frameView}>
-            <Image
-              style={styles.frameChild}
-              resizeMode="cover"
-              source={require("../../../assets/group-1000001448.png")}
-            />
-            <Image
-              style={[styles.facebook31, styles.frameItemLayout]}
-              resizeMode="cover"
-              source={require("../../../assets/facebook-3-1.png")}
-            />
-            <Image
-              style={styles.frameItemLayout}
-              resizeMode="cover"
-              source={require("../../../assets/group-1000001450.png")}
-            />
-          </View>
-        </View>
-        <View style={styles.groupContainer}>
-          <LinearGradient
-            style={styles.buttons}
-            locations={[0, 1]}
-            colors={["#bf6bbb", "#716eaa"]}
-            useAngle={true}
-            angle={180}
-          >
-            <Pressable
-            onPress={handleSignIn}
-              style={[styles.pressable, styles.buttonFlexBox]}
-            >
-              <View style={[styles.button, styles.buttonFlexBox]}>
-                <Text style={[styles.button1, styles.logInTypo]}>Sign in</Text>
               </View>
-            </Pressable>
-          </LinearGradient>
-          </View>
-          <View style={{marginTop:20,}}>
-            <View style={{width:240,alignItems:'center'}}>
-              <Pressable onPress={() => navigation.navigate('Signup')}>
-                <Text>Don't have an accout ? <Text style={{color:'black',fontWeight:'bold',fontSize:16}}>Sign Up</Text></Text>
+              <View style={{ marginTop: 10 }}>
+                {passwordError ? <Text style={styles.error}>{passwordError}</Text> : null}
+              </View>
+
+
+              <Pressable
+                style={styles.forgotPassword}
+                onPress={() => navigation.navigate('ForgotPassword')}
+              >
+                <Text style={[styles.forgotPassword1, styles.dontHaveAnTypo]}>
+                  Forgot Password
+                </Text>
               </Pressable>
             </View>
+            <View style={styles.groupContainer}>
+              <View style={styles.vectorParent}>
+                <Image
+                  style={styles.groupChild}
+                  resizeMode="cover"
+                  source={require("../../../assets/vector-2161.png")}
+                />
+                {/* <View style={[styles.rectangleParent, styles.groupItemLayout]}>
+                  <View style={[styles.groupItem, styles.groupItemLayout]} />
+                  <Text style={[styles.orSignIn, styles.orSignInTypo]}>
+                    or sign in using
+                  </Text>
+                </View> */}
+              </View>
+              {/* social logn  */}
+              {/* <View style={styles.frameView}>
+                <Image
+                  style={styles.frameChild}
+                  resizeMode="cover"
+                  source={require("../../../assets/group-1000001448.png")}
+                />
+                <Image
+                  style={[styles.facebook31, styles.frameItemLayout]}
+                  resizeMode="cover"
+                  source={require("../../../assets/facebook-3-1.png")}
+                />
+                <Image
+                  style={styles.frameItemLayout}
+                  resizeMode="cover"
+                  source={require("../../../assets/group-1000001450.png")}
+                />
+              </View> */}
+            </View>
+            <View style={styles.groupContainer}>
+              <LinearGradient
+                style={styles.buttons}
+                locations={[0, 1]}
+                colors={["#bf6bbb", "#716eaa"]}
+                useAngle={true}
+                angle={180}
+              >
+                <Pressable
+                  onPress={handleSignIn}
+                  style={[styles.pressable, styles.buttonFlexBox]}
+                >
+                  <View style={[styles.button, styles.buttonFlexBox]}>
+                    <Text style={[styles.button1, styles.logInTypo]}>Sign in</Text>
+                  </View>
+                </Pressable>
+              </LinearGradient>
+            </View>
+            <View style={{ marginTop: 20, }}>
+              <View style={{ width: 240, alignItems: 'center' }}>
+                <Pressable onPress={() => navigation.navigate('Signup')}>
+                  <Text>Don't have an accout ? <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 16 }}>Sign Up</Text></Text>
+                </Pressable>
+              </View>
+            </View>
+
           </View>
-        
-      </View>
-   
-    </View>
-   
-      </ScrollView>
-      <View style={{position:'relative',alignSelf:'center',bototm:20,}}>
-        <Text style={{fontSize:11}}>Powered by <Text style={{color:'black',fontWeight:'bold',fontSize:12}}>NTAM Group</Text></Text>
+
         </View>
+
+      </ScrollView>
+      <View style={{ position: 'relative', alignSelf: 'center', bototm: 20, }}>
+        <Text style={{ fontSize: 11 }}>Powered by <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 12 }}>NTAM Group</Text></Text>
+      </View>
     </View>
   );
 };
@@ -428,7 +410,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.defaultRegularFootnote_size,
   },
   forgotPassword: {
-    alignSelf:'flex-end',
+    alignSelf: 'flex-end',
     marginTop: 12,
   },
   inputFieldParent: {
@@ -497,7 +479,7 @@ const styles = StyleSheet.create({
   buttons: {
     height: 40,
     width: '100%',
-    borderRadius:30,
+    borderRadius: 30,
   },
   dontHaveAn: {
     color: Color.gray_100,
@@ -549,13 +531,13 @@ const styles = StyleSheet.create({
   input: {
     width: 310,
     height: 40,
-    borderColor:Colors.light,
+    borderColor: Colors.light,
     borderWidth: 1,
     marginBottom: 10,
     paddingHorizontal: 10,
-    borderRadius:7,
-    color:'black',
-    alignSelf:'center'
+    borderRadius: 7,
+    color: 'black',
+    alignSelf: 'center'
 
   },
   error: {

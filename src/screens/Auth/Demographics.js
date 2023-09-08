@@ -8,6 +8,7 @@ import { Color, FontFamily, Border, FontSize, Padding } from "../../../GlobalSty
 import { useDispatch } from 'react-redux';
 // import { secondform } from '../../redux';
 import { ScrollView } from 'react-native-gesture-handler';
+import { FORMTWO } from '../../redux/const/const';
 
 
 const Demographics = ({ navigation }) => {
@@ -64,9 +65,13 @@ const Demographics = ({ navigation }) => {
         linguistic_prefrences: lang,
         education_level: edu,
       }
-      // dispatch(secondform(body))
+      dispatch({
+        type: FORMTWO,
+        payload: body
+      })
       navigation.navigate("Demographics2")
     }
+    // navigation.navigate("Demographics2")
   }
 
   return (

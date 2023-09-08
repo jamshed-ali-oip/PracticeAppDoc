@@ -1,22 +1,24 @@
 import * as React from "react";
-import { Image, StyleSheet, Text, View, Pressable, TouchableOpacity,ScrollView } from "react-native";
+import { Image, StyleSheet, Text, View, Pressable, TouchableOpacity, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Colors from "../../constants/Colors";
 import { Color, Border, FontSize, FontFamily, Padding } from "../../../GlobalStyles";
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { LOG_OUT } from "../../redux/const/const";
+import { useDispatch } from "react-redux";
 
 const Profile = () => {
   const navigation = useNavigation();
   const [selectedImage, setSelectedImage] = React.useState(null);
-  const [firstname,setFirstname] = React.useState('')
-  const [lastname,setLastname] = React.useState('')
+  const [firstname, setFirstname] = React.useState('')
+  const [lastname, setLastname] = React.useState('')
 
-  const [avatar,setAvatar] = React.useState('')
-
-  
+  const [avatar, setAvatar] = React.useState('')
 
 
+
+  const dispatch = useDispatch()
   const handleImagePicker = () => {
     const options = {
       mediaType: 'photo',
@@ -36,87 +38,92 @@ const Profile = () => {
   const getprofile = async () => {
 
     let token1 = await AsyncStorage.getItem('token')
-    console.log(token1,'token====')
-    
-   
-await fetch('https://ntamtech.com/appuser/app-user', {
+    console.log(token1, 'token====')
+
+
+    await fetch('https://ntamtech.com/appuser/app-user', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
         Authorization: `Bearer ${token1}`,
       },
-      
+
     })
-    .then(response => response.json())
-    .then(responseJson => {
-      console.log(responseJson)
-        if(responseJson?.success === 1) {
-          
+      .then(response => response.json())
+      .then(responseJson => {
+        console.log(responseJson)
+        if (responseJson?.success === 1) {
+
           setFirstname(responseJson?.data?.[0]?.first_name)
           setLastname(responseJson?.data?.[0]?.last_name)
           setAvatar(responseJson?.data?.[0]?.avatar)
 
 
-          
+
         }
         else {
-            // alert(responseJson?.error)
-            
-            console.log(responseJson?.error)
+          // alert(responseJson?.error)
+
+          console.log(responseJson?.error)
         }
-        
-    })
-    .catch(error => {
-      console.log(error)
+
+      })
+      .catch(error => {
+        console.log(error)
         // alert(responseJson?.error)
         // setError(responseJson?.error)
         // return error;
-        
-    })
-  
-  
 
-    
+      })
+
+
+
+
   };
 
 
-  React.useEffect(()=>{
+  React.useEffect(() => {
 
     getprofile()
-    
-
-  },[])
 
 
+  }, [])
 
+
+  const logout = () => {
+    dispatch({
+      type: LOG_OUT,
+      payload: null
+    })
+  }
 
   return (
 
     <View style={styles.profile}>
-        
+
       <View>
-      <View style={{alignItems:'center'}}>
-        <Text style={{color:Colors.purple,fontSize:22,fontWeight:'bold',top:-10}}>Profile</Text>
-      </View>
-      <View style={{flexDirection:'row',justifyContent:'space-between', alignItems:'center',width:'90%',marginHorizontal:15,}}>
-          <View style={{top:-10,}}>
-            <Text style={{fontSize:22,fontWeight:'500',letterSpacing:1,color:Colors.black}}>{firstname} {lastname}</Text>
-            <Text style={{fontSize:14,letterSpacing:-1}}>Personal account</Text>
+        <View style={{ alignItems: 'center' }}>
+          <Text style={{ color: Colors.purple, fontSize: 22, fontWeight: 'bold', top: -10 }}>Profile</Text>
+        </View>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '90%', marginHorizontal: 15, }}>
+          <View style={{ top: -10, }}>
+            <Text style={{ fontSize: 22, fontWeight: '500', letterSpacing: 1, color: Colors.black }}>{firstname} {lastname}</Text>
+            <Text style={{ fontSize: 14, letterSpacing: -1 }}>Personal account</Text>
           </View>
           <View>
-          <TouchableOpacity onPress={handleImagePicker}>
-          <View style={styles.profileImageContainer}>
-            {selectedImage ? (
-              <Image style={styles.profileImage} source={{ uri: selectedImage }} />
-            ) : (
-              <Image
-                style={styles.profilePlaceholderImage}
-                source={{uri:avatar}}
-              />
-            )}
-          </View>
-        </TouchableOpacity>
+            <TouchableOpacity onPress={handleImagePicker}>
+              <View style={styles.profileImageContainer}>
+                {selectedImage ? (
+                  <Image style={styles.profileImage} source={{ uri: selectedImage }} />
+                ) : (
+                  <Image
+                    style={styles.profilePlaceholderImage}
+                    source={{ uri: avatar }}
+                  />
+                )}
+              </View>
+            </TouchableOpacity>
             {/* <TouchableOpacity>
           <View>
           <Image
@@ -132,10 +139,10 @@ await fetch('https://ntamtech.com/appuser/app-user', {
                   />
                 </View>
                 </TouchableOpacity> */}
-                </View>
+          </View>
         </View>
-      <View style={styles.profileNameAvatarParent}>
-        {/* <View style={styles.profileNameAvatar}>
+        <View style={styles.profileNameAvatarParent}>
+          {/* <View style={styles.profileNameAvatar}>
           <View style={styles.frameParent}>
             <View style={styles.frameWrapper}>
               <View style={styles.johnSmithWrapper}>
@@ -172,39 +179,97 @@ await fetch('https://ntamtech.com/appuser/app-user', {
             </View>
           </View>
         </View> */}
-      
-        <ScrollView style={[styles.content]}>
-          <View style={styles.profileParent}>
-            <View style={styles.frameGroup}>
-              <Pressable 
-              onPress={() => navigation.navigate("EditProfile")}
-              >
-                <View style={styles.settingsSingle}>
+
+          <ScrollView style={[styles.content]}>
+            <View style={styles.profileParent}>
+              <View style={styles.frameGroup}>
+                <Pressable
+                  onPress={() => navigation.navigate("EditProfile")}
+                >
+                  <View style={styles.settingsSingle}>
+                    <View style={styles.outerContainer}>
+                      <View style={styles.iconLabel}>
+                        <View style={styles.icon}>
+                          <View
+                            style={[styles.background, styles.backgroundLayout]}
+                          />
+                          <Image
+                            style={[styles.user03Icon, styles.iconLayout]}
+                            resizeMode="cover"
+                            source={require("../../../assets/user03.png")}
+                          />
+                        </View>
+                        <Text style={[styles.editProfile, styles.profileClr]}>
+                          Edit Profile
+                        </Text>
+                      </View>
+                      <View style={styles.switcher} />
+                    </View>
+                  </View>
+                </Pressable>
+                <Pressable
+                  style={styles.content}
+                  onPress={() => navigation.navigate("ChangePasswordProfile")}
+                >
+                  <View style={styles.settingsSingle}>
+                    <View style={styles.outerContainer}>
+                      <View style={styles.iconLabel}>
+                        <View style={styles.iconFlexBox}>
+                          <View
+                            style={[styles.background1, styles.backgroundLayout]}
+                          />
+                          <Image
+                            style={[
+                              styles.hugeIconfinanceAndPayment,
+                              styles.iconLayout,
+                            ]}
+                            resizeMode="cover"
+                            source={require("../../../assets/hugeiconfinance-and-paymentoutlineshield.png")}
+                          />
+                        </View>
+                        <Text style={[styles.editProfile, styles.profileClr]}>
+                          Change password
+                        </Text>
+                      </View>
+                      <View style={styles.switcher} />
+                    </View>
+                  </View>
+                </Pressable>
+              </View>
+            </View>
+            <View style={{ marginBottom: -30 }}></View>
+            <View style={styles.frameContainer}>
+              <View style={styles.frameGroup}>
+                <View style={styles.settingsSingle2} />
+                <Pressable
+                  style={styles.settingsSingle3}
+                  onPress={() => navigation.navigate("TutorialProfile")}
+                >
                   <View style={styles.outerContainer}>
                     <View style={styles.iconLabel}>
-                      <View style={styles.icon}>
-                        <View
-                          style={[styles.background, styles.backgroundLayout]}
-                        />
-                        <Image
-                          style={[styles.user03Icon, styles.iconLayout]}
-                          resizeMode="cover"
-                          source={require("../../../assets/user03.png")}
-                        />
+                      <View style={styles.iconFlexBox}>
+                        <View style={styles.backgroundLayout}>
+                          <View
+                            style={[styles.background2, styles.backgroundLayout]}
+                          />
+                          <Image
+                            style={[styles.videoLesson1Icon, styles.iconLayout]}
+                            resizeMode="cover"
+                            source={require("../../../assets/videolesson-1.png")}
+                          />
+                        </View>
                       </View>
                       <Text style={[styles.editProfile, styles.profileClr]}>
-                        Edit Profile
+                        Tutorial
                       </Text>
                     </View>
                     <View style={styles.switcher} />
                   </View>
-                </View>
-              </Pressable>
-              <Pressable
-                style={styles.content}
-                onPress={() => navigation.navigate("ChangePasswordProfile")}
-              >
-                <View style={styles.settingsSingle}>
+                </Pressable>
+                <Pressable
+                  style={styles.settingsSingle3}
+                  onPress={() => navigation.navigate("Support")}
+                >
                   <View style={styles.outerContainer}>
                     <View style={styles.iconLabel}>
                       <View style={styles.iconFlexBox}>
@@ -217,143 +282,85 @@ await fetch('https://ntamtech.com/appuser/app-user', {
                             styles.iconLayout,
                           ]}
                           resizeMode="cover"
-                          source={require("../../../assets/hugeiconfinance-and-paymentoutlineshield.png")}
+                          source={require("../../../assets/hugeiconinterfaceoutlinehelp.png")}
                         />
                       </View>
                       <Text style={[styles.editProfile, styles.profileClr]}>
-                        Change password
+                        Help and Support
                       </Text>
                     </View>
-                    <View style={styles.switcher} />
                   </View>
-                </View>
-              </Pressable>
-            </View>
-          </View>
-       <View style={{marginBottom:-30}}></View>
-          <View style={styles.frameContainer}>
-            <View style={styles.frameGroup}>
-              <View style={styles.settingsSingle2} />
-              <Pressable
-                style={styles.settingsSingle3}
-                onPress={() => navigation.navigate("TutorialProfile")}
-              >
-                <View style={styles.outerContainer}>
-                  <View style={styles.iconLabel}>
-                    <View style={styles.iconFlexBox}>
-                      <View style={styles.backgroundLayout}>
+                </Pressable>
+                <View style={styles.settingsSingle5} />
+                <Pressable
+                  style={styles.settingsSingle3}
+                  onPress={() => navigation.replace("Login")}
+                >
+                  <View style={styles.outerContainer}>
+                    <View style={styles.iconLabel}>
+                      <View style={styles.iconFlexBox}>
                         <View
-                          style={[styles.background2, styles.backgroundLayout]}
+                          style={[styles.background1, styles.backgroundLayout]}
                         />
                         <Image
-                          style={[styles.videoLesson1Icon, styles.iconLayout]}
+                          style={[
+                            styles.hugeIconfinanceAndPayment,
+                            styles.iconLayout,
+                          ]}
                           resizeMode="cover"
-                          source={require("../../../assets/videolesson-1.png")}
+                          source={require("../../../assets/hugeiconinterfaceoutlinelogout.png")}
                         />
                       </View>
+                      <TouchableOpacity onPress={() => { logout() }}>
+                        <Text style={[styles.editProfile, styles.profileClr]}>
+                          Log out
+                        </Text>
+                      </TouchableOpacity>
                     </View>
-                    <Text style={[styles.editProfile, styles.profileClr]}>
-                      Tutorial
-                    </Text>
                   </View>
-                  <View style={styles.switcher} />
-                </View>
-              </Pressable>
-              <Pressable
-                style={styles.settingsSingle3}
-                onPress={() => navigation.navigate("Support")}
-              >
-                <View style={styles.outerContainer}>
-                  <View style={styles.iconLabel}>
-                    <View style={styles.iconFlexBox}>
-                      <View
-                        style={[styles.background1, styles.backgroundLayout]}
-                      />
-                      <Image
-                        style={[
-                          styles.hugeIconfinanceAndPayment,
-                          styles.iconLayout,
-                        ]}
-                        resizeMode="cover"
-                        source={require("../../../assets/hugeiconinterfaceoutlinehelp.png")}
-                      />
+                </Pressable>
+                <Pressable
+                  style={styles.settingsSingle3}
+                  onPress={() => navigation.navigate("DeleteProfile")}
+                >
+                  <View style={styles.outerContainer}>
+                    <View style={styles.iconLabel}>
+                      <View style={styles.iconFlexBox}>
+                        <View
+                          style={[styles.background1, styles.backgroundLayout]}
+                        />
+                        <Image
+                          style={[
+                            styles.hugeIconfinanceAndPayment,
+                            styles.iconLayout,
+                          ]}
+                          resizeMode="cover"
+                          source={require("../../../assets/hugeiconinterfaceoutlineremovecircle.png")}
+                        />
+                      </View>
+                      <Text style={[styles.editProfile, styles.profileClr]}>
+                        Close the account
+                      </Text>
                     </View>
-                    <Text style={[styles.editProfile, styles.profileClr]}>
-                      Help and Support
-                    </Text>
                   </View>
-                </View>
-              </Pressable>
-              <View style={styles.settingsSingle5} />
-              <Pressable
-                style={styles.settingsSingle3}
-                onPress={() => navigation.replace("Login")}
-              >
-                <View style={styles.outerContainer}>
-                  <View style={styles.iconLabel}>
-                    <View style={styles.iconFlexBox}>
-                      <View
-                        style={[styles.background1, styles.backgroundLayout]}
-                      />
-                      <Image
-                        style={[
-                          styles.hugeIconfinanceAndPayment,
-                          styles.iconLayout,
-                        ]}
-                        resizeMode="cover"
-                        source={require("../../../assets/hugeiconinterfaceoutlinelogout.png")}
-                      />
-                    </View>
-                    <TouchableOpacity onPress={()=>navigation.replace('Login')}>
-                    <Text style={[styles.editProfile, styles.profileClr]}>
-                      Log out
-                    </Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </Pressable>
-              <Pressable
-                style={styles.settingsSingle3}
-                onPress={() => navigation.navigate("DeleteProfile")}
-              >
-                <View style={styles.outerContainer}>
-                  <View style={styles.iconLabel}>
-                    <View style={styles.iconFlexBox}>
-                      <View
-                        style={[styles.background1, styles.backgroundLayout]}
-                      />
-                      <Image
-                        style={[
-                          styles.hugeIconfinanceAndPayment,
-                          styles.iconLayout,
-                        ]}
-                        resizeMode="cover"
-                        source={require("../../../assets/hugeiconinterfaceoutlineremovecircle.png")}
-                      />
-                    </View>
-                    <Text style={[styles.editProfile, styles.profileClr]}>
-                      Close the account
-                    </Text>
-                  </View>
-                </View>
-              </Pressable>
-              
+                </Pressable>
 
-            
+
+
+              </View>
+
             </View>
-            
-          </View>
-        </ScrollView>
+          </ScrollView>
+        </View>
       </View>
-      </View>
-      
+
     </View>
 
   );
 };
 
 const styles = StyleSheet.create({
-   
+
   profile: {
     flex: 1,
     backgroundColor: Colors.yellow,
@@ -632,7 +639,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     flex: 1,
-    marginBottom:5,
+    marginBottom: 5,
   },
   switcher: {
     display: "none",
@@ -867,7 +874,7 @@ const styles = StyleSheet.create({
     // width: "100%",
     flex: 1,
     // marginTop:20,
-    backgroundColor:Colors.white,
+    backgroundColor: Colors.white,
   },
 });
 

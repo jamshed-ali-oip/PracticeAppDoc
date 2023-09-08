@@ -1,22 +1,54 @@
-import { CONSULT_DATA, FORGET_INNER_PASSWORD, ID_CARD_IMAGE, LOG_IN, LOG_OUT, PROFILE_IMAGE, REGISTER, SEND_OTP, SET_PAGE_FOUR, SET_PAGE_ONE, SET_PAGE_THREE, SET_PAGE_TWO } from '../const/const';
-
-
-
+import * as types from "../const/const"
 
 const InitialState = {
-  credential: {},
+  Access_token: null,
+  formone: {},
+  formtwo: {},
+  formthree: {},
+  activation_token: null
 
 };
 
 const authReducer = (state = InitialState, action) => {
-  // console.log("here",action.type)
+  console.log("here", action.type)
   switch (action.type) {
-    // case LOG_IN:
-    //   console.log(action.payload);
-    //   return {
-    //     ...state,
-    //     credential: action.payload,
-    //   };
+    case types.LOG_IN:
+      console.log(action.payload);
+      return {
+        ...state,
+        Access_token: action.payload,
+      };
+
+    case types.LOG_OUT:
+      console.log(action.payload);
+      return {
+        ...state,
+        Access_token: action.payload,
+      };
+    case types.FORMONE:
+      console.log(action.payload);
+      return {
+        ...state,
+        formone: action.payload,
+      };
+    case types.FORMTWO:
+      console.log(action.payload);
+      return {
+        ...state,
+        formtwo: action.payload,
+      };
+    case types.FORMTHREE:
+      console.log(action.payload);
+      return {
+        ...state,
+        formthree: action.payload,
+      };
+    case types.ACTIVATION_TOKEN:
+      console.log(action.payload);
+      return {
+        ...state,
+        activation_token: action.payload,
+      };
 
     default:
       return state;

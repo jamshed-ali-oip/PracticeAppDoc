@@ -29,6 +29,7 @@ import DatePicker from 'react-native-date-picker';
 import moment from 'moment';
 import Colors from '../../constants/Colors';
 import Feather from 'react-native-vector-icons/Feather';
+import { FORMONE } from '../../redux/const/const';
 
 const Signup = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -143,11 +144,13 @@ const Signup = ({ navigation }) => {
         email: email,
         password: password,
       };
-      // dispatch(firstform(body));
-      AsyncStorage.setItem('email', email);
+      dispatch({
+        type: FORMONE,
+        payload: body
+      })
       navigation.navigate('Demographics');
     }
-
+    // navigation.navigate('Demographics');
   };
 
   useEffect(() => {

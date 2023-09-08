@@ -1,1 +1,6 @@
 export const LOG_IN = "LOG_IN"
+export const LOG_OUT = "LOG_OUT"
+export const FORMONE = "FORMONE"
+export const FORMTWO = "FORMTWO"
+export const FORMTHREE = "FORMTHREE"
+export const ACTIVATION_TOKEN = "ACTIVATION_TOKEN"
