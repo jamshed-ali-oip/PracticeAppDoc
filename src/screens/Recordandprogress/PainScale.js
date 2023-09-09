@@ -21,12 +21,23 @@ import {
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import LinearGradient from 'react-native-linear-gradient';
 import Slider from '@react-native-community/slider';
+import { useDispatch } from 'react-redux';
+import { painscaleSet } from '../../redux/actions/user.action';
 
 const PainScale = ({ navigation, route }) => {
   const name = route?.params
   console.log("my name", name?.data)
   const [painLevel, setPainLevel] = useState(0);
   const [selectedImageIndex, setSelectedImageIndex] = useState(null);
+  const dispatch=useDispatch()
+  const send=()=>{
+    const body={
+      category: name?.data,
+      scale:painLevel
+    }
+    console.log(body)
+    dispatch(painscaleSet(body,navigation))
+  }
   const painscale = [
     {
       id: 0,
@@ -205,7 +216,7 @@ const PainScale = ({ navigation, route }) => {
             useAngle={true}
             angle={180}>
             <TouchableOpacity
-              onPress={() => navigation.navigate('PainAnalog')}
+              onPress={() =>{send()}}
               style={[styles.pressable, styles.parentFlexBox]}>
               <View>
                 <Text style={styles.button1}>Done</Text>

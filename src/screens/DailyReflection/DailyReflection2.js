@@ -9,6 +9,8 @@ import moment from 'moment';
 import Swipeable from 'react-native-swipeable';
 import LinearGradient from "react-native-linear-gradient";
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useDispatch } from 'react-redux'
+import { setreflection } from '../../redux/actions/user.action'
 
 
 
@@ -22,90 +24,19 @@ const DailyReflection2 = ({navigation}) => {
   const [datePlaceholder, setDatePlaceholder] = useState('Select Date');
    
   const [open, setOpen] = useState(false);
-  const [sig, setSig] = useState('')
-  const [token,setToken] = React.useState('')
+  const [sig, setSig] = useState('')  
   
-
-  
-
-  
-
+  const dispatch=useDispatch()
   useEffect(() => {
     setDatePlaceholder('Select Date');
-
-    gettoken()
   }, []);
-
-
-
-  const gettoken = async () => {
-    let token1 = await AsyncStorage.getItem('token')
-    console.log(token1,'token')
-    console.log('hello')
-    setToken(token1)
-    
-
-    
-
+  const savethoughts=()=>{
+    const body={
+      dated:dob,
+      thoughts:sig
+    }
+dispatch(setreflection(body,navigation))
   }
-
-
-  
-
-  const savethoughts = async () => {
-
-    
-    await fetch('https://ntamtech.com/appuser/daily-reflection', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        Authorization: `Bearer ${token}`,
-
-      },
-      body: JSON.stringify({
-        dated: dob,
-    thoughts: sig
-      })
-    })
-    .then(response => response.json())
-    .then(responseJson => {
-      console.log(responseJson)
-        if(responseJson?.success === 1) {
-          setModalVisible(true)
-          console.log(responseJson?.success,'responseJson?.sucess')
-          // AsyncStorage.setItem('email',email)
-          setTimeout(() => {
-            setModalVisible(false)
-            navigation.navigate('DailyReflection1')
-          }, 2000);
-
-        }
-        
-        
-    })
-    .catch(error => {
-        
-        console.log(error,'hello')
-        
-        // return error;
-        
-    })
-  }
-
-
-
-  // const onNext = () => {
-
-  //   setModalVisible(true)
-  //   setTimeout(() => {
-  //       setModalVisible(false)
-  //       navigation.navigate('DailyReflection1')
-  //     }, 3000);
-
-  // }
-  
-  
 
   return (
     <View style={{flex:1,backgroundColor:Color.labelColorDarkPrimary,}}>
@@ -185,7 +116,7 @@ const DailyReflection2 = ({navigation}) => {
       >
         <TouchableOpacity
           style={[styles.pressable, styles.parentFlexBox]}
-          onPress={savethoughts}
+          onPress={()=>{savethoughts()}}
         >
           <View >
             <Text style={styles.button1}>Save</Text>

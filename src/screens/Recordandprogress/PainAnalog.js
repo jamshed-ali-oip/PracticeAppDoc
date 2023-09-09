@@ -34,7 +34,7 @@ const data = [
   {
     id: 2,
     status: false,
-    name: "Head"
+    name: "head"
   }, {
     id: 3,
     status: true,
@@ -42,7 +42,7 @@ const data = [
   }, {
     id: 4,
     status: false,
-    name: "right shoulder"
+    name: "shoulders"
   }, {
     id: 5,
     status: false,
@@ -54,7 +54,7 @@ const data = [
   }, {
     id: 7,
     status: false,
-    name: "right shoulder"
+    name: "shoulders"
 
   }, {
     id: 8,
@@ -63,34 +63,34 @@ const data = [
   }, {
     id: 9,
     status: false,
-    name: "left shoulder"
+    name: "shoulders"
   }, {
     id: 10,
-    status: false,
+    status: true,
     name: "right Elbow"
   }, {
     id: 11,
     status: false,
-    name: "stomach"
+    name: "back"
   }, {
     id: 12,
-    status: false,
+    status: true,
     name: "left Elbow"
   }, {
     id: 13,
-    status: false,
+    status: true,
     name: "right arm"
   }, {
     id: 14,
-    status: false,
+    status: true,
     name: "stomach"
   }, {
     id: 15,
-    status: false,
+    status: true,
     name: "left arm"
   }, {
     id: 16,
-    status: false,
+    status: true,
     name: "right hand"
   }, {
     id: 17,
@@ -98,7 +98,7 @@ const data = [
     name: null
   }, {
     id: 18,
-    status: false,
+    status: true,
     name: "left hand"
   },
   {
@@ -117,16 +117,16 @@ const data = [
   }, {
     id: 22,
     status: false,
-    name: "right knee"
+    name: "knees"
   }, {
     id: 23,
     status: false,
-    name: "righ knee",
+    name: "knees",
 
   }, {
     id: 24,
     status: false,
-    name: "left knee"
+    name: "knees"
   }, {
     id: 25,
     status: false,
@@ -135,24 +135,24 @@ const data = [
     id: 26,
     status: true,
     status: false,
-    name: "right leg "
+    name: "legs"
   }, {
     id: 27,
     status: false,
-    name: "left leg "
+    name: "legs"
   }, {
     id: 28,
     status: false,
-    name: "right foot "
+    name: "feet"
   }, {
     id: 29,
     status: false,
-    name: "Ankles"
+    name: "ankles"
   }, {
     id: 30,
 
     status: false,
-    name: "left foot "
+    name: "feet"
   },
 
 ]
