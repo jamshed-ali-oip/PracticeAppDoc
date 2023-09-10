@@ -82,7 +82,7 @@ const Signup = ({ navigation }) => {
   const [securetextentry1, setSecuretextentry1] = useState(true)
 
 
-
+const datee=moment(new Date).format('DD-MM-YYYY')
   const validation = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
@@ -121,6 +121,10 @@ const Signup = ({ navigation }) => {
     }
     else if (!uppercaseCharRegex.test(password)) {
       setError({ password: 'Password must contain at least one uppercase character' });
+      return false;
+    }
+    else if (dob==datee) {
+      setError({ password: 'Select correct Date' });
       return false;
     }
     else if (password !== cpassword) {

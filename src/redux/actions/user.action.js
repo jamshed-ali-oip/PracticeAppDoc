@@ -3,6 +3,7 @@ import {base_Url} from '../../config/config';
 import * as types from '../const/const';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import instance from '../../config/httpservice';
+import { Alert } from 'react-native';
 // import { LOG_IN } from "../const/const";
 
 // ***************************Auth Screen ************************************
@@ -17,7 +18,10 @@ export const userLogin = data => async dispatch => {
       });
     }
   } catch (error) {
-    console.log(error);
+    Alert.alert('Message', 'Invalid Email or Password', [
+      {text: 'OK', onPress: () => console.log('OK Pressed')},
+    ]);
+    console.log(JSON.stringify(error));
   }
 };
 export const Register = (data, navigation) => async dispatch => {
@@ -32,7 +36,11 @@ export const Register = (data, navigation) => async dispatch => {
       navigation.navigate('VerifyEmail');
     }
   } catch (error) {
-    console.log('EROROROOR', error);
+    Alert.alert('Message', error?.response?.data?.error, [
+      {text: 'OK', onPress: () => console.log('OK Pressed')},
+    ]);
+    console.log(JSON.stringify(error));
+    console.log('EROROROOR', JSON.stringify(error?.response?.data?.error));
   }
 };
 export const Activating = data => async dispatch => {
@@ -46,7 +54,7 @@ export const Activating = data => async dispatch => {
       });
     }
   } catch (error) {
-    console.log('EROROROOR', JSON.stringify(error));
+    console.log('EROROROOR', JSON.stringify(error.response));
   }
 };
 export const setreflection = (data, navigation) => async dispatch => {
@@ -78,11 +86,12 @@ export const getreflection = (data) => async dispatch => {
     try {
       const response = await instance.post(`/appuser/pain-assessment`, data);
       if (response) {
+        console.log(response?.data)
         navigation.navigate('PainAnalog');
       }
       // alert("hogya")
     } catch (error) {
-      console.log(JSON.stringify(error));
+      console.log(JSON.stringify(error?.response?.data));
     }
   };
   export const UpdateProfile = (data,navigation) => async dispatch => {
@@ -137,6 +146,19 @@ export const getreflection = (data) => async dispatch => {
 //  alert(date1,date2)   
     try {
       const response = await instance.get(`/appuser/myrecords?from_date=${body?.date1}&till_date=${body?.date2}`);
+      if (response) {
+       return response
+      }
+      // alert("hogya")
+    } catch (error) {
+      console.log(JSON.stringify(error));
+    }
+  };
+  export const get_Records_Body = (body) => async dispatch => {
+//  alert(date1,date2)   
+console.log(body)
+    try {
+      const response = await instance.get(`/appuser/pain-assessment?from_date=${body?.date1}&till_date=${body?.date2}`);
       if (response) {
        return response
       }

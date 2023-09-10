@@ -104,7 +104,7 @@ const PainScale = ({ navigation, route }) => {
           <Text style={{ fontWeight: 'bold', color: Colors.purple, fontSize: 20, }}>{name?.data?.toUpperCase()}</Text>
         </View>
         <View>
-          <Text style={{ marginTop: 10, marginHorizontal: 5, marginBottom: 10, }}>
+          <Text style={{ marginTop: 10, marginHorizontal: 5, marginBottom: 10,color:Color.dimgray_200 }}>
             Choose a number from 0 to 10 that best describes your pain
           </Text>
           <Slider
@@ -123,7 +123,7 @@ const PainScale = ({ navigation, route }) => {
             {
               painscale?.map((i) => {
                 return (
-                  <Text>{i?.id}</Text>
+                  <Text style={{color:Color.dimgray_100}}>{i?.id}</Text>
                 )
               })
             }
@@ -146,7 +146,7 @@ const PainScale = ({ navigation, route }) => {
           </View>
         </View>
         <View style={{ marginTop: 20, marginHorizontal: 10, }}>
-          <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Pain Rating Sclae</Text>
+          <Text style={{ fontSize: 18, fontWeight: 'bold',color:Color.dimgray_200 }}>Pain Rating Scale</Text>
         </View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 20, }}>
           <TouchableOpacity
@@ -156,7 +156,7 @@ const PainScale = ({ navigation, route }) => {
             ]}
             onPress={() => setSelectedImageIndex(0)}>
             <Image style={{ width: 80, height: 80, resizeMode: 'contain' }} source={require('../../../assets/no-hurt.png')} />
-            <Text style={{ fontSize: 12 }}> (0 - 1) No hurt</Text>
+            <Text style={{ fontSize: 12,color:Color.dimgray_100 }}> (0 - 1) No hurt</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[
             styles.imageContainer,
@@ -165,7 +165,7 @@ const PainScale = ({ navigation, route }) => {
             onPress={() => setSelectedImageIndex(1)}
           >
             <Image style={{ width: 80, height: 80, resizeMode: 'contain' }} source={require('../../../assets/hurts-little-bit.png')} />
-            <Text style={{ fontSize: 12 }}> (2 - 3) Hurts a {"\n"}         little bit</Text>
+            <Text style={{ fontSize: 12,color:Color.dimgray_100 }}> (2 - 3) Hurts a {"\n"}         little bit</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[
             styles.imageContainer,
@@ -174,7 +174,7 @@ const PainScale = ({ navigation, route }) => {
             onPress={() => setSelectedImageIndex(2)}
           >
             <Image style={{ width: 80, height: 80, resizeMode: 'contain' }} source={require('../../../assets/hurts-little-more.png')} />
-            <Text style={{ fontSize: 12 }}>(3 - 4) Hurts {'\n'}   little more</Text>
+            <Text style={{ fontSize: 12,color:Color.dimgray_100 }}>(3 - 4) Hurts {'\n'}   little more</Text>
           </TouchableOpacity>
 
         </View>
@@ -186,7 +186,7 @@ const PainScale = ({ navigation, route }) => {
             onPress={() => setSelectedImageIndex(3)}
           >
             <Image style={{ width: 80, height: 80, resizeMode: 'contain' }} source={require('../../../assets/hurts-even-more.png')} />
-            <Text style={{ fontSize: 12 }}> (5 - 6)Hurts {'\n'}  even more</Text>
+            <Text style={{ fontSize: 12,color:Color.dimgray_100 }}> (5 - 6)Hurts {'\n'}  even more</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[
             styles.imageContainer,
@@ -195,7 +195,7 @@ const PainScale = ({ navigation, route }) => {
             onPress={() => setSelectedImageIndex(4)}
           >
             <Image style={{ width: 80, height: 80, resizeMode: 'contain' }} source={require('../../../assets/hurts-whole-lot.png')} />
-            <Text style={{ fontSize: 12 }}> (7 - 8) Hurts a {"\n"}      whole lot</Text>
+            <Text style={{ fontSize: 12,color:Color.dimgray_100 }}> (7 - 8) Hurts a {"\n"}      whole lot</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[
             styles.imageContainer,
@@ -204,7 +204,7 @@ const PainScale = ({ navigation, route }) => {
             onPress={() => setSelectedImageIndex(5)}
           >
             <Image style={{ width: 80, height: 80, resizeMode: 'contain' }} source={require('../../../assets/hurts-worst1.png')} />
-            <Text style={{ fontSize: 12 }}>(9 - 10) Hurts {'\n'}         worst</Text>
+            <Text style={{ fontSize: 12,color:Color.dimgray_100 }}>(9 - 10) Hurts {'\n'}         worst</Text>
           </TouchableOpacity>
 
         </View>

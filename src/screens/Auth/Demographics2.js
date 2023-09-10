@@ -154,6 +154,7 @@ const Demographics2 = ({ navigation }) => {
 
 
   const onNext = () => {
+   if(toggleCheckBox==false){
     if (drop1 == '' || drop2 == '' || drop3 == '' || drop4 == '' || drop5 == '' || drop6 == '' || yod == '') {
       setError('Please answer the questions')
     }
@@ -173,6 +174,16 @@ const Demographics2 = ({ navigation }) => {
       })
       navigation.navigate("Acknowledgement")
     }
+   }else{
+    const body = {
+      cancer_type: "None",
+    }
+    dispatch({
+      type: FORMTHREE,
+      payload: body
+    })
+    navigation.navigate("Acknowledgement")
+   }
     // navigation.navigate("Acknowledgement")
 
   }
@@ -215,7 +226,7 @@ const Demographics2 = ({ navigation }) => {
 
           </View>
 
-
+{toggleCheckBox==false?<>
 
           <View style={{ marginTop: 5, marginLeft: -10,marginBottom:open?200:0  }}> 
 
@@ -310,7 +321,6 @@ const Demographics2 = ({ navigation }) => {
 
           </View>
 
-
           <View
             style={{
               height: 50,
@@ -337,10 +347,6 @@ const Demographics2 = ({ navigation }) => {
 
             />
           </View>
-
-
-
-
 
           <View style={{ marginTop: 5, marginLeft: -10, zIndex: 99999999999999999,marginBottom:open4?200:0 }}>
 
@@ -412,8 +418,8 @@ const Demographics2 = ({ navigation }) => {
 
             />
 
-          </View>
-
+          </View></>
+:null}
 
           <View style={{ width: '90%', alignSelf: 'center', marginTop: 50, }}>
             <LinearGradient

@@ -227,7 +227,7 @@ const Login1 = () => {
             <View style={{ marginTop: 20, }}>
               <View style={{ width: 240, alignItems: 'center' }}>
                 <Pressable onPress={() => navigation.navigate('Signup')}>
-                  <Text>Don't have an accout ? <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 16 }}>Sign Up</Text></Text>
+                  <Text style={{ color: 'black', fontSize: 16 }}>Don't have an accout ? <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 16 }}>Sign Up</Text></Text>
                 </Pressable>
               </View>
             </View>
@@ -238,7 +238,7 @@ const Login1 = () => {
 
       </ScrollView>
       <View style={{ position: 'relative', alignSelf: 'center', bototm: 20, }}>
-        <Text style={{ fontSize: 11 }}>Powered by <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 12 }}>NTAM Group</Text></Text>
+        <Text style={{ fontSize: 11, color:"black" }}>Powered by <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 12 }}>NTAM Group</Text></Text>
       </View>
     </View>
   );

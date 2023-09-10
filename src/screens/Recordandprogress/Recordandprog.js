@@ -61,6 +61,7 @@ import {FlatList} from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch} from 'react-redux';
 import {
+  get_Records_Body,
   get_Records_of_health,
   post_Records_of_health,
 } from '../../redux/actions/user.action';
@@ -82,7 +83,30 @@ const MyHealthSurvey = ({navigation}) => {
   const [token, setToken] = React.useState('');
   const [alldata, setalldata] = useState('');
   const [B, setB] = useState([]);
+  const [parts,setparts]=useState()
+  // Get the current date
+var currentDate = new Date();
 
+// Subtract 7 days
+currentDate.setDate(currentDate.getDate() - 7);
+
+// Format the result as a string (e.g., "YYYY-MM-DD")
+var formattedDate = currentDate.toISOString().slice(0, 10);
+const mydate=moment(new Date).format('DD-MM-YYYY')
+
+const listing=async()=>{
+  const body={
+    date1:formattedDate,
+    date2:mydate
+  }
+ const data=await dispatch(get_Records_Body(body))
+ console.log("data::::",data?.data?.data)
+ setparts(data?.data?.data)
+}
+
+useEffect(()=>{
+  listing()
+},[])
   const handleTabChange = tab => {
     setActiveTab(tab);
   };
@@ -574,6 +598,8 @@ const MyHealthSurvey = ({navigation}) => {
                       }}
                       source={require('../../../assets/rectangle-22603.png')}
                     />
+                    {
+                      parts?.map((i)=>(
                     <View
                       style={{
                         flexDirection: 'row',
@@ -588,7 +614,7 @@ const MyHealthSurvey = ({navigation}) => {
                             color: 'black',
                             fontWeight: 'bold',
                           }}>
-                          Body Part:Head
+                          Body Part:{i?.category}
                         </Text>
                       </View>
                       <View style={{flexDirection: 'row'}}>
@@ -598,78 +624,18 @@ const MyHealthSurvey = ({navigation}) => {
                             color: 'black',
                             fontWeight: 'bold',
                           }}>
-                          Pain Level{' '}
+                          Pain Level{' '}{i?.scale}
                         </Text>
-                        <Image
+                       
+                        {/* <Image
                           style={{height: 22, width: 22}}
                           source={require('../../../assets/frame.png')}
-                        />
+                        /> */}
                       </View>
                     </View>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        marginTop: 20,
-                        justifyContent: 'space-between',
-                        marginLeft: 3,
-                      }}>
-                      <View>
-                        <Text
-                          style={{
-                            fontSize: 16,
-                            color: 'black',
-                            fontWeight: 'bold',
-                          }}>
-                          Body Part:Mouth
-                        </Text>
-                      </View>
-                      <View style={{flexDirection: 'row'}}>
-                        <Text
-                          style={{
-                            fontSize: 16,
-                            color: 'black',
-                            fontWeight: 'bold',
-                          }}>
-                          Pain Level{' '}
-                        </Text>
-                        <Image
-                          style={{height: 22, width: 22}}
-                          source={require('../../../assets/frame.png')}
-                        />
-                      </View>
-                    </View>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        marginTop: 20,
-                        justifyContent: 'space-between',
-                        marginLeft: 3,
-                      }}>
-                      <View>
-                        <Text
-                          style={{
-                            fontSize: 16,
-                            color: 'black',
-                            fontWeight: 'bold',
-                          }}>
-                          Body Part:Ears
-                        </Text>
-                      </View>
-                      <View style={{flexDirection: 'row'}}>
-                        <Text
-                          style={{
-                            fontSize: 16,
-                            color: 'black',
-                            fontWeight: 'bold',
-                          }}>
-                          Pain Level{' '}
-                        </Text>
-                        <Image
-                          style={{height: 22, width: 22}}
-                          source={require('../../../assets/frame.png')}
-                        />
-                      </View>
-                    </View>
+                  ))
+                }
+                 
                   </View>
                 </>
               )}

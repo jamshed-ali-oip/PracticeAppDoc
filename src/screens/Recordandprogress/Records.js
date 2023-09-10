@@ -20,8 +20,36 @@ import {
 } from '../../../GlobalStyles';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import LinearGradient from 'react-native-linear-gradient';
+import { useDispatch } from 'react-redux';
+import { get_Records_Body } from '../../redux/actions/user.action';
+import moment from 'moment';
 
 const Records = ({ navigation }) => {
+
+  const [records,setrecords]=useState()
+  // Get the current date
+var currentDate = new Date();
+
+// Subtract 7 days
+currentDate.setDate(currentDate.getDate() - 7);
+
+// Format the result as a string (e.g., "YYYY-MM-DD")
+var formattedDate = currentDate.toISOString().slice(0, 10);
+const mydate=moment(new Date).format('DD-MM-YYYY')
+const dispatch=useDispatch()
+const listing=async()=>{
+  const body={
+    date1:formattedDate,
+    date2:mydate
+  }
+ const data=await dispatch(get_Records_Body(body))
+ console.log("data::::",data?.data?.data)
+ setrecords(data?.data?.data)
+}
+
+useEffect(()=>{
+  listing()
+},[])
   const data = [
     {
       date: "12 jan 2023",
@@ -84,13 +112,13 @@ const Records = ({ navigation }) => {
           <Text style={{ color: 'white', fontWeight: 'bold' }}>  Scale</Text>
           <Text style={{ color: 'white', fontWeight: 'bold' }}>Pain</Text>
         </View>
-        {data?.map((i) => {
+        {records?.map((i) => {
           return (
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 20, }}>
-              <Text style={{ fontSize: 11 }}>12 jan 2023</Text>
-              <Text>Head</Text>
-              <Text>10:00 am</Text>
-              <Text>8</Text>
+              <Text style={{ fontSize: 11 }}>{moment(i?.createdAt).format('DD-MM-YYYY')}</Text>
+              <Text>{i?.category}</Text>
+              <Text>{moment(i?.createdAt).format('HH:MM A')}</Text>
+              <Text>{i?.scale}</Text>
               <View>
                 <Image style={{ width: 25, height: 25 }} source={require('../../../assets/no-hurt.png')} />
               </View>
