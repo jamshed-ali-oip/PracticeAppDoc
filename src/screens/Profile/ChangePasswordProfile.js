@@ -8,6 +8,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import Feather from 'react-native-vector-icons/Feather';
 import Colors from '../../constants/Colors';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch } from 'react-redux';
+import { ChangePassword } from '../../redux/actions/user.action';
 
 const CreateNewPassword = ({ navigation }) => {
   const [password, setPassword] = useState('');
@@ -25,89 +27,6 @@ const CreateNewPassword = ({ navigation }) => {
   const [error, setError] = useState(null)
 
   const [token,setToken] = React.useState('')
-
-
-
-  // const getuser = async () => {
-  //   let emailll = await AsyncStorage.getItem('emailforgot')
-  //   console.log(emailll,'email')
-  //   let otpp = await AsyncStorage.getItem('otp')
-  //   console.log(otpp,'otp')
-  //   setEmail(emailll)
-  //   setOtp(otpp)
-
-    
-
-  // }
-
-
-  
-
-
-
-
-// const onreset = async() => {
-
-//       if (password1 != password2 ) {
-//         alert('Password should be same')
-//       }
-
-//       else {
-
-//       await fetch('http://3.87.229.85:8080/appuser/reset', {
-//         method: 'PATCH',
-//         headers: {
-//           'Content-Type': 'application/json',
-//           'Accept': 'application/json'
-//         },
-//         body: JSON.stringify({
-//           email:email,
-//           otp:otp,
-//           password:password1
-          
-//         })
-//       })
-//       .then(response => response.json())
-//       .then(responseJson => {
-//         // console.log('heloooo')
-//         console.log(responseJson)
-//           if(responseJson?.success === 1) {
-//             console.log(responseJson?.success,'responseJson?.sucess')
-        
-//           navigation.navigate('Login')
-//           }
-//           else {
-//               // alert(responseJson.error)
-//               console.log(responseJson?.error)
-//           }
-          
-//       })
-//       .catch(error => {
-//           // alert('failed')
-          
-//           return error;
-          
-//       })
-//     }
-//     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -135,64 +54,48 @@ const CreateNewPassword = ({ navigation }) => {
     }
   };
 
-
-
-
-
-  const gettoken = async () => {
-    let token1 = await AsyncStorage.getItem('token')
-    console.log(token1,'token')
-    console.log('hello')
-    setToken(token1)
-    
-
-    
-
-  }
-
-
-  useEffect(() => {
-    gettoken()
-  
-  }, []);
-
+const dispatch=useDispatch()
   const changepass = async () => {
 
-    
-    await fetch('https://ntamtech.com/appuser/app-user', {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        Authorization: `Bearer ${token}`,
-
-      },
-      body: JSON.stringify({
-        old_password: password,
+  const body={
+    old_password: password,
     password: password1
-      })
-    })
-    .then(response => response.json())
-    .then(responseJson => {
-      console.log(responseJson)
-        if(responseJson?.success === 1) {
-          console.log(responseJson?.success,'responseJson?.sucess')
-          // AsyncStorage.setItem('email',email)
-          navigation.replace('Tab2')
+  } 
+  dispatch(ChangePassword(body,navigation)) 
+    // await fetch('https://ntamtech.com/appuser/app-user', {
+    //   method: 'PATCH',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'Accept': 'application/json',
+    //     Authorization: `Bearer ${token}`,
 
-        }
-        else {
-          setError(responseJson?.error)
-        }
+    //   },
+    //   body: JSON.stringify({
+    //     old_password: password,
+    // password: password1
+    //   })
+    // })
+    // .then(response => response.json())
+    // .then(responseJson => {
+    //   console.log(responseJson)
+    //     if(responseJson?.success === 1) {
+    //       console.log(responseJson?.success,'responseJson?.sucess')
+    //       // AsyncStorage.setItem('email',email)
+    //       navigation.replace('Tab2')
+
+    //     }
+    //     else {
+    //       setError(responseJson?.error)
+    //     }
         
-    })
-    .catch(error => {
+    // })
+    // .catch(error => {
         
-        console.log(error,'hello')
+    //     console.log(error,'hello')
         
-        // return error;
+    //     // return error;
         
-    })
+    // })
   }
 
 

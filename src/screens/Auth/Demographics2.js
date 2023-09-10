@@ -217,7 +217,7 @@ const Demographics2 = ({ navigation }) => {
 
 
 
-          <View style={{ marginTop: 5, marginLeft: -10, zIndex: 999999999999 }}>
+          <View style={{ marginTop: 5, marginLeft: -10,marginBottom:open?200:0  }}> 
 
             <DropDown
               placeholder={'Cancer Type'}
@@ -241,7 +241,7 @@ const Demographics2 = ({ navigation }) => {
           </View>
 
 
-          <View style={{ marginTop: 30, marginLeft: -10, zIndex: 99999999999 }}>
+          <View style={{ marginTop: 30, marginLeft: -10,marginBottom:open1?200:0  }}>
 
             <DropDown
               placeholder={'Stage of Tumor'}
@@ -264,7 +264,7 @@ const Demographics2 = ({ navigation }) => {
 
           </View>
 
-          <View style={{ marginTop: 30, marginLeft: -10, zIndex: 9999999999 }}>
+          <View style={{ marginTop: 30, marginLeft: -10, zIndex: 9999999999,marginBottom:open2?200:0 }}>
 
             <DropDown
               placeholder={'Current Cancer Treatments'}
@@ -287,7 +287,7 @@ const Demographics2 = ({ navigation }) => {
 
           </View>
 
-          <View style={{ marginTop: 30, marginLeft: -10, zIndex: 9999999 }}>
+          <View style={{ marginTop: 30, marginLeft: -10, zIndex: 9999999,marginBottom:open3?200:0 }}>
 
             <DropDown
               placeholder={'Other Conditions'}
@@ -327,7 +327,7 @@ const Demographics2 = ({ navigation }) => {
               marginLeft: -10
             }}>
             <TextInput
-              style={{ fontSize: 16, color: 'black', marginTop: 15, marginLeft: 5, }}
+              style={{ fontSize: 16, color: 'black', marginLeft: 5, }}
               keyboardType='numeric'
               placeholder=" Year of Diagnosis Eg (2009)"
               placeholderTextColor={'lightgrey'}
@@ -342,7 +342,7 @@ const Demographics2 = ({ navigation }) => {
 
 
 
-          <View style={{ marginTop: 5, marginLeft: -10, zIndex: 99999999999999999 }}>
+          <View style={{ marginTop: 5, marginLeft: -10, zIndex: 99999999999999999,marginBottom:open4?200:0 }}>
 
             <DropDown
               placeholder={'Severity of Symptoms'}

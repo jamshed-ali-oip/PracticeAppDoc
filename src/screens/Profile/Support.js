@@ -13,12 +13,12 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 const Acknowledgement = ({ navigation }) => {
   const dispatch = useDispatch()
-  const {formone,formtwo,formthree,formfour}  = useSelector(state=>state.signup)
+  // const {formone,formtwo,formthree,formfour}  = useSelector(state=>state.signup)
 
-  console.log(formone,'=======from1')
-  console.log(formtwo,'=======from2')
-  console.log(formthree,'=======from3')
-  console.log(formfour,'=======from4')
+  // console.log(formone,'=======from1')
+  // console.log(formtwo,'=======from2')
+  // console.log(formthree,'=======from3')
+  // console.log(formfour,'=======from4')
 
   
   const [sig, setSig] = useState('')

@@ -48,18 +48,22 @@ import LinearGradient from 'react-native-linear-gradient';
 //   Mask,
 // } from 'react-native-svg';
 
-
 import {
   LineChart,
   BarChart,
   PieChart,
   ProgressChart,
   ContributionGraph,
-  StackedBarChart
-} from "react-native-chart-kit";
-import { FlatList } from 'react-native-gesture-handler';
+  StackedBarChart,
+} from 'react-native-chart-kit';
+import {FlatList} from 'react-native-gesture-handler';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useDispatch} from 'react-redux';
+import {
+  get_Records_of_health,
+  post_Records_of_health,
+} from '../../redux/actions/user.action';
 
 const MyHealthSurvey = ({navigation}) => {
   const [dob, setDob] = useState('');
@@ -75,9 +79,9 @@ const MyHealthSurvey = ({navigation}) => {
   const [weight, setWeight] = useState('');
   const [activeTab1, setActiveTab1] = useState('Painchart');
   const [modalVisible, setModalVisible] = useState(false);
-  const [token,setToken] = React.useState('')
-
-
+  const [token, setToken] = React.useState('');
+  const [alldata, setalldata] = useState('');
+  const [B, setB] = useState([]);
 
   const handleTabChange = tab => {
     setActiveTab(tab);
@@ -86,109 +90,82 @@ const MyHealthSurvey = ({navigation}) => {
     setActiveTab1(tab);
   };
 
- 
-
   const screenWidth = Dimensions.get('window').width;
-const data = {
-    labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday","Sunday"],
+
+  
+  useEffect(() => {
+    setDatePlaceholder('Select Date');
+
+  }, []);
+  useEffect(() => {
+    getrecord();
+    // setup()
+  }, [dob]);
+  // useEffect(() => {
+   
+  //   setup()
+  // }, [alldata]);
+  const dispatch = useDispatch();
+  const getrecord = async () => {
+    const ii = new Date();
+    const tarekh = moment(ii).format('DD-MM-YYYY');
+    console.log('tareeekh', dob, 'jkggh', tarekh);
+    const body = {
+      date1: dob ? dob : tarekh,
+      date2: tarekh,
+    };
+    const mydata = await dispatch(get_Records_of_health(body));
+    console.log('myyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy', mydata?.data);
+    setalldata(mydata?.data?.data);
+  };
+
+  const records = async () => {
+    const body = {
+      blood_pressure_systole: systole,
+      blood_pressure: bp,
+      sugar_level: sugar,
+      sleeping_hours: sleeping,
+      weight: weight,
+    };
+    dispatch(post_Records_of_health(body, navigation));
+  };
+  
+  useEffect(()=>{
+    const blood_pressureArr=[]
+   if(alldata){
+    alldata.forEach(item => {
+      blood_pressureArr.push(item.blood_pressure);
+    });
+   }
+   console.log("faskk",blood_pressureArr)
+    setB(blood_pressureArr)
+  },[alldata,dob])
+  console.log("0000000000000000000000000",B)
+  const data = {
+    labels: [
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday',
+    ],
     datasets: [
       {
-        data: [25,37.5, 50, 62.5, 80, 90 , ],
-        color: () => "#0F0ADE", 
+        data:  [25, 37.5, 50, 62.5, 80, 90],
+        color: () => '#0F0ADE',
         strokeWidth: 1, // optional
       },
     ],
     // legend: ["Rainy Days"] // optional
   };
-
-
-  const gettoken = async () => {
-    let token1 = await AsyncStorage.getItem('token')
-    console.log(token1,'token')
-    console.log('hello')
-    setToken(token1)
-    
-  
-    
-  
-  }
-  
-  
-  
-  
-  
-  
-  
-    useEffect(() => {
-      gettoken()
-      setDatePlaceholder('Date of birth');
-    }, []);
-
-
-
-
-  const records = async () => {
-    
-    // Validate email and password
-  
-await fetch('https://ntamtech.com/appuser/myrecords', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        Authorization: `Bearer ${token}`,
-
-      },
-      body: JSON.stringify({
-        blood_pressure_systole:systole,
-        blood_pressure:bp,
-        sugar_level:sugar,
-        sleeping_hours:sleeping,
-        weight:weight
-      })
-    })
-    .then(response => response.json())
-    .then(responseJson => {
-      console.log(responseJson)
-        if(responseJson?.success === 1) {
-          setModalVisible(true)
-
-          console.log(responseJson?.success,'responseJson?.sucess')
-          // AsyncStorage.setItem('email',email)
-          // navigation.replace('Tab2')
-          setTimeout(() => {
-            setModalVisible(false)
-            navigation.navigate('Tab2')
-          }, 1000);
-        }
-        else {
-            // alert(responseJson?.error)
-            setError(responseJson?.error)
-            console.log(responseJson?.error)
-        }
-        
-    })
-    .catch(error => {
-        // alert(responseJson?.error)
-        setError(responseJson?.error)
-        // return error;
-        
-    })
-  }
-  
-
-   
-
-
-
- 
-
   const data1 = {
     // labels: ["January", "February", "March", "April", "May", "June"],
     datasets: [
       {
-        data: [25, 25, 37, 38, 80, 90, ],
-        color: () => 'red', 
+        data: [0, 0, 100, 10, 40, 20],
+        color: () => 'red',
         strokeWidth: 1, // optional
       },
     ],
@@ -200,7 +177,7 @@ await fetch('https://ntamtech.com/appuser/myrecords', {
     backgroundGradientFromOpacity: 0,
     backgroundGradientTo: '#aaa',
     backgroundGradientToOpacity: 0.5,
-    color: () => '#0F0ADE', 
+    color: () => '#0F0ADE',
     strokeWidth: 3, // optional, default 3
     barPercentage: 1,
     useShadowColorFromDataset: false, //
@@ -222,7 +199,7 @@ await fetch('https://ntamtech.com/appuser/myrecords', {
     backgroundGradientFromOpacity: 0,
     backgroundGradientTo: '#FFF',
     backgroundGradientToOpacity: 0.5,
-    color: () => 'red', 
+    color: () => 'red',
     strokeWidth: 2, // optional, default 3
     barPercentage: 0.5,
     useShadowColorFromDataset: false, //
@@ -281,38 +258,11 @@ await fetch('https://ntamtech.com/appuser/myrecords', {
           </TouchableOpacity>
         </View>
 
-        {/* <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between',width:'90%',marginHorizontal:20,}}>
-        <View>
-            <Text style={{color: dob === '' ? 'lightgrey' : 'black' }}> {datePlaceholder || moment(date).format('DD-MM-YYYY')}</Text>
-        </View>
-        <TouchableOpacity  onPress={() => {
-            setOpen(true);
-            setDatePlaceholder('');
-          }}>
-            <Ionicons name='calendar' size={24} color='black' />
-        </TouchableOpacity>
-        <DatePicker
-            modal
-            open={open}
-            date={date}
-            onConfirm={date => {
-              setOpen(false);
-              setDate(date);
-             const a = moment(date).format('DD-MM-YYYY')
-              setDob(a)
-            }}
-            onCancel={() => {
-              setOpen(false);
-            }}
-            mode="date"
-            onDateChange={setDate}
-          />
-      </View> */}
-
         {activeTab === 'available' && (
           <View style={styles.tabContent}>
             <ScrollView showsVerticalScrollIndicator={false}>
-              <TouchableOpacity onPress={() => navigation.navigate('PainAnalog')}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('PainAnalog')}>
                 <View
                   style={{
                     flexDirection: 'row',
@@ -361,7 +311,7 @@ await fetch('https://ntamtech.com/appuser/myrecords', {
                   marginTop: 20,
                 }}>
                 <TextInput
-                  style={{fontSize: 16, color: Color.systemBlack, marginTop: 5}}
+                  style={{fontSize: 16, color: Color.systemBlack}}
                   placeholder="Update Blod Pressure (Systole)"
                   placeholderTextColor={'lightgrey'}
                   placeholderStyle={{}}
@@ -385,7 +335,7 @@ await fetch('https://ntamtech.com/appuser/myrecords', {
                   marginTop: 20,
                 }}>
                 <TextInput
-                  style={{fontSize: 16, color: Color.systemBlack, marginTop: 5}}
+                  style={{fontSize: 16, color: Color.systemBlack}}
                   placeholder="Update Blod Pressure"
                   placeholderTextColor={'lightgrey'}
                   placeholderStyle={{}}
@@ -409,7 +359,7 @@ await fetch('https://ntamtech.com/appuser/myrecords', {
                   marginTop: 20,
                 }}>
                 <TextInput
-                  style={{fontSize: 16, color: Color.systemBlack, marginTop: 5}}
+                  style={{fontSize: 16, color: Color.systemBlack}}
                   placeholder="Sugar level (mg)"
                   placeholderTextColor={'lightgrey'}
                   placeholderStyle={{}}
@@ -433,7 +383,7 @@ await fetch('https://ntamtech.com/appuser/myrecords', {
                   marginTop: 20,
                 }}>
                 <TextInput
-                  style={{fontSize: 16, color: Color.systemBlack, marginTop: 5}}
+                  style={{fontSize: 16, color: Color.systemBlack}}
                   placeholder="Sleeping hours"
                   placeholderTextColor={'lightgrey'}
                   placeholderStyle={{}}
@@ -457,7 +407,7 @@ await fetch('https://ntamtech.com/appuser/myrecords', {
                   marginTop: 20,
                 }}>
                 <TextInput
-                  style={{fontSize: 16, color: Color.systemBlack, marginTop: 5}}
+                  style={{fontSize: 16, color: Color.systemBlack}}
                   placeholder="Weight"
                   placeholderTextColor={'lightgrey'}
                   placeholderStyle={{}}
@@ -474,6 +424,9 @@ await fetch('https://ntamtech.com/appuser/myrecords', {
                   useAngle={true}
                   angle={180}>
                   <TouchableOpacity
+                    onPress={() => {
+                      records();
+                    }}
                     style={[styles.pressable, styles.parentFlexBox]}>
                     <View>
                       <Text style={styles.button1}>Save</Text>
@@ -494,7 +447,16 @@ await fetch('https://ntamtech.com/appuser/myrecords', {
                   activeTab1 === 'Painchart' && styles.activeTabSmall,
                 ]}
                 onPress={() => handleTabChange2('Painchart')}>
-                <Text style={[styles.tabTextSmall, {color: activeTab1 === 'Painchart' ? Colors.purple : '#999'}]}>Painchart</Text>
+                <Text
+                  style={[
+                    styles.tabTextSmall,
+                    {
+                      color:
+                        activeTab1 === 'Painchart' ? Colors.purple : '#999',
+                    },
+                  ]}>
+                  Painchart
+                </Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -503,7 +465,13 @@ await fetch('https://ntamtech.com/appuser/myrecords', {
                   activeTab1 === 'Bp' && styles.activeTabSmall,
                 ]}
                 onPress={() => handleTabChange2('Bp')}>
-                <Text style={[styles.tabTextSmall, {color: activeTab1 === 'Bp' ? Colors.purple : '#999'}]}>Bp</Text>
+                <Text
+                  style={[
+                    styles.tabTextSmall,
+                    {color: activeTab1 === 'Bp' ? Colors.purple : '#999'},
+                  ]}>
+                  Bp
+                </Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -512,7 +480,13 @@ await fetch('https://ntamtech.com/appuser/myrecords', {
                   activeTab1 === 'SL' && styles.activeTabSmall,
                 ]}
                 onPress={() => handleTabChange2('SL')}>
-                <Text style={[styles.tabTextSmall, {color: activeTab1 === 'SL' ? Colors.purple : '#999'}]}>SL</Text>
+                <Text
+                  style={[
+                    styles.tabTextSmall,
+                    {color: activeTab1 === 'SL' ? Colors.purple : '#999'},
+                  ]}>
+                  SL
+                </Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -521,7 +495,13 @@ await fetch('https://ntamtech.com/appuser/myrecords', {
                   activeTab1 === 'SH' && styles.activeTabSmall,
                 ]}
                 onPress={() => handleTabChange2('SH')}>
-                <Text style={[styles.tabTextSmall, {color: activeTab1 === 'SH' ? Colors.purple : '#999'}]}>SH</Text>
+                <Text
+                  style={[
+                    styles.tabTextSmall,
+                    {color: activeTab1 === 'SH' ? Colors.purple : '#999'},
+                  ]}>
+                  SH
+                </Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -530,117 +510,228 @@ await fetch('https://ntamtech.com/appuser/myrecords', {
                   activeTab1 === 'Weight' && styles.activeTabSmall,
                 ]}
                 onPress={() => handleTabChange2('Weight')}>
-                <Text style={[styles.tabTextSmall, {color: activeTab1 === 'Weight' ? Colors.purple : '#999'}]}>Weight</Text>
+                <Text
+                  style={[
+                    styles.tabTextSmall,
+                    {color: activeTab1 === 'Weight' ? Colors.purple : '#999'},
+                  ]}>
+                  Weight
+                </Text>
               </TouchableOpacity>
             </View>
             {/* Render the tabs' content below the tabs */}
             <View style={styles.tabContentContainer}>
-              {activeTab1 === 'Painchart' && <>
-              
-              <View>
-              <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between',width:'100%',}}>
-        <View>
-            <Text style={{fontWeight:'bold',color: dob === '' ? 'lightgrey' : 'black' }}> {datePlaceholder || moment(date).format('DD-MM-YYYY')}</Text>
-        </View>
-        <TouchableOpacity  onPress={() => {
-            setOpen(true);
-            setDatePlaceholder('');
-          }}>
-            <Ionicons name='calendar' size={24} color='black' />
-        </TouchableOpacity>
-        <DatePicker
-            modal
-            open={open}
-            date={date}
-            onConfirm={date => {
-              setOpen(false);
-              setDate(date);
-             const a = moment(date).format('DD-MM-YYYY')
-              setDob(a)
-            }}
-            onCancel={() => {
-              setOpen(false);
-            }}
-            mode="date"
-            onDateChange={setDate}
-          />
-      </View>
-      <Image style={{height:200,width:'100%',marginTop:20,borderRadius:10,}} source={require('../../../assets/rectangle-22603.png')} />
-      <View style={{flexDirection:'row',marginTop:20,justifyContent:'space-between',marginLeft:3,}}>
-        <View>
-          <Text style={{fontSize:16,color:'black',fontWeight:'bold'}}>Body Part:Head</Text>
-        </View>
-        <View style={{flexDirection:'row'}}>
-        <Text style={{fontSize:16,color:'black',fontWeight:'bold'}}>Pain Level  </Text>
-          <Image style={{height:22,width:22,}} source={require('../../../assets/frame.png')} /> 
-        </View>
-      </View>
-      <View style={{flexDirection:'row',marginTop:20,justifyContent:'space-between',marginLeft:3,}}>
-        <View>
-          <Text style={{fontSize:16,color:'black',fontWeight:'bold'}}>Body Part:Mouth</Text>
-        </View>
-        <View style={{flexDirection:'row'}}>
-        <Text style={{fontSize:16,color:'black',fontWeight:'bold'}}>Pain Level  </Text>
-          <Image style={{height:22,width:22,}} source={require('../../../assets/frame.png')} /> 
-        </View>
-      </View>
-      <View style={{flexDirection:'row',marginTop:20,justifyContent:'space-between',marginLeft:3,}}>
-        <View>
-          <Text style={{fontSize:16,color:'black',fontWeight:'bold'}}>Body Part:Ears</Text>
-        </View>
-        <View style={{flexDirection:'row'}}>
-        <Text style={{fontSize:16,color:'black',fontWeight:'bold'}}>Pain Level  </Text>
-          <Image style={{height:22,width:22,}} source={require('../../../assets/frame.png')} /> 
-        </View>
-       
-      </View>
-              </View>
-          
-              </>}
+              {activeTab1 === 'Painchart' && (
+                <>
+                  <View>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        width: '100%',
+                      }}>
+                      <View>
+                        <Text
+                          style={{
+                            fontWeight: 'bold',
+                            color: dob === '' ? 'lightgrey' : 'black',
+                          }}>
+                          {' '}
+                          {datePlaceholder || moment(date).format('DD-MM-YYYY')}
+                        </Text>
+                      </View>
+                      <TouchableOpacity
+                        onPress={() => {
+                          setOpen(true);
+                          setDatePlaceholder('');
+                        }}>
+                        <Ionicons name="calendar" size={24} color="black" />
+                      </TouchableOpacity>
+                      <DatePicker
+                        modal
+                        open={open}
+                        date={date}
+                        onConfirm={date => {
+                          setOpen(false);
+                          setDate(date);
+                          const a = moment(date).format('DD-MM-YYYY');
+                          setDob(a);
+                        }}
+                        onCancel={() => {
+                          setOpen(false);
+                        }}
+                        mode="date"
+                        onDateChange={setDate}
+                      />
+                    </View>
+                    <Image
+                      style={{
+                        height: 200,
+                        width: '100%',
+                        marginTop: 20,
+                        borderRadius: 10,
+                      }}
+                      source={require('../../../assets/rectangle-22603.png')}
+                    />
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        marginTop: 20,
+                        justifyContent: 'space-between',
+                        marginLeft: 3,
+                      }}>
+                      <View>
+                        <Text
+                          style={{
+                            fontSize: 16,
+                            color: 'black',
+                            fontWeight: 'bold',
+                          }}>
+                          Body Part:Head
+                        </Text>
+                      </View>
+                      <View style={{flexDirection: 'row'}}>
+                        <Text
+                          style={{
+                            fontSize: 16,
+                            color: 'black',
+                            fontWeight: 'bold',
+                          }}>
+                          Pain Level{' '}
+                        </Text>
+                        <Image
+                          style={{height: 22, width: 22}}
+                          source={require('../../../assets/frame.png')}
+                        />
+                      </View>
+                    </View>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        marginTop: 20,
+                        justifyContent: 'space-between',
+                        marginLeft: 3,
+                      }}>
+                      <View>
+                        <Text
+                          style={{
+                            fontSize: 16,
+                            color: 'black',
+                            fontWeight: 'bold',
+                          }}>
+                          Body Part:Mouth
+                        </Text>
+                      </View>
+                      <View style={{flexDirection: 'row'}}>
+                        <Text
+                          style={{
+                            fontSize: 16,
+                            color: 'black',
+                            fontWeight: 'bold',
+                          }}>
+                          Pain Level{' '}
+                        </Text>
+                        <Image
+                          style={{height: 22, width: 22}}
+                          source={require('../../../assets/frame.png')}
+                        />
+                      </View>
+                    </View>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        marginTop: 20,
+                        justifyContent: 'space-between',
+                        marginLeft: 3,
+                      }}>
+                      <View>
+                        <Text
+                          style={{
+                            fontSize: 16,
+                            color: 'black',
+                            fontWeight: 'bold',
+                          }}>
+                          Body Part:Ears
+                        </Text>
+                      </View>
+                      <View style={{flexDirection: 'row'}}>
+                        <Text
+                          style={{
+                            fontSize: 16,
+                            color: 'black',
+                            fontWeight: 'bold',
+                          }}>
+                          Pain Level{' '}
+                        </Text>
+                        <Image
+                          style={{height: 22, width: 22}}
+                          source={require('../../../assets/frame.png')}
+                        />
+                      </View>
+                    </View>
+                  </View>
+                </>
+              )}
             </View>
             <View style={styles.tabContentContainer}>
-              {activeTab1 === 'Weight' && <>
-              <ScrollView>
-             <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between',width:'100%',}}>
-        <View>
-            <Text style={{fontWeight:'bold',color: dob === '' ? 'lightgrey' : 'black' }}> {datePlaceholder || moment(date).format('DD-MM-YYYY')}</Text>
-        </View>
-        <TouchableOpacity  onPress={() => {
-            setOpen(true);
-            setDatePlaceholder('');
-          }}>
-            <Ionicons name='calendar' size={24} color='black' />
-        </TouchableOpacity>
-        <DatePicker
-            modal
-            open={open}
-            date={date}
-            onConfirm={date => {
-              setOpen(false);
-              setDate(date);
-             const a = moment(date).format('DD-MM-YYYY')
-              setDob(a)
-            }}
-            onCancel={() => {
-              setOpen(false);
-            }}
-            mode="date"
-            onDateChange={setDate}
-          />
-      </View>
-             <View style={{marginTop: 10,}}>
-        <LineChart
-          // style={{backgroundColor:'red'}}
-          data={data}
-          width={screenWidth}
-          height={250}
-          verticalLabelRotation={80}
-          chartConfig={chartConfig}
-          bezier
-          withVerticalLines={false}
-        />
+              {activeTab1 === 'Weight' && (
+                <>
+                  <ScrollView>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        width: '100%',
+                      }}>
+                      <View>
+                        <Text
+                          style={{
+                            fontWeight: 'bold',
+                            color: dob === '' ? 'lightgrey' : 'black',
+                          }}>
+                          {' '}
+                          {datePlaceholder || moment(date).format('DD-MM-YYYY')}
+                        </Text>
+                      </View>
+                      <TouchableOpacity
+                        onPress={() => {
+                          setOpen(true);
+                          setDatePlaceholder('');
+                        }}>
+                        <Ionicons name="calendar" size={24} color="black" />
+                      </TouchableOpacity>
+                      <DatePicker
+                        modal
+                        open={open}
+                        date={date}
+                        onConfirm={date => {
+                          setOpen(false);
+                          setDate(date);
+                          const a = moment(date).format('DD-MM-YYYY');
+                          setDob(a);
+                        }}
+                        onCancel={() => {
+                          setOpen(false);
+                        }}
+                        mode="date"
+                        onDateChange={setDate}
+                      />
+                    </View>
+                    <View style={{marginTop: 10}}>
+                      <LineChart
+                        // style={{backgroundColor:'red'}}
+                        data={data}
+                        width={screenWidth}
+                        height={250}
+                        verticalLabelRotation={80}
+                        chartConfig={chartConfig}
+                        bezier
+                        withVerticalLines={false}
+                      />
 
-        {/* <LineChart
+                      {/* <LineChart
           style={{position: 'absolute', top: 30}}
           data={data1}
           width={screenWidth}
@@ -649,90 +740,104 @@ await fetch('https://ntamtech.com/appuser/myrecords', {
           chartConfig={chartConfig1}
           bezier
         /> */}
-      </View>
-      <View>
-      <Text style={{fontSize:16,fontWeight:'bold',marginTop:10,}}>Records</Text>
-      <View style={{flexDirection:'row',justifyContent:'space-between',marginTop:20,}}>
-        <View>
-      <Text style={{fontWeight:'bold'}}>17 jan 2023</Text>
-      </View>
-      <View>
-      <Text style={{fontWeight:'bold'}}>10:00 am</Text>
-      </View>
-      <View>
-      <Text style={{fontWeight:'bold'}}>180/60</Text>
-      </View>
-      </View>
-      <View style={{flexDirection:'row',justifyContent:'space-between',marginTop:20,}}>
-        <View>
-      <Text style={{fontWeight:'bold'}}>18 jan 2023</Text>
-      </View>
-      <View>
-      <Text style={{fontWeight:'bold'}}>12:00 am</Text>
-      </View>
-      <View>
-      <Text style={{fontWeight:'bold'}}>140/80</Text>
-      </View>
-      </View>
-      <View style={{flexDirection:'row',justifyContent:'space-between',marginTop:20,}}>
-        <View>
-      <Text style={{fontWeight:'bold'}}>19 jan 2023</Text>
-      </View>
-      <View>
-      <Text style={{fontWeight:'bold'}}>8:00 pm</Text>
-      </View>
-      <View>
-      <Text style={{fontWeight:'bold'}}>150/90</Text>
-      </View>
-      </View>
-      </View>
-             </ScrollView>
-              </>}
+                    </View>
+                    <View>
+                      <Text
+                        style={{
+                          fontSize: 16,
+                          fontWeight: 'bold',
+                          marginTop: 10,
+                        }}>
+                        Records
+                      </Text>
+                     
+                      {alldata?.map(i => (
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            marginTop: 20,
+                          }}>
+                          <View>
+                            <Text style={{fontWeight: 'bold'}}>
+                              {moment(i?.createdAt).format('DD-MM-YYYY')}
+                            </Text>
+                          </View>
+                          <View>
+                            <Text style={{fontWeight: 'bold'}}>
+                              {moment(i?.createdAt).format('HH:MM A')}
+                            </Text>
+                          </View>
+                          <View>
+                            <Text style={{fontWeight: 'bold'}}>
+                              {i?.weight}
+                            </Text>
+                          </View>
+                        </View>
+                      ))}
+                    </View>
+                  </ScrollView>
+                </>
+              )}
             </View>
             <View style={styles.tabContentContainer}>
-              {activeTab1 === 'SL' && <>
-              <ScrollView>
-             <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between',width:'100%',}}>
-        <View>
-            <Text style={{fontWeight:'bold',color: dob === '' ? 'lightgrey' : 'black' }}> {datePlaceholder || moment(date).format('DD-MM-YYYY')}</Text>
-        </View>
-        <TouchableOpacity  onPress={() => {
-            setOpen(true);
-            setDatePlaceholder('');
-          }}>
-            <Ionicons name='calendar' size={24} color='black' />
-        </TouchableOpacity>
-        <DatePicker
-            modal
-            open={open}
-            date={date}
-            onConfirm={date => {
-              setOpen(false);
-              setDate(date);
-             const a = moment(date).format('DD-MM-YYYY')
-              setDob(a)
-            }}
-            onCancel={() => {
-              setOpen(false);
-            }}
-            mode="date"
-            onDateChange={setDate}
-          />
-          
-      </View>
-             <View style={{marginTop: 10,}}>
-        <LineChart
-          // style={{backgroundColor:'red'}}
-          data={data}
-          width={screenWidth}
-          height={250}
-          verticalLabelRotation={80}
-          chartConfig={chartConfig}
-          bezier
-          withVerticalLines={false}
-        />
+              {activeTab1 === 'SL' && (
+                <>
+                  <ScrollView>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        width: '100%',
+                      }}>
+                      <View>
+                        <Text
+                          style={{
+                            fontWeight: 'bold',
+                            color: dob === '' ? 'lightgrey' : 'black',
+                          }}>
+                          {' '}
+                          {datePlaceholder || moment(date).format('DD-MM-YYYY')}
+                        </Text>
+                      </View>
+                      <TouchableOpacity
+                        onPress={() => {
+                          setOpen(true);
+                          setDatePlaceholder('');
+                        }}>
+                        <Ionicons name="calendar" size={24} color="black" />
+                      </TouchableOpacity>
+                      <DatePicker
+                        modal
+                        open={open}
+                        date={date}
+                        onConfirm={date => {
+                          setOpen(false);
+                          setDate(date);
+                          const a = moment(date).format('DD-MM-YYYY');
+                          setDob(a);
+                        }}
+                        onCancel={() => {
+                          setOpen(false);
+                        }}
+                        mode="date"
+                        onDateChange={setDate}
+                      />
+                    </View>
+                    <View style={{marginTop: 10}}>
+                      <LineChart
+                        // style={{backgroundColor:'red'}}
+                        data={data}
+                        width={screenWidth}
+                        height={250}
+                        verticalLabelRotation={80}
+                        chartConfig={chartConfig}
+                        bezier
+                        withVerticalLines={false}
+                      />
 
-        {/* <LineChart
+                      {/* <LineChart
           style={{position: 'absolute', top: 30}}
           data={data1}
           width={screenWidth}
@@ -741,89 +846,106 @@ await fetch('https://ntamtech.com/appuser/myrecords', {
           chartConfig={chartConfig1}
           bezier
         /> */}
-      </View>
-      <View>
-      <Text style={{fontSize:16,fontWeight:'bold',marginTop:30,}}>Records</Text>
-      <View style={{flexDirection:'row',justifyContent:'space-between',marginTop:20,}}>
-        <View>
-      <Text style={{fontWeight:'bold'}}>17 jan 2023</Text>
-      </View>
-      <View>
-      <Text style={{fontWeight:'bold'}}>10:00 am</Text>
-      </View>
-      <View>
-      <Text style={{fontWeight:'bold'}}>180/60</Text>
-      </View>
-      </View>
-      <View style={{flexDirection:'row',justifyContent:'space-between',marginTop:20,}}>
-        <View>
-      <Text style={{fontWeight:'bold'}}>18 jan 2023</Text>
-      </View>
-      <View>
-      <Text style={{fontWeight:'bold'}}>12:00 am</Text>
-      </View>
-      <View>
-      <Text style={{fontWeight:'bold'}}>140/80</Text>
-      </View>
-      </View>
-      <View style={{flexDirection:'row',justifyContent:'space-between',marginTop:20,}}>
-        <View>
-      <Text style={{fontWeight:'bold'}}>19 jan 2023</Text>
-      </View>
-      <View>
-      <Text style={{fontWeight:'bold'}}>8:00 pm</Text>
-      </View>
-      <View>
-      <Text style={{fontWeight:'bold'}}>150/90</Text>
-      </View>
-      </View>
-      </View>
-             </ScrollView>
-              </>}
+                    </View>
+                    <View>
+                      <Text
+                        style={{
+                          fontSize: 16,
+                          fontWeight: 'bold',
+                          marginTop: 30,
+                        }}>
+                        Records
+                      </Text>
+                      {alldata?.map(i => (
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            marginTop: 20,
+                          }}>
+                          <View>
+                            <Text style={{fontWeight: 'bold'}}>
+                              {moment(i?.createdAt).format('DD-MM-YYYY')}
+                            </Text>
+                          </View>
+                          <View>
+                            <Text style={{fontWeight: 'bold'}}>
+                              {moment(i?.createdAt).format('HH:MM A')}
+                            </Text>
+                          </View>
+                          <View>
+                            <Text style={{fontWeight: 'bold'}}>
+                              {i?.sugar_level}
+                            </Text>
+                          </View>
+                        </View>
+                      ))}
+                    </View>
+                  </ScrollView>
+                </>
+              )}
             </View>
             <View style={styles.tabContentContainer}>
-              {activeTab1 === 'SH' && <>
-              <ScrollView>
-             <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between',width:'100%',}}>
-        <View>
-            <Text style={{fontWeight:'bold',color: dob === '' ? 'lightgrey' : 'black' }}> {datePlaceholder || moment(date).format('DD-MM-YYYY')}</Text>
-        </View>
-        <TouchableOpacity  onPress={() => {
-            setOpen(true);
-            setDatePlaceholder('');
-          }}>
-            <Ionicons name='calendar' size={24} color='black' />
-        </TouchableOpacity>
-        <DatePicker
-            modal
-            open={open}
-            date={date}
-            onConfirm={date => {
-              setOpen(false);
-              setDate(date);
-             const a = moment(date).format('DD-MM-YYYY')
-              setDob(a)
-            }}
-            onCancel={() => {
-              setOpen(false);
-            }}
-            mode="date"
-            onDateChange={setDate}
-          />
-      </View>
-             <View style={{marginTop: 20,}}>
-        <LineChart
-          style={{backgroundColor:Colors.light,borderRadius:10,}}
-          data={data}
-          width={screenWidth}
-          height={300}
-          verticalLabelRotation={80}
-          chartConfig={chartConfig}
-          bezier
-          withVerticalLines={false}
-        />
+              {activeTab1 === 'SH' && (
+                <>
+                  <ScrollView>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        width: '100%',
+                      }}>
+                      <View>
+                        <Text
+                          style={{
+                            fontWeight: 'bold',
+                            color: dob === '' ? 'lightgrey' : 'black',
+                          }}>
+                          {' '}
+                          {datePlaceholder || moment(date).format('DD-MM-YYYY')}
+                        </Text>
+                      </View>
+                      <TouchableOpacity
+                        onPress={() => {
+                          setOpen(true);
+                          setDatePlaceholder('');
+                        }}>
+                        <Ionicons name="calendar" size={24} color="black" />
+                      </TouchableOpacity>
+                      <DatePicker
+                        modal
+                        open={open}
+                        date={date}
+                        onConfirm={date => {
+                          setOpen(false);
+                          setDate(date);
+                          const a = moment(date).format('DD-MM-YYYY');
+                          setDob(a);
+                        }}
+                        onCancel={() => {
+                          setOpen(false);
+                        }}
+                        mode="date"
+                        onDateChange={setDate}
+                      />
+                    </View>
+                    <View style={{marginTop: 20}}>
+                      <LineChart
+                        style={{
+                          backgroundColor: Colors.light,
+                          borderRadius: 10,
+                        }}
+                        data={data}
+                        width={screenWidth}
+                        height={300}
+                        verticalLabelRotation={80}
+                        chartConfig={chartConfig}
+                        bezier
+                        withVerticalLines={false}
+                      />
 
-        {/* <LineChart
+                      {/* <LineChart
           style={{position: 'absolute', top: 30}}
           data={data1}
           width={screenWidth}
@@ -832,192 +954,247 @@ await fetch('https://ntamtech.com/appuser/myrecords', {
           chartConfig={chartConfig1}
           bezier
         /> */}
-      </View>
-      <View>
-      <Text style={{fontSize:16,fontWeight:'bold',marginTop:10,}}>Records</Text>
-      <View style={{flexDirection:'row',justifyContent:'space-between',marginTop:20,}}>
-        <View>
-      <Text style={{fontWeight:'bold'}}>17 jan 2023</Text>
-      </View>
-      <View>
-      <Text style={{fontWeight:'bold'}}>10:00 am</Text>
-      </View>
-      <View>
-      <Text style={{fontWeight:'bold'}}>180/60</Text>
-      </View>
-      </View>
-      <View style={{flexDirection:'row',justifyContent:'space-between',marginTop:20,}}>
-        <View>
-      <Text style={{fontWeight:'bold'}}>18 jan 2023</Text>
-      </View>
-      <View>
-      <Text style={{fontWeight:'bold'}}>12:00 am</Text>
-      </View>
-      <View>
-      <Text style={{fontWeight:'bold'}}>140/80</Text>
-      </View>
-      </View>
-      <View style={{flexDirection:'row',justifyContent:'space-between',marginTop:20,}}>
-        <View>
-      <Text style={{fontWeight:'bold'}}>19 jan 2023</Text>
-      </View>
-      <View>
-      <Text style={{fontWeight:'bold'}}>8:00 pm</Text>
-      </View>
-      <View>
-      <Text style={{fontWeight:'bold'}}>150/90</Text>
-      </View>
-      </View>
-      </View>
-             </ScrollView>
-              </>}
+                    </View>
+                    <View>
+                      <Text
+                        style={{
+                          fontSize: 16,
+                          fontWeight: 'bold',
+                          marginTop: 10,
+                        }}>
+                        Records
+                      </Text>
+                      {alldata?.map(i => (
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            marginTop: 20,
+                          }}>
+                          <View>
+                            <Text style={{fontWeight: 'bold'}}>
+                              {moment(i?.createdAt).format('DD-MM-YYYY')}
+                            </Text>
+                          </View>
+                          <View>
+                            <Text style={{fontWeight: 'bold'}}>
+                              {moment(i?.createdAt).format('HH:MM A')}
+                            </Text>
+                          </View>
+                          <View>
+                            <Text style={{fontWeight: 'bold'}}>
+                              {i?.sleeping_hours}
+                            </Text>
+                          </View>
+                        </View>
+                      ))}
+                    </View>
+                  </ScrollView>
+                </>
+              )}
             </View>
             <View style={styles.tabContentContainer}>
-              {activeTab1 === 'Bp' && <>
-             <ScrollView showsVerticalScrollIndicator={false}>
-             <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between',width:'100%',}}>
-        <View>
-            <Text style={{fontWeight:'bold',color: dob === '' ? 'lightgrey' : 'black' }}> {datePlaceholder || moment(date).format('DD-MM-YYYY')}</Text>
-        </View>
-        <TouchableOpacity  onPress={() => {
-            setOpen(true);
-            setDatePlaceholder('');
-          }}>
-            <Ionicons name='calendar' size={24} color='black' />
-        </TouchableOpacity>
-        <DatePicker
-            modal
-            open={open}
-            date={date}
-            onConfirm={date => {
-              setOpen(false);
-              setDate(date);
-             const a = moment(date).format('DD-MM-YYYY')
-              setDob(a)
-            }}
-            onCancel={() => {
-              setOpen(false);
-            }}
-            mode="date"
-            onDateChange={setDate}
-          />
-      </View>
-             <View style={{marginTop: 10,}}>
-        <LineChart
-          style={{borderRadius:10,}}
-          data={data}
-          width={screenWidth}
-          height={350}
-          verticalLabelRotation={95}
-          chartConfig={chartConfig}
-          bezier
-          withVerticalLines={false}
-        />
+              {activeTab1 === 'Bp' && (
+                <>
+                  <ScrollView showsVerticalScrollIndicator={false}>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        width: '100%',
+                      }}>
+                      <View>
+                        <Text
+                          style={{
+                            fontWeight: 'bold',
+                            color: dob === '' ? 'lightgrey' : 'black',
+                          }}>
+                          {' '}
+                          {datePlaceholder || moment(date).format('DD-MM-YYYY')}
+                        </Text>
+                      </View>
+                      <TouchableOpacity
+                        onPress={() => {
+                          setOpen(true);
+                          setDatePlaceholder('');
+                        }}>
+                        <Ionicons name="calendar" size={24} color="black" />
+                      </TouchableOpacity>
+                      <DatePicker
+                        modal
+                        open={open}
+                        date={date}
+                        onConfirm={date => {
+                          setOpen(false);
+                          setDate(date);
+                          const a = moment(date).format('DD-MM-YYYY');
+                          setDob(a);
+                        }}
+                        onCancel={() => {
+                          setOpen(false);
+                        }}
+                        mode="date"
+                        onDateChange={setDate}
+                      />
+                    </View>
+                    <View style={{marginTop: 10}}>
+                      <LineChart
+                        style={{borderRadius: 10}}
+                        data={data}
+                        width={screenWidth}
+                        height={350}
+                        verticalLabelRotation={95}
+                        chartConfig={chartConfig}
+                        bezier
+                        withVerticalLines={false}
+                      />
 
-        <LineChart
-          style={{position: 'absolute', }}
-          data={data1}
-          width={screenWidth}
-          height={300}
-          verticalLabelRotation={80}
-          chartConfig={chartConfig1}
-          bezier
-        />
-      </View>
-      <View style={{flexDirection:'row',justifyContent:'space-evenly',marginTop:20,}}></View>
-        <View style={{flexDirection:'row',alignItems:'center',}}>
-          <View style={{borderRadius:100,backgroundColor:'#0F0ADE',height:10,width:10,}}></View>
-          <Text>   Diastole</Text>
-        </View>
-        <TouchableOpacity onPress={records}>
-          <LinearGradient
-            style={{height:45,width:343,alignSelf:'center',justifyContent:'center',marginTop:40, borderRadius: 40,}}
-            locations={[0, 1]}
-            colors={["#bf6bbb", "#716eaa"]}
-            useAngle={true}
-            angle={180}
-          >
-            
-              
-                <Text style={[styles.button1, styles.logInTypo]}>Save</Text>
-              
-          </LinearGradient>
-          </TouchableOpacity>
+                      <LineChart
+                        style={{position: 'absolute'}}
+                        data={data1}
+                        width={screenWidth}
+                        height={300}
+                        verticalLabelRotation={80}
+                        chartConfig={chartConfig1}
+                        bezier
+                      />
+                    </View>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-evenly',
+                        marginTop: 20,
+                      }}></View>
+                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                      <View
+                        style={{
+                          borderRadius: 100,
+                          backgroundColor: '#0F0ADE',
+                          height: 10,
+                          width: 10,
+                        }}></View>
+                      <Text> Diastole</Text>
+                    </View>
+                    <TouchableOpacity onPress={records}>
+                      <LinearGradient
+                        style={{
+                          height: 45,
+                          width: 343,
+                          alignSelf: 'center',
+                          justifyContent: 'center',
+                          marginTop: 40,
+                          borderRadius: 40,
+                        }}
+                        locations={[0, 1]}
+                        colors={['#bf6bbb', '#716eaa']}
+                        useAngle={true}
+                        angle={180}>
+                        <Text style={[styles.button1, styles.logInTypo]}>
+                          Save
+                        </Text>
+                      </LinearGradient>
+                    </TouchableOpacity>
 
+                    <Modal
+                      animationType="fade"
+                      transparent={true}
+                      visible={modalVisible}
+                      onRequestClose={() => {
+                        setModalVisible(!modalVisible);
+                      }}>
+                      <View
+                        style={{
+                          backgroundColor: '#8BB561',
+                          height: 80,
+                          width: '90%',
+                          justifyContent: 'center',
+                          alignSelf: 'center',
+                          position: 'absolute',
+                          bottom: 40,
+                          borderRadius: 10,
+                        }}>
+                        <View
+                          style={{flexDirection: 'row', alignItems: 'center'}}>
+                          <Ionicons
+                            style={{marginLeft: 20}}
+                            name="checkmark-circle"
+                            size={65}
+                            color={'white'}
+                          />
 
-          <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View style={{backgroundColor:'#8BB561',height:80,width:'90%',justifyContent:'center',alignSelf:'center',position:'absolute',bottom:40,borderRadius:10}}>
-         
-        <View style={{flexDirection:'row',alignItems:'center'}}>
-        <Ionicons
-        style={{marginLeft:20}}
-        name='checkmark-circle'
-        size={65}
-        color={'white'} />
+                          <View style={{}}>
+                            <Text
+                              style={{
+                                color: 'white',
+                                fontWeight: 'bold',
+                                fontSize: 12,
+                                textAlign: 'center',
+                              }}>
+                              Saved Successfully
+                            </Text>
+                          </View>
+                        </View>
+                      </View>
+                    </Modal>
 
-
-<View style={{}}>
-        <Text style={{color:'white',fontWeight:'bold',fontSize:12,textAlign:'center'}}>Saved Successfully</Text>
-       
-      </View>
-        </View>
-        </View>
-      </Modal>
-
-
-
-        
-      <View>
-        <Text style={{fontSize:16,fontWeight:'bold',marginTop:20,}}>Bp Guide</Text>
-        <View style={{marginHorizontal:10,}}>
-          <Image style={{width:350,height:220,resizeMode:'contain'}} source={require('../../../assets/rectangle-226031.png')} />
-        </View>
-      </View>
-      <View>
-      <Text style={{fontSize:16,fontWeight:'bold',marginTop:10,}}>Records</Text>
-      <View style={{flexDirection:'row',justifyContent:'space-between',marginTop:20,}}>
-        <View>
-      <Text style={{fontWeight:'bold'}}>17 jan 2023</Text>
-      </View>
-      <View>
-      <Text style={{fontWeight:'bold'}}>10:00 am</Text>
-      </View>
-      <View>
-      <Text style={{fontWeight:'bold'}}>180/60</Text>
-      </View>
-      </View>
-      <View style={{flexDirection:'row',justifyContent:'space-between',marginTop:20,}}>
-        <View>
-      <Text style={{fontWeight:'bold'}}>18 jan 2023</Text>
-      </View>
-      <View>
-      <Text style={{fontWeight:'bold'}}>12:00 am</Text>
-      </View>
-      <View>
-      <Text style={{fontWeight:'bold'}}>140/80</Text>
-      </View>
-      </View>
-      <View style={{flexDirection:'row',justifyContent:'space-between',marginTop:20,}}>
-        <View>
-      <Text style={{fontWeight:'bold'}}>19 jan 2023</Text>
-      </View>
-      <View>
-      <Text style={{fontWeight:'bold'}}>8:00 pm</Text>
-      </View>
-      <View>
-      <Text style={{fontWeight:'bold'}}>150/90</Text>
-      </View>
-      </View>
-      </View>
-             </ScrollView>
-              </>}
+                    <View>
+                      <Text
+                        style={{
+                          fontSize: 16,
+                          fontWeight: 'bold',
+                          marginTop: 20,
+                        }}>
+                        Bp Guide
+                      </Text>
+                      <View style={{marginHorizontal: 10}}>
+                        <Image
+                          style={{
+                            width: 350,
+                            height: 220,
+                            resizeMode: 'contain',
+                          }}
+                          source={require('../../../assets/rectangle-226031.png')}
+                        />
+                      </View>
+                    </View>
+                    <View>
+                      <Text
+                        style={{
+                          fontSize: 16,
+                          fontWeight: 'bold',
+                          marginTop: 10,
+                        }}>
+                        Records
+                      </Text>
+                      {alldata?.map(i => (
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            marginTop: 20,
+                          }}>
+                          <View>
+                            <Text style={{fontWeight: 'bold'}}>
+                              {moment(i?.createdAt).format('DD-MM-YYYY')}
+                            </Text>
+                          </View>
+                          <View>
+                            <Text style={{fontWeight: 'bold'}}>
+                              {moment(i?.createdAt).format('HH:MM A')}
+                            </Text>
+                          </View>
+                          <View>
+                            <Text style={{fontWeight: 'bold'}}>
+                              {i?.blood_pressure}/{i?.blood_pressure_systole}
+                            </Text>
+                          </View>
+                        </View>
+                      ))}
+                    </View>
+                  </ScrollView>
+                </>
+              )}
             </View>
           </View>
         )}

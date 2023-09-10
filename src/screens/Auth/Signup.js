@@ -207,7 +207,7 @@ const Signup = ({ navigation }) => {
             marginTop: 20,
           }}>
           <TextInput
-            style={{ fontSize: 16, color: Color.systemBlack, alignItems: 'center', marginTop: 15, marginLeft: 5, }}
+            style={{ fontSize: 16, color: Color.systemBlack, alignItems: 'center', marginLeft: 5, }}
             placeholder=" First Name"
             placeholderTextColor={'lightgrey'}
             placeholderStyle={{}}
@@ -232,7 +232,7 @@ const Signup = ({ navigation }) => {
             marginTop: 15,
           }}>
           <TextInput
-            style={{ fontSize: 16, color: Color.systemBlack, marginTop: 15, marginLeft: 5, }}
+            style={{ fontSize: 16, color: Color.systemBlack, marginLeft: 5, }}
             placeholder=" Last Name"
             placeholderTextColor={'lightgrey'}
             placeholderStyle={{}}
@@ -243,7 +243,7 @@ const Signup = ({ navigation }) => {
         {error?.lastname && <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginTop: 10 }}>{error?.lastname}</Text>}
 
 
-        <View style={{ marginTop: 5, zIndex: 9999 }}>
+        <View style={{ marginTop: 5, zIndex: 9999,marginBottom:gender?100:0 }}>
           <DropDown
             placeholder={'Gender'}
             items={items}
@@ -326,7 +326,7 @@ const Signup = ({ navigation }) => {
           <Text style={{fontSize:16,fontWeight:'bold'}}>Note<Text style={{fontSize:14,fontWeight:'400'}}> : You must be 18 years or above to use this app , otherwise you wont be able to signup</Text> </Text>
         </View> */}
 
-        <View style={{ marginTop: 0, zIndex: 9999 }}>
+        <View style={{ marginTop: 0, zIndex: 9999 ,marginBottom:open2?150:0}}>
           <DropDown
             placeholder={'Marital Status'}
             items={items2}
@@ -342,7 +342,7 @@ const Signup = ({ navigation }) => {
             }}
           />
         </View>
-        <View style={{ top: 20, }}>
+        <View style={{  }}>
           {error?.drop2 && <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginTop: 10 }}>{error?.drop2}</Text>}
         </View>
         {/* <View>
@@ -365,7 +365,7 @@ const Signup = ({ navigation }) => {
             marginTop: 40,
           }}>
           <TextInput
-            style={{ fontSize: 16, color: Color.systemBlack, marginTop: 15, zIndex: 1, marginLeft: 5, }}
+            style={{ fontSize: 16, color: Color.systemBlack, zIndex: 1, marginLeft: 5, }}
             placeholder=" Email"
             placeholderTextColor={'lightgrey'}
             placeholderStyle={{}}
@@ -391,7 +391,7 @@ const Signup = ({ navigation }) => {
             flexDirection: 'row', justifyContent: 'space-between'
           }}>
           <TextInput
-            style={{ fontSize: 16, color: Color.systemBlack, marginTop: 5, width: '85%' }}
+            style={{ fontSize: 16, color: Color.systemBlack, width: '85%' }}
             placeholder=" Password"
             placeholderTextColor={'lightgrey'}
             placeholderStyle={{}}
@@ -434,7 +434,7 @@ const Signup = ({ navigation }) => {
             flexDirection: 'row', justifyContent: 'space-between'
           }}>
           <TextInput
-            style={{ fontSize: 16, color: Color.systemBlack, marginTop: 5, width: '85%' }}
+            style={{ fontSize: 16, color: Color.systemBlack, width: '85%' }}
             placeholder=" Confirm Password"
             placeholderTextColor={'lightgrey'}
             placeholderStyle={{}}
@@ -462,7 +462,7 @@ const Signup = ({ navigation }) => {
         </View>
         {error?.cpassword && <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginTop: 10 }}>{error?.cpassword}</Text>}
 
-        <View style={{ alignSelf: 'center' }}>
+        {/* <View style={{ alignSelf: 'center' }}>
           <Text
             style={{
               color: 'lightgrey',
@@ -472,9 +472,9 @@ const Signup = ({ navigation }) => {
             }}>
             ------------------ or create using -----------------
           </Text>
-        </View>
+        </View> */}
 
-        <View
+        {/* <View
           style={{
             alignItems: 'center',
             flexDirection: 'row',
@@ -497,7 +497,7 @@ const Signup = ({ navigation }) => {
             resizeMode="contain"
             source={require('../../../assets/apple-logo.png')}
           />
-        </View>
+        </View> */}
         <View style={{ alignSelf: 'center', width: 350, }}>
           <Text
             style={{

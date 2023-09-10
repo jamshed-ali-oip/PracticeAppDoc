@@ -85,3 +85,63 @@ export const getreflection = (data) => async dispatch => {
       console.log(JSON.stringify(error));
     }
   };
+  export const UpdateProfile = (data,navigation) => async dispatch => {
+    console.log("object",data)
+    try {
+      const response = await instance.put(`/appuser/app-user`, data);
+      if (response) {
+        navigation.navigate("Tab2")
+      }
+      
+    } catch (error) {
+      console.log(JSON.stringify(error));
+    }
+  };
+  export const ChangePassword = (data,navigation) => async dispatch => {
+    console.log("object",data)
+    try {
+      const response = await instance.patch(`/appuser/app-user`, data);
+      if (response) {
+        navigation.navigate("Tab2")
+      }
+      
+    } catch (error) {
+      console.log(JSON.stringify(error));
+    }
+  };
+  export const Allservey = (data) => async dispatch => {
+    // console.log("object",data)
+    try {
+      const response = await instance.get(`/appuser/health-surveys?content_type=English`);
+      if (response) {
+        return response
+      }
+      // alert("hogya")
+    } catch (error) {
+      console.log(JSON.stringify(error));
+    }
+  };
+  export const post_Records_of_health = (data, navigation) => async dispatch => {
+    console.log("object",data)
+    try {
+      const response = await instance.post(`/appuser/myrecords`, data);
+      if (response) {
+        navigation.navigate('Tab2');
+      }
+      // alert("hogya")
+    } catch (error) {
+      console.log(JSON.stringify(error));
+    }
+  };
+  export const get_Records_of_health = (body) => async dispatch => {
+//  alert(date1,date2)   
+    try {
+      const response = await instance.get(`/appuser/myrecords?from_date=${body?.date1}&till_date=${body?.date2}`);
+      if (response) {
+       return response
+      }
+      // alert("hogya")
+    } catch (error) {
+      console.log(JSON.stringify(error));
+    }
+  };

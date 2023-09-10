@@ -26,7 +26,7 @@ const Authstack = () => {
     //   const Stack = createSharedElementStackNavigator();
     return (
         <Stack.Navigator screenOptions={options}
-        // initialRouteName='PainAnalog'
+        // initialRouteName='Demographics2'
         >
             {/* authscreens  */}
             <Stack.Screen name="Tutorial" component={Tutorial} />

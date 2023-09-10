@@ -1,25 +1,41 @@
-import { View, Text, TouchableOpacity, StyleSheet, TextInput, ScrollView, Pressable, Image } from 'react-native'
-import React, { useState, useEffect } from 'react'
-import Ionicons from 'react-native-vector-icons/Ionicons'
-import Feather from 'react-native-vector-icons/Feather'
-import Colors from '../../constants/Colors'
-import { Color, FontFamily, Border, FontSize, Padding } from "../../../GlobalStyles";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  TextInput,
+  ScrollView,
+  Pressable,
+  Image,
+} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import Feather from 'react-native-vector-icons/Feather';
+import Colors from '../../constants/Colors';
+import {
+  Color,
+  FontFamily,
+  Border,
+  FontSize,
+  Padding,
+} from '../../../GlobalStyles';
 import DatePicker from 'react-native-date-picker';
 import moment from 'moment';
 import Swipeable from 'react-native-swipeable';
+import {useDispatch} from 'react-redux';
+import {Allservey} from '../../redux/actions/user.action';
 
-
-
-const MyHealthSurvey = ({ navigation }) => {
-
+const MyHealthSurvey = ({navigation}) => {
   const [dob, setDob] = useState('');
   const [date, setDate] = useState(new Date());
   const [datePlaceholder, setDatePlaceholder] = useState('Select Date');
   const [activeTab, setActiveTab] = useState('available');
   const [open, setOpen] = useState(false);
   const [availableSurveys, setAvailableSurveys] = useState([]);
+  const [dattta, setdattta] = useState([]);
+  const [Completed, setCompleted] = useState([]);
 
-  const handleTabChange = (tab) => {
+  const handleTabChange = tab => {
     setActiveTab(tab);
   };
 
@@ -28,15 +44,15 @@ const MyHealthSurvey = ({ navigation }) => {
   }, []);
 
   const fetchAvailableSurveys = () => {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       // Simulating API call delay with setTimeout
       setTimeout(() => {
         const fakeAvailableSurveys = [
           // Sample data (replace with your actual survey data)
-          { id: 1, title: 'Survey 1', description: 'Description of Survey 1' },
-          { id: 2, title: 'Survey 2', description: 'Description of Survey 2' },
-          { id: 3, title: 'Survey 3', description: 'Description of Survey 3' },
-          { id: 4, title: 'Survey 4', description: 'Description of Survey 4' },
+          {id: 1, title: 'Survey 1', description: 'Description of Survey 1'},
+          {id: 2, title: 'Survey 2', description: 'Description of Survey 2'},
+          {id: 3, title: 'Survey 3', description: 'Description of Survey 3'},
+          {id: 4, title: 'Survey 4', description: 'Description of Survey 4'},
 
           // Add more survey objects as needed
         ];
@@ -45,60 +61,95 @@ const MyHealthSurvey = ({ navigation }) => {
     });
   };
 
-  const handleSwipeToDelete = (item) => {
+  const handleSwipeToDelete = item => {
     // Update the availableSurveys state by filtering out the deleted survey item
-    setAvailableSurveys((prevSurveys) => prevSurveys.filter((survey) => survey.id !== item.id));
+    setAvailableSurveys(prevSurveys =>
+      prevSurveys.filter(survey => survey.id !== item.id),
+    );
   };
 
   useEffect(() => {
-    // Call the function to fetch available surveys data
-    fetchAvailableSurveys()
-      .then((data) => {
-        // Update the 'availableSurveys' state with the fetched data
-        setAvailableSurveys(data);
-      })
-      .catch((error) => {
-        console.error('Error fetching available surveys:', error);
-      });
+    Serveys();
   }, []);
 
-
+  const dispatch = useDispatch();
+  const Serveys = async () => {
+    const mydata = await dispatch(Allservey());
+    // setdattta(mydata?.data?.data)
+    const my = mydata?.data?.data?.filter(data => data.is_completed == false);
+    const myComple = mydata?.data?.data?.filter(
+      data => data.is_completed == true,
+    );
+    setdattta(my);
+    console.log('888888888888888888888888888888888888', dattta);
+    setCompleted(myComple);
+  };
+  console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%', Completed);
+  console.log(dattta);
   return (
-    <View style={{ flex: 1, backgroundColor: Colors.white }}>
-      <View style={{ marginTop: 20, width: '95%', marginHorizontal: 10, }}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20, }}>
+    <View style={{flex: 1, backgroundColor: Colors.white}}>
+      <View style={{marginTop: 20, width: '95%', marginHorizontal: 10}}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginBottom: 20,
+          }}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Ionicons name='arrow-back-outline' size={24} color={Colors.purple} style={{}} />
+            <Ionicons
+              name="arrow-back-outline"
+              size={24}
+              color={Colors.purple}
+              style={{}}
+            />
           </TouchableOpacity>
-          <View style={{ marginHorizontal: '28%' }}>
-            <Text style={{ color: Colors.purple, fontWeight: 'bold', fontSize: 18 }}>My Health Survey</Text>
+          <View style={{marginHorizontal: '28%'}}>
+            <Text
+              style={{color: Colors.purple, fontWeight: 'bold', fontSize: 18}}>
+              My Health Survey
+            </Text>
           </View>
         </View>
         <View style={styles.tabsContainer}>
           <TouchableOpacity
-            style={[styles.tabItem, activeTab === 'available' && styles.activeTab]}
-            onPress={() => handleTabChange('available')}
-          >
+            style={[
+              styles.tabItem,
+              activeTab === 'available' && styles.activeTab,
+            ]}
+            onPress={() => handleTabChange('available')}>
             <Text style={styles.tabText}>Available</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={[styles.tabItem, activeTab === 'completed' && styles.activeTab]}
-            onPress={() => handleTabChange('completed')}
-          >
+            style={[
+              styles.tabItem,
+              activeTab === 'completed' && styles.activeTab,
+            ]}
+            onPress={() => handleTabChange('completed')}>
             <Text style={styles.tabText}>Completed</Text>
           </TouchableOpacity>
         </View>
 
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '90%', marginHorizontal: 20, }}>
-          <View>
-            <Text style={{ color: dob === '' ? 'lightgrey' : 'black' }}> {datePlaceholder || moment(date).format('DD-MM-YYYY')}</Text>
-          </View>
-          <TouchableOpacity onPress={() => {
-            setOpen(true);
-            setDatePlaceholder('');
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            width: '90%',
+            marginHorizontal: 20,
           }}>
-            <Ionicons name='calendar' size={24} color='black' />
+          <View>
+            <Text style={{color: dob === '' ? 'lightgrey' : 'black'}}>
+              {' '}
+              {datePlaceholder || moment(date).format('DD-MM-YYYY')}
+            </Text>
+          </View>
+          <TouchableOpacity
+            onPress={() => {
+              setOpen(true);
+              setDatePlaceholder('');
+            }}>
+            <Ionicons name="calendar" size={24} color="black" />
           </TouchableOpacity>
           <DatePicker
             modal
@@ -107,8 +158,8 @@ const MyHealthSurvey = ({ navigation }) => {
             onConfirm={date => {
               setOpen(false);
               setDate(date);
-              const a = moment(date).format('DD-MM-YYYY')
-              setDob(a)
+              const a = moment(date).format('DD-MM-YYYY');
+              setDob(a);
             }}
             onCancel={() => {
               setOpen(false);
@@ -122,88 +173,109 @@ const MyHealthSurvey = ({ navigation }) => {
           <View style={styles.tabContent}>
             <ScrollView showsVerticalScrollIndicator={false}>
               {/* Survey items */}
-              {availableSurveys.map((surveyItem) => (
+              {dattta?.map(surveyItem => (
                 <Swipeable
-                  key={surveyItem.id}
+                  key={surveyItem._id}
                   rightButtons={[
                     <TouchableOpacity
                       style={styles.deleteButton}
-                      onPress={() => handleSwipeToDelete(surveyItem)}
-                    >
+                      onPress={() => handleSwipeToDelete(surveyItem)}>
                       <Text style={styles.deleteButtonText}>Delete</Text>
                     </TouchableOpacity>,
-                  ]}
-                >
+                  ]}>
                   {/* Survey item content */}
-                  <TouchableOpacity onPress={() => navigation.navigate('Question1')}>
-                    <View style={{ borderWidth: 0.5, borderRadius: 10, borderColor: 'gray', marginTop: 20, }}>
-                      <View style={{ padding: 15, marginTop: 10, marginBottom: 10, }}>
-                        <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 16, letterSpacing: 1, }}>QUICK INVENTORY OF DEPRESSIVE SYMTOMALTOLOGY (QIDS-SR)</Text>
-                        <Text style={{ fontSize: 13 }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt..</Text>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate('Question1')}>
+                    <View
+                      style={{
+                        borderWidth: 0.5,
+                        borderRadius: 10,
+                        borderColor: 'gray',
+                        marginTop: 20,
+                      }}>
+                      <View
+                        style={{padding: 15, marginTop: 10, marginBottom: 10}}>
+                        <Text
+                          style={{
+                            color: 'black',
+                            fontWeight: 'bold',
+                            fontSize: 16,
+                            letterSpacing: 1,
+                          }}>
+                          {surveyItem?.title}
+                          {/* QUICK INVENTORY OF DEPRESSIVE SYMTOMALTOLOGY (QIDS-SR) */}
+                        </Text>
+                        <Text style={{fontSize: 13}}>
+                        {surveyItem?.description}
+                        </Text>
                       </View>
                     </View>
                   </TouchableOpacity>
                 </Swipeable>
-
-              ))}
-              {availableSurveys.map((surveyItem) => (
-                <Swipeable
-                  key={surveyItem.id}
-                  rightButtons={[
-                    <View>
-                      <TouchableOpacity
-                        style={styles.deleteButton}
-                        onPress={() => handleSwipeToDelete(surveyItem)}
-                      >
-                        <Text style={styles.deleteButtonText}>Delete</Text>
-                      </TouchableOpacity>
-                    </View>
-                  ]}
-                >
-                  {/* Survey item content */}
-                  <TouchableOpacity>
-                    <View style={{ borderWidth: 0.5, borderRadius: 10, borderColor: 'gray', marginTop: 20, }}>
-                      <View style={{ padding: 15, marginTop: 10, marginBottom: 10, }}>
-                        <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 16, letterSpacing: 1, }}>MEDICAL OUTCOME STUDY HEALTH SURVEY</Text>
-                        <Text style={{ fontSize: 13 }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt..</Text>
-                      </View>
-                    </View>
-                  </TouchableOpacity>
-                </Swipeable>
-
               ))}
             </ScrollView>
           </View>
-
         )}
 
         {activeTab === 'completed' && (
           <View style={styles.tabContent}>
-
             <ScrollView showsVerticalScrollIndicator={false}>
-              <TouchableOpacity onPress={() => navigation.navigate('Question1LES')} >
-                <View style={{ borderWidth: 1, borderRadius: 10, borderColor: 'gray', marginTop: 20, padding: 5, borderColor: '#78A44D' }}>
-                  <View style={{ backgroundColor: '#EBFFD8', width: 75, padding: 5, marginTop: 5, marginLeft: 5, borderRadius: 10, }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                      <Feather name='check-circle' size={20} />
-                      <Text>Done</Text>
+              {Completed?.map((i, index) => (
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('Question1LES')}>
+                  <View
+                    style={{
+                      borderWidth: 1,
+                      borderRadius: 10,
+                      borderColor: 'gray',
+                      marginTop: 20,
+                      padding: 5,
+                      borderColor: '#78A44D',
+                    }}>
+                    <View
+                      style={{
+                        backgroundColor: '#EBFFD8',
+                        width: 75,
+                        padding: 5,
+                        marginTop: 5,
+                        marginLeft: 5,
+                        borderRadius: 10,
+                      }}>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                        }}>
+                        <Feather name="check-circle" size={20} />
+                        <Text>Done</Text>
+                      </View>
+                    </View>
+                    <View style={{padding: 5, marginBottom: 10}}>
+                      <Text
+                        style={{
+                          color: 'black',
+                          fontWeight: 'bold',
+                          fontSize: 16,
+                          letterSpacing: 1,
+                        }}>
+                       {"("+i?.title+")"}
+                      </Text>
+                      <Text style={{fontSize: 13}}>
+                       {i?.description}
+                      </Text>
                     </View>
                   </View>
-                  <View style={{ padding: 5, marginBottom: 10, }}>
-                    <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 16, letterSpacing: 1, }}>(Q-LES-Q-SF)</Text>
-                    <Text style={{ fontSize: 13 }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt..</Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
+                </TouchableOpacity>
+              ))}
             </ScrollView>
           </View>
         )}
       </View>
     </View>
-  )
-}
+  );
+};
 
-export default MyHealthSurvey
+export default MyHealthSurvey;
 
 const styles = StyleSheet.create({
   container: {
@@ -274,38 +346,38 @@ const styles = StyleSheet.create({
   navPosition: {
     width: 375,
     left: 0,
-    position: "absolute",
+    position: 'absolute',
   },
   parentPosition2: {
     left: 16,
-    alignItems: "center",
-    position: "absolute",
+    alignItems: 'center',
+    position: 'absolute',
   },
   separatorLayout: {
-    display: "none",
+    display: 'none',
     backgroundColor: Color.separatorColorLightWithTransparency,
     borderRadius: 0,
-    width: "0.57%",
-    position: "absolute",
+    width: '0.57%',
+    position: 'absolute',
   },
   labelTypo1: {
     width: 147,
-    display: "flex",
-    textAlign: "center",
+    display: 'flex',
+    textAlign: 'center',
     fontFamily: FontFamily.regularFootnote13pt,
-    fontWeight: "500",
+    fontWeight: '500',
     fontSize: 13,
     left: 8,
     height: 15,
-    top: "50%",
+    top: '50%',
     letterSpacing: 0,
-    justifyContent: "center",
-    alignItems: "center",
-    position: "absolute",
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
   },
   parentPosition: {
     top: 13,
-    position: "absolute",
+    position: 'absolute',
   },
   childLayout: {
     width: 115,
@@ -314,7 +386,7 @@ const styles = StyleSheet.create({
   caloriesSpaceBlock: {
     marginTop: 5,
     width: 195,
-    textAlign: "left",
+    textAlign: 'left',
   },
   maskLayout: {
     height: 136,
@@ -327,36 +399,36 @@ const styles = StyleSheet.create({
   timeLayout: {
     height: 21,
     width: 54,
-    position: "absolute",
+    position: 'absolute',
   },
   tabsPosition: {
     marginLeft: -187.5,
-    left: "50%",
+    left: '50%',
     width: 375,
-    position: "absolute",
+    position: 'absolute',
   },
   homeLayout: {
     borderRadius: Border.br_81xl,
-    position: "absolute",
+    position: 'absolute',
   },
   timePosition: {
     left: 0,
     top: 0,
   },
   parentPosition1: {
-    top: "50%",
-    left: "50%",
-    justifyContent: "center",
-    alignItems: "center",
-    position: "absolute",
+    top: '50%',
+    left: '50%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
   },
   labelTypo: {
     marginTop: 2,
     color: Color.plum_200,
     fontSize: FontSize.size_2xs,
-    textAlign: "center",
+    textAlign: 'center',
     fontFamily: FontFamily.regularFootnote13pt,
-    fontWeight: "500",
+    fontWeight: '500',
     letterSpacing: 0,
   },
   image4Icon: {
@@ -365,7 +437,7 @@ const styles = StyleSheet.create({
   },
   videosKnowledgeBaseChild: {
     // top: 100,
-    shadowColor: "rgba(0, 0, 0, 0.15)",
+    shadowColor: 'rgba(0, 0, 0, 0.15)',
     shadowRadius: 50,
     elevation: 50,
     height: 943,
@@ -376,7 +448,7 @@ const styles = StyleSheet.create({
     },
     width: 375,
     left: 0,
-    position: "absolute",
+    position: 'absolute',
     backgroundColor: Color.labelColorDarkPrimary,
     borderRadius: Border.br_11xl,
   },
@@ -390,7 +462,7 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.defaultRegularBody,
     color: Color.labelColorLightSecondary,
     marginLeft: 6,
-    textAlign: "left",
+    textAlign: 'left',
     letterSpacing: 0,
     flex: 1,
   },
@@ -398,17 +470,17 @@ const styles = StyleSheet.create({
     backgroundColor: Color.fillColorLightTertiary,
     paddingHorizontal: Padding.p_5xs,
     paddingVertical: Padding.p_6xs,
-    flexDirection: "row",
+    flexDirection: 'row',
     width: 343,
     borderRadius: Border.br_3xs,
-    alignItems: "center",
+    alignItems: 'center',
   },
   separator: {
-    height: "55.87%",
-    top: "20.95%",
-    right: "1.73%",
-    bottom: "23.18%",
-    left: "97.7%",
+    height: '55.87%',
+    top: '20.95%',
+    right: '1.73%',
+    bottom: '23.18%',
+    left: '97.7%',
   },
   label: {
     marginTop: -8.13,
@@ -417,20 +489,20 @@ const styles = StyleSheet.create({
     height: 15,
   },
   segmentedpickerOption: {
-    borderColor: "rgba(0, 0, 0, 0.04)",
+    borderColor: 'rgba(0, 0, 0, 0.04)',
     borderWidth: 0.5,
     height: 43,
-    borderStyle: "solid",
+    borderStyle: 'solid',
     borderRadius: 48,
     flex: 1,
     backgroundColor: Color.labelColorDarkPrimary,
   },
   separator1: {
-    height: "57.14%",
-    top: "21.43%",
-    right: "1.15%",
-    bottom: "21.43%",
-    left: "98.28%",
+    height: '57.14%',
+    top: '21.43%',
+    right: '1.15%',
+    bottom: '21.43%',
+    left: '98.28%',
   },
   label1: {
     marginTop: -6.69,
@@ -438,7 +510,7 @@ const styles = StyleSheet.create({
     height: 15,
   },
   segmentedpickerOption1: {
-    alignSelf: "stretch",
+    alignSelf: 'stretch',
     flex: 1,
   },
   segmentedpicker: {
@@ -448,31 +520,31 @@ const styles = StyleSheet.create({
     padding: 2,
     marginTop: 16,
     borderRadius: 48,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    overflow: "hidden",
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden',
   },
   maskShadowBox: {
     borderWidth: 1,
-    borderColor: "#f1f1f1",
+    borderColor: '#f1f1f1',
     elevation: 40,
     shadowRadius: 40,
-    shadowColor: "rgba(0, 0, 0, 0.05)",
+    shadowColor: 'rgba(0, 0, 0, 0.05)',
     borderRadius: Border.br_base,
-    left: "-0.15%",
-    bottom: "-0.37%",
-    right: "-0.15%",
-    top: "-0.37%",
-    width: "100.29%",
-    height: "100.74%",
-    borderStyle: "solid",
+    left: '-0.15%',
+    bottom: '-0.37%',
+    right: '-0.15%',
+    top: '-0.37%',
+    width: '100.29%',
+    height: '100.74%',
+    borderStyle: 'solid',
     shadowOpacity: 1,
     shadowOffset: {
       width: 0,
       height: 4,
     },
-    position: "absolute",
+    position: 'absolute',
     backgroundColor: Color.labelColorDarkPrimary,
   },
   frameChild: {
@@ -482,17 +554,17 @@ const styles = StyleSheet.create({
   },
   calories: {
     fontSize: FontSize.size_3xs,
-    fontWeight: "600",
+    fontWeight: '600',
     fontFamily: FontFamily.boldFootnote13pt,
     width: 195,
     color: Color.gray_100,
-    textAlign: "left",
+    textAlign: 'left',
   },
   calories1: {
     fontSize: FontSize.size_base,
     lineHeight: 15,
-    textTransform: "uppercase",
-    fontWeight: "900",
+    textTransform: 'uppercase',
+    fontWeight: '900',
     fontFamily: FontFamily.satoshiVariableBlack,
     color: Color.dimgray_200,
   },
@@ -507,7 +579,7 @@ const styles = StyleSheet.create({
   },
   rectangleParent: {
     left: 13,
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   maskGroup: {
     marginTop: 12,
@@ -518,13 +590,13 @@ const styles = StyleSheet.create({
     width: 115,
     left: 0,
     top: 0,
-    position: "absolute",
+    position: 'absolute',
   },
   playIcon: {
     top: 43,
     left: 45,
-    position: "absolute",
-    overflow: "hidden",
+    position: 'absolute',
+    overflow: 'hidden',
   },
   rectangleParent2: {
     height: 110,
@@ -534,15 +606,15 @@ const styles = StyleSheet.create({
   },
   searchfieldParent: {
     // top: 155,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   rightSideIcon: {
     top: 17,
     right: 15,
     width: 67,
     height: 11,
-    position: "absolute",
+    position: 'absolute',
   },
   text: {
     top: 1,
@@ -552,11 +624,11 @@ const styles = StyleSheet.create({
     height: 20,
     color: Color.labelColorDarkPrimary,
     width: 54,
-    textAlign: "center",
-    fontWeight: "500",
+    textAlign: 'center',
+    fontWeight: '500',
     letterSpacing: 0,
     left: 0,
-    position: "absolute",
+    position: 'absolute',
   },
   time: {
     borderRadius: Border.br_5xl,
@@ -570,71 +642,71 @@ const styles = StyleSheet.create({
   statusBarIphoneXOrNewe: {
     height: 44,
     top: 0,
-    overflow: "hidden",
+    overflow: 'hidden',
   },
   title: {
     fontSize: FontSize.size_13xl,
     letterSpacing: -0.1,
-    fontWeight: "700",
+    fontWeight: '700',
     fontFamily: FontFamily.satoshiVariableBold,
     color: Color.labelColorDarkPrimary,
-    textAlign: "left",
+    textAlign: 'left',
   },
   bell01Icon: {
     width: 30,
     height: 30,
-    overflow: "hidden",
+    overflow: 'hidden',
   },
   titleParent: {
     top: 60,
     width: 342,
-    justifyContent: "space-between",
-    flexDirection: "row",
-    alignItems: "center",
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   navChild: {
-    height: "11.86%",
-    width: "26.13%",
-    top: "0%",
-    right: "33.87%",
-    bottom: "88.14%",
-    left: "40%",
-    maxWidth: "100%",
-    maxHeight: "100%",
-    position: "absolute",
-    overflow: "hidden",
+    height: '11.86%',
+    width: '26.13%',
+    top: '0%',
+    right: '33.87%',
+    bottom: '88.14%',
+    left: '40%',
+    maxWidth: '100%',
+    maxHeight: '100%',
+    position: 'absolute',
+    overflow: 'hidden',
   },
   homeIndicator: {
     marginLeft: -66.5,
     bottom: 8,
     width: 134,
     height: 5,
-    left: "50%",
+    left: '50%',
     backgroundColor: Color.labelColorDarkPrimary,
   },
   homeindicator: {
     top: 65,
     height: 32,
-    left: "50%",
+    left: '50%',
   },
   homeIcon: {
-    overflow: "hidden",
+    overflow: 'hidden',
   },
   label2: {
     marginTop: 1,
     color: Color.plum_200,
     fontSize: FontSize.size_2xs,
-    textAlign: "center",
+    textAlign: 'center',
     fontFamily: FontFamily.regularFootnote13pt,
-    fontWeight: "500",
+    fontWeight: '500',
     letterSpacing: 0,
   },
   homeParent: {
     top: 14,
     left: 21,
-    justifyContent: "center",
-    alignItems: "center",
-    position: "absolute",
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
   },
   tabbarHome: {
     width: 74,
@@ -643,7 +715,7 @@ const styles = StyleSheet.create({
   smileParent: {
     marginTop: -20.12,
     marginLeft: -14,
-    left: "50%",
+    left: '50%',
   },
   tabbarHome1: {
     width: 76,
@@ -659,15 +731,15 @@ const styles = StyleSheet.create({
   label4: {
     color: Color.plum_100,
     fontSize: FontSize.size_2xs,
-    textAlign: "center",
+    textAlign: 'center',
     fontFamily: FontFamily.regularFootnote13pt,
-    fontWeight: "500",
+    fontWeight: '500',
     letterSpacing: 0,
   },
   searchRefractionParent: {
     marginTop: -19.12,
     marginLeft: -21.5,
-    left: "50%",
+    left: '50%',
   },
   tabbarHome2: {
     width: 75,
@@ -685,24 +757,24 @@ const styles = StyleSheet.create({
     top: 11,
     left: 11,
     width: 51,
-    alignItems: "center",
-    position: "absolute",
+    alignItems: 'center',
+    position: 'absolute',
   },
   iconlycurvedprofileParent: {
     left: 22,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   tabbarHomeParent: {
-    flexDirection: "row",
-    justifyContent: "center",
-    position: "absolute",
+    flexDirection: 'row',
+    justifyContent: 'center',
+    position: 'absolute',
   },
   tabs: {
     height: 65,
-    left: "50%",
+    left: '50%',
     top: 0,
-    overflow: "hidden",
+    overflow: 'hidden',
   },
   deleteButton: {
     backgroundColor: 'red',
@@ -716,4 +788,4 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
   },
-})
+});
