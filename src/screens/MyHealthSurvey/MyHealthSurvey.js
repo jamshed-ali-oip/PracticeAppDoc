@@ -117,7 +117,7 @@ const MyHealthSurvey = ({navigation}) => {
               activeTab === 'available' && styles.activeTab,
             ]}
             onPress={() => handleTabChange('available')}>
-            <Text style={styles.tabText}>Available</Text>
+            <Text style={[styles.tabText,{color:activeTab=="available"?Color.gray_400:Color.gray_100}]}>Available</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -126,7 +126,7 @@ const MyHealthSurvey = ({navigation}) => {
               activeTab === 'completed' && styles.activeTab,
             ]}
             onPress={() => handleTabChange('completed')}>
-            <Text style={styles.tabText}>Completed</Text>
+            <Text style={[styles.tabText,{color:activeTab=="completed"?Color.gray_400:Color.gray_100}]}>Completed</Text>
           </TouchableOpacity>
         </View>
 
@@ -205,7 +205,8 @@ const MyHealthSurvey = ({navigation}) => {
                           {surveyItem?.title}
                           {/* QUICK INVENTORY OF DEPRESSIVE SYMTOMALTOLOGY (QIDS-SR) */}
                         </Text>
-                        <Text style={{fontSize: 13}}>
+                        <Text style={{fontSize: 13,color:Color.gray_100}}>
+                          
                         {surveyItem?.description}
                         </Text>
                       </View>
@@ -260,7 +261,7 @@ const MyHealthSurvey = ({navigation}) => {
                         }}>
                        {"("+i?.title+")"}
                       </Text>
-                      <Text style={{fontSize: 13}}>
+                      <Text style={{fontSize: 13,color:Color.gray_100}}>
                        {i?.description}
                       </Text>
                     </View>
@@ -310,6 +311,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     letterSpacing: 1,
+    color:Color.gray_100
   },
   tabContent: {
     // flex: 1,

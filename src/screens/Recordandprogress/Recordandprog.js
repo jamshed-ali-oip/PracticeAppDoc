@@ -269,7 +269,7 @@ useEffect(()=>{
               activeTab === 'available' && styles.activeTab,
             ]}
             onPress={() => handleTabChange('available')}>
-            <Text style={styles.tabText}>My Records</Text>
+            <Text style={[styles.tabText,{color:activeTab=="available"?Color.gray_400:Color.gray_100}]}>My Records</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -278,7 +278,7 @@ useEffect(()=>{
               activeTab === 'completed' && styles.activeTab,
             ]}
             onPress={() => handleTabChange('completed')}>
-            <Text style={styles.tabText}>Show Reports</Text>
+            <Text style={[styles.tabText,{color:activeTab=="completed"?Color.gray_400:Color.gray_100}]}>Show Reports</Text>
           </TouchableOpacity>
         </View>
 

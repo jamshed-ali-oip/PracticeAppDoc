@@ -28,6 +28,7 @@ const Discover = () => {
           value={searchText}
           onChangeText={setSearchText}
           onSubmitEditing={handleSearch}
+          placeholderTextColor={Color.gray_100}
         />
       </View>
       <View style={styles.tabsContainer}>
@@ -35,14 +36,14 @@ const Discover = () => {
           style={[styles.tabItem, activeTab === 'available' && styles.activeTab]}
           onPress={() => handleTabChange('available')}
         >
-          <Text style={styles.tabText}>Read</Text>
+          <Text style={[styles.tabText,{color:activeTab=="available"?Color.gray_400:Color.gray_100}]}>Read</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={[styles.tabItem, activeTab === 'completed' && styles.activeTab]}
           onPress={() => handleTabChange('completed')}
         >
-          <Text style={styles.tabText}>Watch</Text>
+          <Text style={[styles.tabText,{color:activeTab=="completed"?Color.gray_400:Color.gray_100}]}>Watch</Text>
         </TouchableOpacity>
       </View>
 

@@ -119,13 +119,13 @@ const DailyTask1 = ({navigation}) => {
           <TouchableOpacity
             style={[styles.tabItem, activeTab === 'tasks' && styles.activeTab]}
             onPress={() => handleTabChange('tasks')}>
-            <Text style={styles.tabText}>Tasks</Text>
+          <Text style={[styles.tabText,{color:activeTab=="tasks"?Color.gray_400:Color.gray_100}]}>Tasks</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={[styles.tabItem, activeTab === 'videos' && styles.activeTab]}
             onPress={() => handleTabChange('videos')}>
-            <Text style={styles.tabText}>Videos</Text>
+         <Text style={[styles.tabText,{color:activeTab=="videos"?Color.gray_400:Color.gray_100}]}>Videos</Text>
           </TouchableOpacity>
         </View>
 
@@ -208,7 +208,9 @@ const DailyTask1 = ({navigation}) => {
                   ]}>
                   {/* Survey item content */}
                   <TouchableOpacity
-                    onPress={() => navigation.navigate('Question1')}>
+                  disabled={true}
+                    // onPress={() => navigation.navigate('Question1')}
+                    >
                     <View
                       style={{
                         borderBottomWidth: 0.2,
@@ -237,7 +239,7 @@ const DailyTask1 = ({navigation}) => {
                           }}>
                           DAILY TASK TITLE
                         </Text>
-                        <Text style={{fontSize: 13}}>
+                        <Text style={{fontSize: 13,color:Color.gray_100}}>
                           Lorem ipsum dolor sit amet, consectetur adipiscing
                           elit, sed do eiusmod tempor incididunt..
                         </Text>
@@ -329,7 +331,7 @@ const DailyTask1 = ({navigation}) => {
                           }}>
                           DAILY TASK TITLE
                         </Text>
-                        <Text style={{fontSize: 12.5}}>
+                        <Text style={{fontSize: 12.5,color:Color.gray_100}}>
                           Lorem ipsum dolor sit amet, consectetur adipiscing
                           elit, sed do eiusmod tempor incididunt..
                         </Text>
