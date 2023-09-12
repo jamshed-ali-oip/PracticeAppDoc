@@ -1,165 +1,190 @@
 import {
-    StyleSheet,
-    Text,
-    View,
-    Image,
-    TouchableOpacity,
-    ScrollView,
-    TextInput,
-    Button,
-  } from 'react-native';
-  import React, {useState} from 'react';
-  import LinearGradient from 'react-native-linear-gradient';
-  
-  import {useNavigation} from '@react-navigation/native';
-  import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Color } from '../../GlobalStyles';
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  TextInput,
+  Button,
+} from 'react-native';
+import React, {useState, useCallback, useRef, useEffect} from 'react';
+import LinearGradient from 'react-native-linear-gradient';
+
+import {useNavigation} from '@react-navigation/native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {Color} from '../../GlobalStyles';
 import Colors from '../constants/Colors';
-  
-  const Chat = ({}) => {
-    const navigation = useNavigation();
-    const [index, setIndex] = useState(0);
-  
-    return (
-      <>
-        {/* <ScrollView> */}
-        <View style={{flex: 1}}>
-          {/* <Text style={{color:'white',fontFamily:Fonts.bold,fontSize:20,marginTop:10,marginLeft:20}}>Chat</Text> */}
-          
-          
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              
-              height: 65,
-           
-              width: '100%',
+import {GiftedChat,Bubble,Time} from 'react-native-gifted-chat';
+
+const Chat = ({navigation}) => {
+  const [messages, setMessages] = useState([]);
+  const [lastUserMessage, setLastUserMessage] = useState(null);
+
+  const handleUserMessage = userMessage => {
+    setLastUserMessage(userMessage);
+  };
+
+  useEffect(() => {
+    if (lastUserMessage) {
+      const response = generateResponse(lastUserMessage);
+      const newMessage = {
+        _id: messages.length + 1,
+        text: response,
+        createdAt: new Date(),
+        user: {_id: 2, name: 'Kalyana'},
+        // avatar:"https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80"
+      };
+
+      setMessages(prevMessages =>
+        GiftedChat.append(prevMessages, [newMessage]),
+      );
+      setLastUserMessage(null); // Reset the last user message
+    }
+  }, [lastUserMessage, messages]);
+
+  const onSend = useCallback((newMessages = []) => {
+    setMessages(prevMessages => GiftedChat.append(prevMessages, newMessages));
+    const userMessage = newMessages[0].text;
+    handleUserMessage(userMessage);
+  }, []);
+
+  const generateResponse = userMessage => {
+    // Extended rule-based responses
+    let response = '';
+    switch (userMessage.toLowerCase()) {
+      case 'hello':
+        response = 'Hello! How can I assist you?';
+        break;
+      case 'hi':
+        response = 'Hello! How can I assist you?';
+        break;
+      case 'whats your name':
+        response = 'my name is kalyana';
+        break;
+      case 'how are you?':
+        response = "I'm just a bot, but I'm here to help!";
+        break;
+      // Add more cases for other questions here
+      case 'who created you?':
+        return 'I was created by a developer.';
+      case 'what is the weather like today?':
+        return 'I do not have access to real-time weather information.';
+      case 'tell me a joke':
+        return 'Why did the computer keep freezing? Because it left its Windows open!';
+      case 'how old are you?':
+        return "I don't have an age. I'm just a program.";
+      case 'what is the meaning of life?':
+        return 'The meaning of life is a philosophical question with no single answer.';
+      case 'can you sing a song?':
+        return 'I can generate text, but I cannot sing.';
+      case 'tell me a fun fact':
+        return 'Honey never spoils. Archaeologists have found pots of honey in ancient Egyptian tombs that are over 3,000 years old and still perfectly edible.';
+      case 'who won the World Series last year?':
+        return 'I do not have access to real-time sports data.';
+      case 'what is the capital of France?':
+        return 'The capital of France is Paris.';
+      case 'how do I make a pizza at home?':
+        return 'To make a homemade pizza, you will need pizza dough, tomato sauce, cheese, and your choice of toppings. Roll out the dough, spread sauce, add cheese and toppings, and bake in the oven.';
+      case 'tell me a riddle':
+        return 'I am taken from a mine, and shut up in a wooden case, from which I am never released, and yet I am used by almost every person. What am I? (Answer: Pencil lead)';
+      case 'what is the square root of 144?':
+        return 'The square root of 144 is 12.';
+      default:
+        response = 'I do not understand your question.';
+    }
+    return response;
+  };
+
+  return (
+    <>
+      {/* <ScrollView> */}
+      <View style={{flex: 1}}>
+        {/* <Text style={{color:'white',fontFamily:Fonts.bold,fontSize:20,marginTop:10,marginLeft:20}}>Chat</Text> */}
+
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+
+            height: 65,
+
+            width: '100%',
             //   backgroundColor:'red',
-              justifyContent:'space-between'
-             
-             
-            }}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-              <Ionicons
-                style={{marginLeft:20}}
-                name="arrow-back"
-                size={25}
-                color={Color.purple}
-              />
-</TouchableOpacity>
-
-              <View style={{}}>
-                  <Text style={{color:Colors.purple,fontSize:17,fontWeight:'bold',marginRight:20}}>Kalyana</Text>
-              </View>
-
-              
-              
-
-              <TouchableOpacity onPress={() => navigation.goBack()}>
-              <Ionicons
-              display='none'
-                style={{marginRight:20}}
-                name="arrow-back"
-                size={25}
-                color={Color.purple}
-              />
-</TouchableOpacity>
-            
-  
-           
-          </View>
-  
-  
-  
-          {/* <View style={{flex: 0.5, backgroundColor: 'red'}}> */}
-            <ScrollView>
-              <View>
-               <View style={{alignItems:'center',justifyContent:'center',backgroundColor:'#BF6BBB',height:60,width:'60%',alignSelf:'flex-end',marginRight:10,borderTopLeftRadius:20,borderTopRightRadius:20,borderBottomLeftRadius:20}}>
-                   <Text style={{color:'white'}}>Hey. Do you have an antidote for a cancer patient</Text>
-                   </View>
-                   <View style={{alignItems:'center',justifyContent:'center',backgroundColor:'#E6E5EB',height:100,width:'65%',marginLeft:10,borderTopLeftRadius:20,borderTopRightRadius:20,borderBottomRightRadius:20,marginTop:20}}>
-                   <Text style={{color:'black',}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Text>
-                   </View>
-                   
-              </View>
-            </ScrollView>
-            
-          </View>
-  
-          <View
-            style={{
-              height: 50,
-            
-              width: '100%',
-            
-              position:'absolute',
-              bottom:50,
-           
-            }}>
-            {/* <Text style={{color:'white',fontFamily:Fonts.medium,fontSize:20}}>Type a message</Text> */}
-            <View
-              style={{
-                height: 50,
-                width: '90%',
-                backgroundColor: 'transparent',
-                alignSelf: 'center',
-                
-                borderRadius: 20,
-                paddingLeft: 10,
-                paddingRight: 5,
-                borderWidth: 1,
-                borderColor: '#C8C8CC',
-                justifyContent: 'space-between',
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <TextInput
-                style={{
-                  fontSize: 16,
-                  color: '#C8C8CC',
-                //   fontFamily: Fonts.light,
-                  marginTop: 5,
-                  width:'80%'
-
-                }}
-                placeholder=" Type here.."
-                placeholderTextColor={'#C8C8CC'}
-                // placeholderTextColor={'white'}
-                placeholderStyle={{}}
-  
-                // value={fullname}
-                // onChangeText={value => setFullname(value)}
-                // onTouchStart={()=>setIndex(1)}
-              />
-  
-              <TouchableOpacity onPress={() => navigation.goBack()}>
-                <Ionicons
-                  style={{marginRight: 20}}
-                  name="send"
-                  size={20}
-                  color={'#C8C8CC'}
-                />
-              </TouchableOpacity>
-  
-              {/* <Text style={{zIndex:999}}>HAMMADD</Text> */}
-  
-              {/* <TouchableOpacity onPress={()=>navigation.goBack()}>
+            justifyContent: 'space-between',
+          }}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
             <Ionicons
-              style={{marginLeft:10}}
+              style={{marginLeft: 20}}
               name="arrow-back"
               size={25}
-              color={'white'}
+              color={Color.purple}
             />
-            </TouchableOpacity> */}
-            </View>
+          </TouchableOpacity>
+
+          <View style={{}}>
+            <Text
+              style={{
+                color: Colors.purple,
+                fontSize: 17,
+                fontWeight: 'bold',
+                marginRight: 20,
+              }}>
+              Kalyana
+            </Text>
           </View>
-        {/* </View> */}
-        {/* // </ScrollView> */}
-      </>
-    );
-  };
-  
-  export default Chat;
-  
-  const styles = StyleSheet.create({});
+
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Ionicons
+              display="none"
+              style={{marginRight: 20}}
+              name="arrow-back"
+              size={25}
+              color={Color.purple}
+            />
+          </TouchableOpacity>
+        </View>
+        <GiftedChat
+         renderBubble={props => {
+          return (
+            <Bubble
+              {...props}
+    
+              textStyle={{
+                right: {
+                  color: 'white',
+                  fontFamily: "CerebriSans-Book"
+                },
+                left: {
+                  color: '#24204F',
+                  fontFamily: "CerebriSans-Book"
+                },
+              }}
+              wrapperStyle={{
+                left: {
+                  backgroundColor: '#E6E5EB',
+                },
+                right: {
+                  backgroundColor: "#BF6BBB",
+                },
+              }}
+            />
+          );
+        }}                
+      messages={messages}
+      onSend={(messages) => onSend(messages)}
+      user={{ _id: 1 }}
+    />
+        {/* <View style={{flex: 0.5, backgroundColor: 'red'}}> */}
+      </View>
+
+     
+      {/* </View> */}
+      {/* // </ScrollView> */}
+    </>
+  );
+};
+
+export default Chat;
+
+const styles = StyleSheet.create({});
