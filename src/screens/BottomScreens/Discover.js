@@ -112,7 +112,7 @@ const Discover = ({navigation}) => {
               <View style={styles.groupParent} key={index}>
                 <Pressable
                   style={styles.maskLayout}
-                  onPress={() => navigation.navigate("RecordsProgress7")}
+                  // onPress={() => navigation.navigate("RecordsProgress7")}
                 >
                   <View style={styles.maskShadowBox} />
                   <View style={[styles.rectangleParent, styles.parentPosition]}>

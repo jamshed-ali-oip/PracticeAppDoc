@@ -23,6 +23,8 @@ import {
 import DatePicker from 'react-native-date-picker';
 import moment from 'moment';
 import Swipeable from 'react-native-swipeable';
+import { useDispatch } from 'react-redux';
+import { CompleteDailyTask, RemoveDailyTask, getDailyTask } from '../../redux/actions/user.action';
 
 const DailyTask1 = ({navigation}) => {
   const [dob, setDob] = useState('');
@@ -32,6 +34,8 @@ const DailyTask1 = ({navigation}) => {
   const [open, setOpen] = useState(false);
   const [availableSurveys, setAvailableSurveys] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [articleTasks, setarticleTasks] = useState();
+  const [videoTasks, setVideoTasks] = useState();
 
   const handleTabChange = tab => {
     setActiveTab(tab);
@@ -48,9 +52,9 @@ const DailyTask1 = ({navigation}) => {
         const fakeAvailableSurveys = [
           // Sample data (replace with your actual survey data)
           {id: 1, title: 'Survey 1', description: 'Description of Survey 1'},
-          {id: 2, title: 'Survey 2', description: 'Description of Survey 2'},
-          {id: 3, title: 'Survey 3', description: 'Description of Survey 3'},
-          {id: 4, title: 'Survey 4', description: 'Description of Survey 4'},
+          // {id: 2, title: 'Survey 2', description: 'Description of Survey 2'},
+          // {id: 3, title: 'Survey 3', description: 'Description of Survey 3'},
+          // {id: 4, title: 'Survey 4', description: 'Description of Survey 4'},
           //   { id: 5, title: 'Survey 5', description: 'Description of Survey 5' },
           //   { id: 6, title: 'Survey 6', description: 'Description of Survey 6' },
 
@@ -64,23 +68,24 @@ const DailyTask1 = ({navigation}) => {
   const handleSwipeToDelete = item => {
     // Update the availableSurveys state by filtering out the deleted survey item
     setAvailableSurveys(prevSurveys =>
-      prevSurveys.filter(survey => survey.id !== item.id),
+      prevSurveys.filter(survey => survey.task_id !== item.task_id),
     );
+    dispatch(RemoveDailyTask(item.task_id))
+    listing()
   };
 
   const handleSwipeToComplete = item => {
     // Update the availableSurveys state by filtering out the deleted survey item
     setAvailableSurveys(prevSurveys =>
-      prevSurveys.filter(survey => survey.id !== item.id),
+      prevSurveys.filter(survey => survey?.task_id !== item?.task_id),
     );
-    setModalVisible(true);
-    setTimeout(() => {
-      setModalVisible(false);
-    }, 2000);
+    dispatch(CompleteDailyTask(item?.task_id,setModalVisible))
+    listing()
   };
 
   useEffect(() => {
     // Call the function to fetch available surveys data
+    listing()
     fetchAvailableSurveys()
       .then(data => {
         // Update the 'availableSurveys' state with the fetched data
@@ -90,7 +95,31 @@ const DailyTask1 = ({navigation}) => {
         console.error('Error fetching available surveys:', error);
       });
   }, []);
+  var currentDate = new Date();
 
+  // Subtract 7 days
+  currentDate.setDate(currentDate.getDate() - 7);
+  
+  // Format the result as a string (e.g., "YYYY-MM-DD")
+  const formattedDate = currentDate.toISOString().slice(0, 10);
+  const mydate=moment(new Date).format('YYYY-MM-DD')
+  const dispatch=useDispatch()
+  const listing=async()=>{
+    const body={
+      date1:moment(formattedDate).format('YYYY-MM-DD'),
+      date2:mydate
+    }
+    console.log("bodyyyyyyyyyyy",body)
+   const data=await dispatch(getDailyTask(body))
+   console.log("data::::fsdfsdfs",data?.data?.data)
+  
+   const my = data?.data?.data?.filter(data => data?.task_type == "Article")
+   const myV = data?.data?.data?.filter(data => data?.task_type == "Video")
+  //  console.log("^^^^^^^^^^^^^^^^^^^^",my,myV)
+   setarticleTasks(my)
+   setVideoTasks(myV)
+  }
+  
   return (
     <View style={{flex: 1, backgroundColor: Colors.white}}>
       <View style={{marginTop: 20, width: '95%', marginHorizontal: 10}}>
@@ -137,20 +166,20 @@ const DailyTask1 = ({navigation}) => {
             width: '90%',
             marginHorizontal: 20,
           }}>
-          <View>
+          {/* <View>
             <Text style={{color: dob === '' ? 'lightgrey' : 'black'}}>
               {' '}
               {datePlaceholder || moment(date).format('DD-MM-YYYY')}
             </Text>
-          </View>
-          <TouchableOpacity
+          </View> */}
+          {/* <TouchableOpacity
             onPress={() => {
               setOpen(true);
               setDatePlaceholder('');
             }}>
             <Ionicons name="calendar" size={24} color="black" />
-          </TouchableOpacity>
-          <DatePicker
+          </TouchableOpacity> */}
+          {/* <DatePicker
             modal
             open={open}
             date={date}
@@ -165,7 +194,7 @@ const DailyTask1 = ({navigation}) => {
             }}
             mode="date"
             onDateChange={setDate}
-          />
+          /> */}
         </View>
 
         {activeTab === 'tasks' && (
@@ -175,9 +204,9 @@ const DailyTask1 = ({navigation}) => {
               contentContainerStyle={{paddingBottom: 20}}
               showsVerticalScrollIndicator={false}>
               {/* Survey items */}
-              {availableSurveys.map(surveyItem => (
+              {articleTasks?.map(surveyItem => (
                 <Swipeable
-                  key={surveyItem.id}
+                  key={surveyItem.task_id}
                   rightButtonWidth={170}
                   rightButtons={[
                     <View style={{flexDirection: 'row'}}>
@@ -237,11 +266,10 @@ const DailyTask1 = ({navigation}) => {
                             fontSize: 16,
                             letterSpacing: 1,
                           }}>
-                          DAILY TASK TITLE
+                          {surveyItem?.title?.toUpperCase()}
                         </Text>
                         <Text style={{fontSize: 13,color:Color.gray_100}}>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit, sed do eiusmod tempor incididunt..
+                         {surveyItem?.description}
                         </Text>
                       </View>
                     </View>
@@ -259,7 +287,7 @@ const DailyTask1 = ({navigation}) => {
               contentContainerStyle={{paddingBottom: 20}}
               showsVerticalScrollIndicator={false}>
               {/* Survey items */}
-              {availableSurveys.map(surveyItem => (
+              {videoTasks?.map(surveyItem => (
                 <Swipeable
                   key={surveyItem.id}
                   rightButtonWidth={170}

@@ -184,3 +184,69 @@ export const Disover = () => async dispatch => {
     console.log(JSON.stringify(error));
   }
 };
+export const getDailyTask = body => async dispatch => {
+  //  alert(date1,date2)
+  console.log(body);
+  try {
+    const response = await instance.get(
+      
+      `/appuser/daily-tasks?from_date=${body?.date1}&to_date=${body?.date2}&task_type=Article&content_type=English`,
+    );
+    if (response) {
+      return response;
+    }
+    // alert("hogya")
+  } catch (error) {
+    console.log(JSON.stringify(error?.response));
+  }
+};
+export const CompleteDailyTask = (body,setModalVisible) => async dispatch => {
+  //  alert(date1,date2)
+  console.log(body);
+  try {
+    const response = await instance.patch(
+      
+      `/appuser/complete-task/${body}`,
+    );
+    if (response) {
+      setModalVisible(true);
+      setTimeout(() => {
+        setModalVisible(false);
+      }, 2000);
+    }
+    // alert("hogya")
+  } catch (error) {
+    console.log(JSON.stringify(error?.response));
+  }
+};
+export const RemoveDailyTask = (body) => async dispatch => {
+  //  alert(date1,date2)
+  console.log(body);
+  try {
+    const response = await instance.patch(
+      
+      `/appuser/remove-task/${body}`,
+    );
+    if (response) {
+      alert("removed")
+      // setModalVisible(true);
+      // setTimeout(() => {
+      //   setModalVisible(false);
+      // }, 2000);
+    }
+    // alert("hogya")
+  } catch (error) {
+    console.log(JSON.stringify(error?.response));
+  }
+};
+export const Questions = (id) => async dispatch => {
+
+  try {
+    const response = await instance.get(`/appuser/health-survey/${id}`);
+    if (response) {
+      return response;
+    }
+  } catch (error) {
+    console.log(JSON.stringify(error));
+  }
+};

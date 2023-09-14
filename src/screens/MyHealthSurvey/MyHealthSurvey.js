@@ -185,7 +185,7 @@ const MyHealthSurvey = ({navigation}) => {
                   ]}>
                   {/* Survey item content */}
                   <TouchableOpacity
-                    onPress={() => navigation.navigate('Question1')}>
+                    onPress={() => navigation.navigate('Question1',{data:surveyItem?._id})}>
                     <View
                       style={{
                         borderWidth: 0.5,
