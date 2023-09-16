@@ -11,6 +11,8 @@ import Colors from '../../constants/Colors';
 import LinearGradient from 'react-native-linear-gradient';
 import { FontFamily, Border, FontSize, Color, Padding } from "../../../GlobalStyles";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch } from 'react-redux';
+import { OTTP } from '../../redux/actions/user.action';
 
 const CELL_COUNT = 6
 
@@ -64,45 +66,46 @@ const OTP = ({navigation}) => {
 
 
 
-
+const dispatch=useDispatch()
   const onotp = async() => {
-
-
-
-    
-
-    await fetch('http://3.87.229.85:8080/appuser/verifyotp', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-        email:email,
+ const body={
+  "email":email,
+  "otp":value
+ }
+ AsyncStorage.setItem('otp',value)
+ dispatch(OTTP(body,navigation))
+    // await fetch('http://3.87.229.85:8080/appuser/verifyotp', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'Accept': 'application/json'
+    //   },
+    //   body: JSON.stringify({
+    //     email:email,
         
-        otp:value
-      })
-    })
-    .then(response => response.json())
-    .then(responseJson => {
-      console.log(responseJson)
-        if(responseJson?.success === 1) {
-          console.log(responseJson?.success,'responseJson?.sucess')
-          AsyncStorage.setItem('otp',value)
-          navigation.navigate("CreateNewPassword")
-        }
-        else {
-            // alert(responseJson.error)
-            console.log(responseJson?.error)
-        }
+    //     otp:value
+    //   })
+    // })
+    // .then(response => response.json())
+    // .then(responseJson => {
+    //   console.log(responseJson)
+    //     if(responseJson?.success === 1) {
+    //       console.log(responseJson?.success,'responseJson?.sucess')
+    //       AsyncStorage.setItem('otp',value)
+    //       navigation.navigate("CreateNewPassword")
+    //     }
+    //     else {
+    //         // alert(responseJson.error)
+    //         console.log(responseJson?.error)
+    //     }
         
-    })
-    .catch(error => {
-        // alert('failed')
+    // })
+    // .catch(error => {
+    //     // alert('failed')
         
-        return error;
+    //     return error;
         
-    })
+    // })
   }
 
 
@@ -189,9 +192,9 @@ const OTP = ({navigation}) => {
     </SafeAreaView>
 
     <View style={{alignItems:'center',marginTop:30,}}>
-      <TouchableOpacity onPress={regenerate} disabled={isActive}>
+      {/* <TouchableOpacity onPress={regenerate} disabled={isActive}>
         <Text style={{color:'black'}}>Din't get the code ?<Text style={{color:Colors.black,fontWeight:'bold'}}> Reset in ...{timer}</Text> </Text> 
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       </View>
    
     </View>

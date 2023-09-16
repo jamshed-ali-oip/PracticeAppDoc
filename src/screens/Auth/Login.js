@@ -23,6 +23,7 @@ const Login1 = () => {
   const [passwordError, setPasswordError] = useState('');
   const [securetextentry, setSecuretextentry] = useState(true)
   const [error, setError] = useState(null);
+  const [Loginerror, setLoginError] = useState();
 
   const validateEmail = () => {
     // Simple email validation regex pattern
@@ -70,7 +71,7 @@ const Login1 = () => {
     let validatepass = validatePassword();
 
     if (validatemail == true && validatepass == true) {
-      dispatch(userLogin(data))
+      dispatch(userLogin(data,setLoginError))
     }
     // console.log(data)
     // dispatch(userLogin(data))
@@ -106,6 +107,7 @@ const Login1 = () => {
 
             <View style={styles.inputFieldParent}>
               <View>
+              {Loginerror ? <Text style={styles.error}>{"*"+Loginerror}</Text> : null}
                 <TextInput
                   style={styles.input}
                   placeholder="Email"
@@ -118,6 +120,7 @@ const Login1 = () => {
 
               </View>
               <View>
+                
                 {emailError ? <Text style={styles.error}>{emailError}</Text> : null}
               </View>
               <View style={{

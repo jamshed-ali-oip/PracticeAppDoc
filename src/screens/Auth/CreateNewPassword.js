@@ -8,9 +8,11 @@ import LinearGradient from 'react-native-linear-gradient';
 import Feather from 'react-native-vector-icons/Feather';
 import Colors from '../../constants/Colors';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch } from 'react-redux';
+import { createNewPass } from '../../redux/actions/user.action';
 
 const CreateNewPassword = ({ navigation }) => {
-  const [password, setPassword] = useState('');
+  const [passwordalert, setPasswordalert] = useState('');
   const [password1, setPassword1] = useState('');
   const [password2, setPassword2] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -43,50 +45,59 @@ const CreateNewPassword = ({ navigation }) => {
 
 
 
-
+const dispatch=useDispatch()
 const onreset = async() => {
+   const body={
+    email:email,
+    otp:otp,
+    password:password1
+   }
+   if(password1==password2){
+    dispatch(createNewPass(body,navigation))
+   }else{
+    setPasswordalert("Password shoult be same")
+   }
+    //   if (password1 != password2 ) {
+    //     alert('Password should be same')
+    //   }
 
-      if (password1 != password2 ) {
-        alert('Password should be same')
-      }
+    //   else {
 
-      else {
-
-      await fetch('http://3.87.229.85:8080/appuser/reset', {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          email:email,
-          otp:otp,
-          password:password1
+    //   await fetch('http://3.87.229.85:8080/appuser/reset', {
+    //     method: 'PATCH',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       'Accept': 'application/json'
+    //     },
+    //     body: JSON.stringify({
+    //       email:email,
+    //       otp:otp,
+    //       password:password1
           
-        })
-      })
-      .then(response => response.json())
-      .then(responseJson => {
-        // console.log('heloooo')
-        console.log(responseJson)
-          if(responseJson?.success === 1) {
-            console.log(responseJson?.success,'responseJson?.sucess')
+    //     })
+    //   })
+    //   .then(response => response.json())
+    //   .then(responseJson => {
+    //     // console.log('heloooo')
+    //     console.log(responseJson)
+    //       if(responseJson?.success === 1) {
+    //         console.log(responseJson?.success,'responseJson?.sucess')
         
-          navigation.navigate('Login')
-          }
-          else {
-              // alert(responseJson.error)
-              console.log(responseJson?.error)
-          }
+    //       navigation.navigate('Login')
+    //       }
+    //       else {
+    //           // alert(responseJson.error)
+    //           console.log(responseJson?.error)
+    //       }
           
-      })
-      .catch(error => {
-          // alert('failed')
+    //   })
+    //   .catch(error => {
+    //       // alert('failed')
           
-          return error;
+    //       return error;
           
-      })
-    }
+    //   })
+    // }
     }
 
 
@@ -166,6 +177,15 @@ const onreset = async() => {
               <Feather name={showPassword ? 'eye-off' : 'eye'} size={24} color={Colors.purple} />
             </TouchableOpacity>
           </View> */}
+          <Text
+          style={{
+            color:"red",
+            fontSize:14,
+            marginLeft:18,
+            fontStyle:"italic"
+          }}
+          >
+            {passwordalert!==""?"*"+passwordalert:""}</Text>
           <View style={styles.container}>
             <TextInput
               style={styles.input}

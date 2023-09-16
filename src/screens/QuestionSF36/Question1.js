@@ -64,27 +64,6 @@ const Question1 = ({navigation, route}) => {
     );
     setDropdownQuestions(filteredDropdownQuestions);
   }, [sawal]);
-
-  // console.log(
-  //   '=========================================================================',
-  // );
-  // console.log('multi', multipleChoiceQuestions);
-  // console.log(
-  //   '=========================================================================',
-  // );
-
-  // console.log('check', checkboxQuestions);
-  // console.log(
-  //   '=========================================================================',
-  // );
-
-  // console.log('drop', dropdownQuestions);
-  // console.log(
-  //   '=========================================================================',
-  // );
-
-  // console.log('=======================', JSON.stringify(sawal?.[0]));
- 
  
   const handleButtonClick = () => {
     // Check if there are more questions to display
@@ -92,7 +71,7 @@ const Question1 = ({navigation, route}) => {
       setCurrentIndex(currentIndex + 1);
     } else {
       // Handle when all questions have been displayed
-      alert('No more questions');
+      // alert('No more questions');
       navigation?.navigate("Question3",{data:mainId?.data});
     }
   };
@@ -110,7 +89,8 @@ const Question1 = ({navigation, route}) => {
       label: 'Poor',
     },
   ];
-
+ 
+  console.log("msadfklygsajfshdoas",checkboxQuestions?.length)
   const handleBackButton = () => {
     navigation.goBack();
   };
@@ -127,7 +107,7 @@ const Question1 = ({navigation, route}) => {
         <View style={{marginTop: 15}}>
           <Text
             style={{color: Colors.purple, fontWeight: 'bold', fontSize: 20}}>
-            Question 1/11
+            Question 
           </Text>
           {/* <Text
             style={{
@@ -165,7 +145,10 @@ const Question1 = ({navigation, route}) => {
             //   deactiveColor={''}
             box={true}
             boxStyle={{height: 80, width: '90%'}}
-            data={question?.options}
+            data={question?.options.map((option) => ({
+              label: option,
+              value: option,
+            }))}
             // selectedBtn={(e) => console.log(e)}
             boxActiveBgColor={'#BF6BBB'}
             textColor={'black'}

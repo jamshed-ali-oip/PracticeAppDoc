@@ -266,7 +266,7 @@ const Profile = () => {
                     <View style={styles.switcher} />
                   </View>
                 </Pressable>
-                <Pressable
+                {/* <Pressable
                   style={styles.settingsSingle3}
                   onPress={() => navigation.navigate("Support")}
                 >
@@ -290,7 +290,7 @@ const Profile = () => {
                       </Text>
                     </View>
                   </View>
-                </Pressable>
+                </Pressable> */}
                 <View style={styles.settingsSingle5} />
                 <Pressable
                   style={styles.settingsSingle3}

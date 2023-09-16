@@ -5,7 +5,8 @@ const InitialState = {
   formone: {},
   formtwo: {},
   formthree: {},
-  activation_token: null
+  activation_token: null,
+  profile:{}
 
 };
 
@@ -48,6 +49,12 @@ const authReducer = (state = InitialState, action) => {
       return {
         ...state,
         activation_token: action.payload,
+      };
+    case types.PROFILE:
+      console.log(action.payload);
+      return {
+        ...state,
+        profile: action.payload,
       };
 
     default:

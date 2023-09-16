@@ -39,6 +39,8 @@ const Question3 = ({navigation, route}) => {
   const [multipleChoiceQuestions, setMultipleChoiceQuestions] = useState([]);
   const [checkboxQuestions, setCheckboxQuestions] = useState([]);
   const [dropdownQuestions, setDropdownQuestions] = useState([]);
+  const [openDropdown, setOpenDropdown] = useState(null);
+  const [selectedValue, setSelectedValue] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   useEffect(() => {
     Questionss();
@@ -73,7 +75,17 @@ const Question3 = ({navigation, route}) => {
   console.log(
     '=========================================================================',
   );
-
+  
+  const handleButtonClick = () => {
+    // Check if there are more questions to display
+    if (currentIndex < dropdownQuestions.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    } else {
+      // Handle when all questions have been displayed
+      // alert('No more questions 3');
+      navigation?.navigate("Question6",{data:mainId?.data});
+    }
+  };
   console.log('=======================', JSON.stringify(sawal?.[0]));
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -100,22 +112,61 @@ const Question3 = ({navigation, route}) => {
                   fontWeight: 'bold',
                   fontSize: 20,
                 }}>
-                Question 3/11
+                Question 
               </Text>
-              <Text
-                style={{
-                  fontSize: 15,
-                  fontWeight: '600',
-                  marginTop: 20,
-                  color: 'black',
-                }}>
-                The following items are about activities you might do during a
-                typical day. Does your health now limit you in these activities?
-                If so, how much?
-              </Text>
+             
             </View>
-
-            <View>
+            {dropdownQuestions?.map((question, index) => (
+        index === currentIndex && (
+          <View key={index}>
+            {/* <Text
+            style={{color:"red"}}
+            >
+              Question {currentIndex + 1}: {question.question}
+            </Text> */}
+              <Text
+            style={{
+              fontSize: 16,
+              fontWeight: '500',
+              marginTop: 20,
+              color: 'black',
+              width:"90%",
+              alignSelf:"center"
+            }}>
+            {question.question}
+          </Text>
+             
+          {question?.options.map((i,ind)=>(
+          <>
+            <Text  style={{
+                  fontSize: 13.5,
+                  fontWeight: '600',
+                  marginTop: 30,
+                  color: 'black',
+                  marginLeft: 20,
+                }}>{i?.sub_question}</Text>
+             <DropDown
+                style={{}}
+                placeholder={'Select Answer'}
+                items={i?.sub_options?.map((option) => ({
+                  label: option,
+                  value: option,
+                }))}
+                open={open}
+                value={value}
+                setOpen={setOpen}
+                setValue={setValue}
+                setItems={setItems}
+                onPress={() => {
+                 
+                 
+                }}
+              /></>
+          ))}
+          </View>
+        )
+      ))}
+            {/* <View>
               <Text
                 style={{
                   fontSize: 13.5,
@@ -127,8 +178,8 @@ const Question3 = ({navigation, route}) => {
                 a. Vigorous activities, such as running, lifting heavy objects,
                 participating in strenuous sports
               </Text>
-            </View>
-            <View style={{marginTop: 5}}>
+            </View> */}
+            {/* <View style={{marginTop: 5}}>
               <DropDown
                 style={{}}
                 placeholder={'Select Answer'}
@@ -143,7 +194,7 @@ const Question3 = ({navigation, route}) => {
                  
                 }}
               />
-            </View>
+            </View> */}
           </View>
 
           <LinearGradient
@@ -154,7 +205,7 @@ const Question3 = ({navigation, route}) => {
             angle={180}>
             <TouchableOpacity
               style={[styles.pressable, styles.parentFlexBox]}
-              onPress={() => navigation.navigate('Question4')}>
+              onPress={() => handleButtonClick()}>
               <View>
                 <Text style={styles.button1}>Next</Text>
               </View>

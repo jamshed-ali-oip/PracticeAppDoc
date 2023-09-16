@@ -7,7 +7,7 @@ import {Alert} from 'react-native';
 // import { LOG_IN } from "../const/const";
 
 // ***************************Auth Screen ************************************
-export const userLogin = data => async dispatch => {
+export const userLogin = (data,setLoginError) => async dispatch => {
   try {
     const response = await axios.post(`${base_Url}/appuser/login`, data);
     if (response) {
@@ -16,12 +16,18 @@ export const userLogin = data => async dispatch => {
         type: types.LOG_IN,
         payload: response?.data?.access_token,
       });
+      dispatch({
+        type: types.PROFILE,
+        payload: response?.data?.user,
+      });
+      console.log("Login===================",response?.data?.user)
     }
   } catch (error) {
-    Alert.alert('Message', 'Invalid Email or Password', [
-      {text: 'OK', onPress: () => console.log('OK Pressed')},
-    ]);
-    console.log(JSON.stringify(error));
+    setLoginError("Invalid Email or Password")
+    // Alert.alert('Message', 'Invalid Email or Password', [
+    //   {text: 'OK', onPress: () => console.log('OK Pressed')},
+    // ]);
+    // console.log(JSON.stringify(error));
   }
 };
 export const Register = (data, navigation) => async dispatch => {
@@ -36,9 +42,9 @@ export const Register = (data, navigation) => async dispatch => {
       navigation.navigate('VerifyEmail');
     }
   } catch (error) {
-    Alert.alert('Message', error?.response?.data?.error, [
-      {text: 'OK', onPress: () => console.log('OK Pressed')},
-    ]);
+    // Alert.alert('Message', error?.response?.data?.error, [
+    //   {text: 'OK', onPress: () => console.log('OK Pressed')},
+    // ]);
     console.log(JSON.stringify(error));
     console.log('EROROROOR', JSON.stringify(error?.response?.data?.error));
   }
@@ -50,7 +56,11 @@ export const Activating = data => async dispatch => {
     if (response) {
       dispatch({
         type: types.LOG_IN,
-        payload: response?.data?.msg,
+        payload: response?.data?.access_token,
+      });
+      dispatch({
+        type: types.PROFILE,
+        payload: response?.data?.user,
       });
     }
   } catch (error) {
@@ -248,5 +258,41 @@ export const Questions = (id) => async dispatch => {
     }
   } catch (error) {
     console.log(JSON.stringify(error));
+  }
+};
+export const forgetPass = (body,navigation) => async dispatch => {
+
+  try {
+    const response = await instance.post(`/appuser/forgot`,body);
+    if (response) {
+      navigation.navigate('OTP')
+      console.log("response: " + JSON.stringify(response));
+    }
+  } catch (error) {
+    console.log(JSON.stringify(error));
+  }
+};
+export const OTTP = (body,navigation) => async dispatch => {
+
+  try {
+    const response = await instance.post(`/appuser/verifyotp`,body);
+    if (response) {
+      navigation.navigate("CreateNewPassword")
+      console.log("response: " + JSON.stringify(response));
+    }
+  } catch (error) {
+    console.log(JSON.stringify(error?.response));
+  }
+};
+export const createNewPass = (body,navigation) => async dispatch => {
+
+  try {
+    const response = await instance.patch(`/appuser/reset`,body);
+    if (response) {
+      navigation.navigate('Login')
+      console.log("response: " + JSON.stringify(response));
+    }
+  } catch (error) {
+    console.log(JSON.stringify(error?.response));
   }
 };

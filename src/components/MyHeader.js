@@ -5,6 +5,7 @@ import Feather from 'react-native-vector-icons/Feather'
 import Colors from '../constants/Colors';
 import LinearGradient from "react-native-linear-gradient";
 import { Border, Color, FontFamily, FontSize, Padding } from "../../GlobalStyles";
+import { useSelector } from 'react-redux';
 
 
 const IconSize = 24;
@@ -43,6 +44,8 @@ const AppHeader = ({route, navigation}) => {
 	// 		<Title style={{ color: iconColor, textAlign: titleAlight }}>{title}</Title>
 	// 	</View>
 	// )
+	const data=useSelector((state)=>state?.auth?.profile)
+	console.log("PPPPPPPPPPPPPPPPPPPPPP",data)
 	return (
 		<Surface style={[styles.header,]}>
 			<ImageBackground
@@ -67,7 +70,7 @@ const AppHeader = ({route, navigation}) => {
 `}</Text>
             </Text>
             <Text style={styles.text1}>
-              <Text style={styles.johnSmith1}>John Smith</Text>
+              <Text style={styles.johnSmith1}>{data?.first_name?.toUpperCase()} {data?.last_name?.toUpperCase()}</Text>
             </Text>
           </Text>
 		  </View>

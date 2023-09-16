@@ -6,6 +6,8 @@ import { useNavigation } from "@react-navigation/native";
 import { FontFamily, Border, FontSize, Color, Padding } from "../../../GlobalStyles";
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch } from 'react-redux';
+import { forgetPass } from '../../redux/actions/user.action';
 
 const ForgotPassword = ({navigation}) => {
   // const navigation = useNavigation();
@@ -22,46 +24,51 @@ const ForgotPassword = ({navigation}) => {
     }
   };
 
-
+const dispatch=useDispatch()
   const onforgot = async() => {
 
     validateEmail()
+    const body={
+      email:email
+    }
+    AsyncStorage.setItem('emailforgot',email)
+    dispatch(forgetPass(body,navigation))
 
-    await fetch('http://3.87.229.85:8080/appuser/forgot', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-        email:email,
-      })
-    })
-    .then(response => response.json())
-    .then(responseJson => {
-      // console.log(responseJson)
-        if(responseJson?.success === 1) {
-          console.log('hammmmmaddd')
+    // await fetch('http://3.87.229.85:8080/appuser/forgot', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'Accept': 'application/json'
+    //   },
+    //   body: JSON.stringify({
+    //     email:email,
+    //   })
+    // })
+    // .then(response => response.json())
+    // .then(responseJson => {
+    //   // console.log(responseJson)
+    //     if(responseJson?.success === 1) {
+    //       console.log('hammmmmaddd')
           
-          console.log(responseJson?.success,'responseJson?.sucess')
-          AsyncStorage.setItem('emailforgot',email)
-          navigation.navigate('OTP')
+    //       console.log(responseJson?.success,'responseJson?.sucess')
+    //       AsyncStorage.setItem('emailforgot',email)
+    //       navigation.navigate('OTP')
           
-          console.log('hahahaha')
-          // navigation.navigate('Demographics')
-        }
-        else {
-            alert(responseJson.error)
-            console.log(responseJson?.error)
-        }
+    //       console.log('hahahaha')
+    //       // navigation.navigate('Demographics')
+    //     }
+    //     else {
+    //         alert(responseJson.error)
+    //         console.log(responseJson?.error)
+    //     }
         
-    })
-    .catch(error => {
-        // alert('failed')
+    // })
+    // .catch(error => {
+    //     // alert('failed')
         
-        return error;
+    //     return error;
         
-    })
+    // })
   }
 
 
@@ -105,7 +112,7 @@ const ForgotPassword = ({navigation}) => {
         onPress={onforgot}
       >
         <View >
-          <Text style={styles.button1}>Start The Journey</Text>
+          <Text style={styles.button1}>Send Verification</Text>
         </View>
       </TouchableOpacity>
     </LinearGradient>
