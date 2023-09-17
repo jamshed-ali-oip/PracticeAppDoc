@@ -6,7 +6,8 @@ const InitialState = {
   formtwo: {},
   formthree: {},
   activation_token: null,
-  profile:{}
+  profile:{},
+  questionar:[]
 
 };
 
@@ -55,6 +56,13 @@ const authReducer = (state = InitialState, action) => {
       return {
         ...state,
         profile: action.payload,
+      };
+    case types.QUESTIONAR:
+      console.log(action.payload);
+      // console.log("DFAsdfsadsad((((((((((((((((((",state?.questionar)
+      return {
+        ...state,
+        questionar: action.payload,
       };
 
     default:

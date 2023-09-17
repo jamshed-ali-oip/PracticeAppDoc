@@ -81,7 +81,7 @@ const Question6 = ({navigation, route}) => {
     } else {
       // Handle when all questions have been displayed
       // alert('No more questions 6');
-      navigation?.navigate("Tab2");
+      navigation?.navigate("Done",{data:mainId?.data});
     }
   };
 

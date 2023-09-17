@@ -35,7 +35,7 @@ currentDate.setDate(currentDate.getDate() - 7);
 
 // Format the result as a string (e.g., "YYYY-MM-DD")
 var formattedDate = currentDate.toISOString().slice(0, 10);
-const mydate=moment(new Date).format('DD-MM-YYYY')
+const mydate=moment(new Date).format('YYY-MM-DD')
 const dispatch=useDispatch()
 const listing=async()=>{
   const body={

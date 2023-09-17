@@ -20,16 +20,19 @@ import {
 } from '../../../GlobalStyles';
 import {useDispatch} from 'react-redux';
 import {Disover} from '../../redux/actions/user.action';
+import { useNavigation } from '@react-navigation/native';
 
-const Discover = ({navigation}) => {
+const Discover = ({}) => {
   const [activeTab, setActiveTab] = useState('available');
   const [articles, setariticles] = useState();
   const [video, setVideo] = useState();
-
+  const navigation = useNavigation();
   const handleTabChange = tab => {
     setActiveTab(tab);
   };
-
+const handledata=(i)=>{
+  navigation.navigate("Preview",{data:i})
+}
   const [searchText, setSearchText] = useState('');
 
   const handleSearch = () => {
@@ -112,7 +115,7 @@ const Discover = ({navigation}) => {
               <View style={styles.groupParent} key={index}>
                 <Pressable
                   style={styles.maskLayout}
-                  // onPress={() => navigation.navigate("RecordsProgress7")}
+                  onPress={() => handledata(i)}
                 >
                   <View style={styles.maskShadowBox} />
                   <View style={[styles.rectangleParent, styles.parentPosition]}>
@@ -147,7 +150,8 @@ const Discover = ({navigation}) => {
               <View style={styles.groupParent} key={index}>
                 <Pressable
                   style={styles.maskLayout}
-                  // onPress={() => navigation.navigate("RecordsProgress7")}
+                  // onPress={() => navigation.navigate("Preview",{data:i})}
+                  onPress={() => handledata(i)}
                 >
                   <View style={styles.maskShadowBox} />
                   <View style={[styles.rectangleParent, styles.parentPosition]}>

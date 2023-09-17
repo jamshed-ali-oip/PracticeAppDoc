@@ -22,7 +22,7 @@ import {
 import DatePicker from 'react-native-date-picker';
 import moment from 'moment';
 import Swipeable from 'react-native-swipeable';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Allservey} from '../../redux/actions/user.action';
 
 const MyHealthSurvey = ({navigation}) => {
@@ -72,6 +72,11 @@ const MyHealthSurvey = ({navigation}) => {
     Serveys();
   }, []);
 
+
+
+  // const filteredObjects = objectArray.filter(obj => idArray.includes(obj.id));
+
+  const CHECKERR=useSelector((state)=>state?.auth?.questionar)
   const dispatch = useDispatch();
   const Serveys = async () => {
     const mydata = await dispatch(Allservey());
@@ -80,9 +85,16 @@ const MyHealthSurvey = ({navigation}) => {
     const myComple = mydata?.data?.data?.filter(
       data => data.is_completed == true,
     );
-    setdattta(my);
-    console.log('888888888888888888888888888888888888', dattta);
-    setCompleted(myComple);
+    
+   console.log("object",CHECKERR)
+   const kjkkjk= mydata?.data?.data?.filter(obj => CHECKERR.includes(obj?._id));
+   const notKHKH= mydata?.data?.data?.filter(obj => !CHECKERR.includes(obj?._id));
+   console.log("+++++++++++++++++++",kjkkjk)
+    // console.log('888888888888888888888888888888888888', dattta);
+    // const filteredObjects = dattta.filter(obj => CHECKERR.includes(`${obj?._id}`));
+    // console.log("555555555555",filteredObjects)
+    setdattta(notKHKH);
+    setCompleted(kjkkjk);
   };
   console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%', Completed);
   console.log(dattta);

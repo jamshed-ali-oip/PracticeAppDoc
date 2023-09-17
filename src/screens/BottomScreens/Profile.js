@@ -104,24 +104,24 @@ const Profile = () => {
 
       <View>
         <View style={{ alignItems: 'center' }}>
-          <Text style={{ color: Colors.purple, fontSize: 22, fontWeight: 'bold', top: -10 }}>Profile</Text>
+          <Text style={{ color: Colors.purple, fontSize: 22, fontWeight: 'bold', top: -10, }}>Profile</Text>
         </View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '90%', marginHorizontal: 15, }}>
           <View style={{ top: -10, }}>
             <Text style={{ fontSize: 22, fontWeight: '500', letterSpacing: 1, color: Colors.black }}>{firstname} {lastname}</Text>
-            <Text style={{ fontSize: 14, letterSpacing: -1 }}>Personal account</Text>
+            <Text style={{ fontSize: 14, letterSpacing: -1,color:Color?.darkslategray_200 }}>Personal account</Text>
           </View>
           <View>
             <TouchableOpacity onPress={handleImagePicker}>
               <View style={styles.profileImageContainer}>
-                {selectedImage ? (
+                {/* {selectedImage ? (
                   <Image style={styles.profileImage} source={{ uri: selectedImage }} />
-                ) : (
+                ) : ( */}
                   <Image
                     style={styles.profilePlaceholderImage}
                     source={{ uri: avatar }}
                   />
-                )}
+                {/* )} */}
               </View>
             </TouchableOpacity>
             {/* <TouchableOpacity>

@@ -1,177 +1,60 @@
-import * as React from "react";
-import { Image, StyleSheet, View, Text, Pressable } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { Color, FontFamily, Border, FontSize, Padding } from "../../../GlobalStyles";
-import { ScrollView } from "react-native-gesture-handler";
+import React, {useEffect, useState} from 'react';
+import {Image, StyleSheet, View, Text, Pressable} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {
+  Color,
+  FontFamily,
+  Border,
+  FontSize,
+  Padding,
+} from '../../../GlobalStyles';
+import {ScrollView} from 'react-native-gesture-handler';
+import {useDispatch} from 'react-redux';
+import {CareApi} from '../../redux/actions/user.action';
 
 const Care = () => {
   const navigation = useNavigation();
-
+  const [state, setState] = useState();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    data();
+  }, []);
+  const data = async () => {
+    const data = await dispatch(CareApi());
+    console.log('careee+++++++++', data?.data);
+    setState(data?.data);
+  };
   return (
     <View style={styles.videosKnowledgeBase}>
-      {/* <Image
-        style={[styles.image4Icon, styles.navPosition]}
-        resizeMode="cover"
-        source={require("../../../assets/image-41.png")}
-      /> */}
       <View>
-        {/* <View style={styles.searchfield}>
-          <Image
-            style={styles.iconMagnifyingglass}
-            resizeMode="cover"
-            source={require("../../../assets/icon--magnifyingglass.png")}
-          />
-          <Text style={styles.placeholder}>Search</Text>
-        </View> */}
-        {/* <View style={styles.segmentedpicker}>
-          <View style={styles.segmentedpickerOption}>
-            <View style={[styles.separator, styles.separatorLayout]} />
-            <Text style={[styles.label, styles.labelTypo1]}>Read</Text>
-          </View>
-          <Pressable
-            style={styles.segmentedpickerOption1}
-            onPress={() => navigation.navigate("VideosKnowledgeBase1")}
-          >
-            <View style={[styles.separator1, styles.separatorLayout]} />
-            <Text style={[styles.label1, styles.labelTypo1]}>Watch</Text>
-          </Pressable>
-        </View> */}
-        <ScrollView showsVerticalScrollIndicator={false} >
-        <View style={styles.groupParent}>
-          <Pressable
-            style={styles.maskLayout}
-            onPress={() => navigation.navigate("RecordsProgress7")}
-          >
-            <View style={styles.maskShadowBox} />
-            <View style={[styles.rectangleParent, styles.parentPosition]}>
-              <Image
-                style={[styles.frameChild, styles.childLayout]}
-                resizeMode="cover"
-                source={require("../../../assets/rectangle-22604.png")}
-              />
-              <View style={styles.caloriesParent}>
-                <Text style={styles.calories}>ARTICLE</Text>
-                <Text style={[styles.calories1, styles.caloriesSpaceBlock]}>
-                  MANAGING STRESS IN CERTAIN TIMES
-                </Text>
-                <Text style={[styles.calories2, styles.caloriesSpaceBlock]}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt..
-                </Text>
-              </View>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {state?.map((i, ind) => (
+            <View style={styles.groupParent}>
+              <Pressable
+                style={styles.maskLayout}
+                onPress={() => navigation.navigate('Preview',{data:i})}>
+                <View style={styles.maskShadowBox} />
+                <View style={[styles.rectangleParent, styles.parentPosition]}>
+                  <Image
+                    style={[styles.frameChild, styles.childLayout]}
+                    resizeMode="cover"
+                    source={require('../../../assets/rectangle-22604.png')}
+                  />
+                  <View style={styles.caloriesParent}>
+                    <Text style={styles.calories}>{i?.article_type?.toUpperCase()}</Text>
+                    <Text style={[styles.calories1, styles.caloriesSpaceBlock]}>
+                     {i?.title?.toUpperCase()}
+                    </Text>
+                    <Text style={[styles.calories2, styles.caloriesSpaceBlock]}>
+                     {i?.description}
+                    </Text>
+                  </View>
+                </View>
+              </Pressable>
             </View>
-          </Pressable>
-          <View style={[styles.maskGroup, styles.maskLayout]}>
-            <View style={styles.maskShadowBox} />
-            <View style={[styles.rectangleParent, styles.parentPosition]}>
-              <Image
-                style={[styles.frameChild, styles.childLayout]}
-                resizeMode="cover"
-                source={require("../../../assets/rectangle-226041.png")}
-              />
-              <View style={styles.caloriesParent}>
-                <Text style={styles.calories}>VIDEO</Text>
-                <Text style={[styles.calories1, styles.caloriesSpaceBlock]}>
-                  FIND MORE PEACE OF MIND IN TOUGH TIMES
-                </Text>
-                <Text style={[styles.calories2, styles.caloriesSpaceBlock]}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt..
-                </Text>
-              </View>
-            </View>
-          </View>
-          <View style={[styles.maskGroup, styles.maskLayout]}>
-            <View style={styles.maskShadowBox} />
-            <View style={[styles.rectangleParent, styles.parentPosition]}>
-              <Image
-                style={[styles.frameChild, styles.childLayout]}
-                resizeMode="cover"
-                source={require("../../../assets/rectangle-226042.png")}
-              />
-              <View style={styles.caloriesParent}>
-                <Text style={styles.calories}>ARTICLE</Text>
-                <Text style={[styles.calories1, styles.caloriesSpaceBlock]}>
-                  COPE WITH STRESS IN DAILY INTERACTION
-                </Text>
-                <Text style={[styles.calories2, styles.caloriesSpaceBlock]}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt..
-                </Text>
-              </View>
-            </View>
-          </View>
-          <View style={[styles.maskGroup, styles.maskLayout]}>
-            <View style={styles.maskShadowBox} />
-            <View style={[styles.rectangleParent, styles.parentPosition]}>
-              <Image
-                style={[styles.frameChild, styles.childLayout]}
-                resizeMode="cover"
-                source={require("../../../assets/rectangle-226043.png")}
-              />
-              <View style={styles.caloriesParent}>
-                <Text style={styles.calories}>ARTICLE</Text>
-                <Text style={[styles.calories1, styles.caloriesSpaceBlock]}>
-                  CONQUER YOUR NEGATIVE THOUGHTS
-                </Text>
-                <Text style={[styles.calories2, styles.caloriesSpaceBlock]}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt..
-                </Text>
-              </View>
-            </View>
-          </View>
-          <View style={[styles.maskGroup, styles.maskLayout]}>
-            <View style={styles.maskShadowBox} />
-            <View style={[styles.rectangleParent, styles.parentPosition]}>
-              <Image
-                style={[styles.frameChild, styles.childLayout]}
-                resizeMode="cover"
-                source={require("../../../assets/rectangle-226044.png")}
-              />
-              <View style={styles.caloriesParent}>
-                <Text style={styles.calories}>ARTICLE</Text>
-                <Text style={[styles.calories1, styles.caloriesSpaceBlock]}>
-                  ANXIETY ANTIDOTE
-                </Text>
-                <Text style={[styles.calories2, styles.caloriesSpaceBlock]}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt..
-                </Text>
-              </View>
-            </View>
-          </View>
-          <View style={[styles.maskGroup, styles.maskLayout]}>
-            <View style={styles.maskShadowBox} />
-            <View style={[styles.rectangleParent, styles.parentPosition]}>
-              <View style={[styles.rectangleParent2, styles.childLayout]}>
-                <Image
-                  style={[styles.groupChild, styles.childLayout]}
-                  resizeMode="cover"
-                  source={require("../../../assets/rectangle-226045.png")}
-                />
-                <Image
-                  style={[styles.playIcon, styles.iconLayout]}
-                  resizeMode="cover"
-                  source={require("../../../assets/play.png")}
-                />
-              </View>
-              <View style={styles.caloriesParent}>
-                <Text style={styles.calories}>VIDEO</Text>
-                <Text style={[styles.calories1, styles.caloriesSpaceBlock]}>
-                  FIND MORE PEACE OF MIND IN TOUGH TIMES
-                </Text>
-                <Text style={[styles.calories2, styles.caloriesSpaceBlock]}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt..
-                </Text>
-              </View>
-            </View>
-          </View>
-        </View>
+          ))}
         </ScrollView>
       </View>
-      
     </View>
   );
 };
@@ -180,38 +63,38 @@ const styles = StyleSheet.create({
   navPosition: {
     width: 375,
     left: 0,
-    position: "absolute",
+    position: 'absolute',
   },
   parentPosition2: {
     left: 16,
-    alignItems: "center",
-    position: "absolute",
+    alignItems: 'center',
+    position: 'absolute',
   },
   separatorLayout: {
-    display: "none",
+    display: 'none',
     backgroundColor: Color.separatorColorLightWithTransparency,
     borderRadius: 0,
-    width: "0.57%",
-    position: "absolute",
+    width: '0.57%',
+    position: 'absolute',
   },
   labelTypo1: {
     width: 147,
-    display: "flex",
-    textAlign: "center",
+    display: 'flex',
+    textAlign: 'center',
     fontFamily: FontFamily.regularFootnote13pt,
-    fontWeight: "500",
+    fontWeight: '500',
     fontSize: 13,
     left: 8,
     height: 15,
-    top: "50%",
+    top: '50%',
     letterSpacing: 0,
-    justifyContent: "center",
-    alignItems: "center",
-    position: "absolute",
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
   },
   parentPosition: {
     top: 13,
-    position: "absolute",
+    position: 'absolute',
   },
   childLayout: {
     width: 115,
@@ -220,7 +103,7 @@ const styles = StyleSheet.create({
   caloriesSpaceBlock: {
     marginTop: 5,
     width: 195,
-    textAlign: "left",
+    textAlign: 'left',
   },
   maskLayout: {
     height: 136,
@@ -233,36 +116,36 @@ const styles = StyleSheet.create({
   timeLayout: {
     height: 21,
     width: 54,
-    position: "absolute",
+    position: 'absolute',
   },
   tabsPosition: {
     marginLeft: -187.5,
-    left: "50%",
+    left: '50%',
     width: 375,
-    position: "absolute",
+    position: 'absolute',
   },
   homeLayout: {
     borderRadius: Border.br_81xl,
-    position: "absolute",
+    position: 'absolute',
   },
   timePosition: {
     left: 0,
     top: 0,
   },
   parentPosition1: {
-    top: "50%",
-    left: "50%",
-    justifyContent: "center",
-    alignItems: "center",
-    position: "absolute",
+    top: '50%',
+    left: '50%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
   },
   labelTypo: {
     marginTop: 2,
     color: Color.plum_200,
     fontSize: FontSize.size_2xs,
-    textAlign: "center",
+    textAlign: 'center',
     fontFamily: FontFamily.regularFootnote13pt,
-    fontWeight: "500",
+    fontWeight: '500',
     letterSpacing: 0,
   },
   image4Icon: {
@@ -271,7 +154,7 @@ const styles = StyleSheet.create({
   },
   videosKnowledgeBaseChild: {
     // top: 100,
-    shadowColor: "rgba(0, 0, 0, 0.15)",
+    shadowColor: 'rgba(0, 0, 0, 0.15)',
     shadowRadius: 50,
     elevation: 50,
     height: 943,
@@ -282,7 +165,7 @@ const styles = StyleSheet.create({
     },
     width: 375,
     left: 0,
-    position: "absolute",
+    position: 'absolute',
     backgroundColor: Color.labelColorDarkPrimary,
     borderRadius: Border.br_11xl,
   },
@@ -296,7 +179,7 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.defaultRegularBody,
     color: Color.labelColorLightSecondary,
     marginLeft: 6,
-    textAlign: "left",
+    textAlign: 'left',
     letterSpacing: 0,
     flex: 1,
   },
@@ -304,17 +187,17 @@ const styles = StyleSheet.create({
     backgroundColor: Color.fillColorLightTertiary,
     paddingHorizontal: Padding.p_5xs,
     paddingVertical: Padding.p_6xs,
-    flexDirection: "row",
+    flexDirection: 'row',
     width: 343,
     borderRadius: Border.br_3xs,
-    alignItems: "center",
+    alignItems: 'center',
   },
   separator: {
-    height: "55.87%",
-    top: "20.95%",
-    right: "1.73%",
-    bottom: "23.18%",
-    left: "97.7%",
+    height: '55.87%',
+    top: '20.95%',
+    right: '1.73%',
+    bottom: '23.18%',
+    left: '97.7%',
   },
   label: {
     marginTop: -8.13,
@@ -323,20 +206,20 @@ const styles = StyleSheet.create({
     height: 15,
   },
   segmentedpickerOption: {
-    borderColor: "rgba(0, 0, 0, 0.04)",
+    borderColor: 'rgba(0, 0, 0, 0.04)',
     borderWidth: 0.5,
     height: 43,
-    borderStyle: "solid",
+    borderStyle: 'solid',
     borderRadius: 48,
     flex: 1,
     backgroundColor: Color.labelColorDarkPrimary,
   },
   separator1: {
-    height: "57.14%",
-    top: "21.43%",
-    right: "1.15%",
-    bottom: "21.43%",
-    left: "98.28%",
+    height: '57.14%',
+    top: '21.43%',
+    right: '1.15%',
+    bottom: '21.43%',
+    left: '98.28%',
   },
   label1: {
     marginTop: -6.69,
@@ -344,7 +227,7 @@ const styles = StyleSheet.create({
     height: 15,
   },
   segmentedpickerOption1: {
-    alignSelf: "stretch",
+    alignSelf: 'stretch',
     flex: 1,
   },
   segmentedpicker: {
@@ -354,31 +237,31 @@ const styles = StyleSheet.create({
     padding: 2,
     marginTop: 16,
     borderRadius: 48,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    overflow: "hidden",
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden',
   },
   maskShadowBox: {
     borderWidth: 1,
-    borderColor: "#f1f1f1",
+    borderColor: '#f1f1f1',
     elevation: 40,
     shadowRadius: 40,
-    shadowColor: "rgba(0, 0, 0, 0.05)",
+    shadowColor: 'rgba(0, 0, 0, 0.05)',
     borderRadius: Border.br_base,
-    left: "-0.15%",
-    bottom: "-0.37%",
-    right: "-0.15%",
-    top: "-0.37%",
-    width: "100.29%",
-    height: "100.74%",
-    borderStyle: "solid",
+    left: '-0.15%',
+    bottom: '-0.37%',
+    right: '-0.15%',
+    top: '-0.37%',
+    width: '100.29%',
+    height: '100.74%',
+    borderStyle: 'solid',
     shadowOpacity: 1,
     shadowOffset: {
       width: 0,
       height: 4,
     },
-    position: "absolute",
+    position: 'absolute',
     backgroundColor: Color.labelColorDarkPrimary,
   },
   frameChild: {
@@ -388,17 +271,17 @@ const styles = StyleSheet.create({
   },
   calories: {
     fontSize: FontSize.size_3xs,
-    fontWeight: "600",
+    fontWeight: '600',
     fontFamily: FontFamily.boldFootnote13pt,
     width: 195,
     color: Color.gray_100,
-    textAlign: "left",
+    textAlign: 'left',
   },
   calories1: {
     fontSize: FontSize.size_base,
     lineHeight: 15,
-    textTransform: "uppercase",
-    fontWeight: "900",
+    textTransform: 'uppercase',
+    fontWeight: '900',
     fontFamily: FontFamily.satoshiVariableBlack,
     color: Color.dimgray_200,
   },
@@ -413,7 +296,7 @@ const styles = StyleSheet.create({
   },
   rectangleParent: {
     left: 13,
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   maskGroup: {
     marginTop: 12,
@@ -424,13 +307,13 @@ const styles = StyleSheet.create({
     width: 115,
     left: 0,
     top: 0,
-    position: "absolute",
+    position: 'absolute',
   },
   playIcon: {
     top: 43,
     left: 45,
-    position: "absolute",
-    overflow: "hidden",
+    position: 'absolute',
+    overflow: 'hidden',
   },
   rectangleParent2: {
     height: 110,
@@ -440,15 +323,15 @@ const styles = StyleSheet.create({
   },
   searchfieldParent: {
     // top: 155,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   rightSideIcon: {
     top: 17,
     right: 15,
     width: 67,
     height: 11,
-    position: "absolute",
+    position: 'absolute',
   },
   text: {
     top: 1,
@@ -458,11 +341,11 @@ const styles = StyleSheet.create({
     height: 20,
     color: Color.labelColorDarkPrimary,
     width: 54,
-    textAlign: "center",
-    fontWeight: "500",
+    textAlign: 'center',
+    fontWeight: '500',
     letterSpacing: 0,
     left: 0,
-    position: "absolute",
+    position: 'absolute',
   },
   time: {
     borderRadius: Border.br_5xl,
@@ -476,71 +359,71 @@ const styles = StyleSheet.create({
   statusBarIphoneXOrNewe: {
     height: 44,
     top: 0,
-    overflow: "hidden",
+    overflow: 'hidden',
   },
   title: {
     fontSize: FontSize.size_13xl,
     letterSpacing: -0.1,
-    fontWeight: "700",
+    fontWeight: '700',
     fontFamily: FontFamily.satoshiVariableBold,
     color: Color.labelColorDarkPrimary,
-    textAlign: "left",
+    textAlign: 'left',
   },
   bell01Icon: {
     width: 30,
     height: 30,
-    overflow: "hidden",
+    overflow: 'hidden',
   },
   titleParent: {
     top: 60,
     width: 342,
-    justifyContent: "space-between",
-    flexDirection: "row",
-    alignItems: "center",
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   navChild: {
-    height: "11.86%",
-    width: "26.13%",
-    top: "0%",
-    right: "33.87%",
-    bottom: "88.14%",
-    left: "40%",
-    maxWidth: "100%",
-    maxHeight: "100%",
-    position: "absolute",
-    overflow: "hidden",
+    height: '11.86%',
+    width: '26.13%',
+    top: '0%',
+    right: '33.87%',
+    bottom: '88.14%',
+    left: '40%',
+    maxWidth: '100%',
+    maxHeight: '100%',
+    position: 'absolute',
+    overflow: 'hidden',
   },
   homeIndicator: {
     marginLeft: -66.5,
     bottom: 8,
     width: 134,
     height: 5,
-    left: "50%",
+    left: '50%',
     backgroundColor: Color.labelColorDarkPrimary,
   },
   homeindicator: {
     top: 65,
     height: 32,
-    left: "50%",
+    left: '50%',
   },
   homeIcon: {
-    overflow: "hidden",
+    overflow: 'hidden',
   },
   label2: {
     marginTop: 1,
     color: Color.plum_200,
     fontSize: FontSize.size_2xs,
-    textAlign: "center",
+    textAlign: 'center',
     fontFamily: FontFamily.regularFootnote13pt,
-    fontWeight: "500",
+    fontWeight: '500',
     letterSpacing: 0,
   },
   homeParent: {
     top: 14,
     left: 21,
-    justifyContent: "center",
-    alignItems: "center",
-    position: "absolute",
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
   },
   tabbarHome: {
     width: 74,
@@ -549,7 +432,7 @@ const styles = StyleSheet.create({
   smileParent: {
     marginTop: -20.12,
     marginLeft: -14,
-    left: "50%",
+    left: '50%',
   },
   tabbarHome1: {
     width: 76,
@@ -565,15 +448,15 @@ const styles = StyleSheet.create({
   label4: {
     color: Color.plum_100,
     fontSize: FontSize.size_2xs,
-    textAlign: "center",
+    textAlign: 'center',
     fontFamily: FontFamily.regularFootnote13pt,
-    fontWeight: "500",
+    fontWeight: '500',
     letterSpacing: 0,
   },
   searchRefractionParent: {
     marginTop: -19.12,
     marginLeft: -21.5,
-    left: "50%",
+    left: '50%',
   },
   tabbarHome2: {
     width: 75,
@@ -591,34 +474,34 @@ const styles = StyleSheet.create({
     top: 11,
     left: 11,
     width: 51,
-    alignItems: "center",
-    position: "absolute",
+    alignItems: 'center',
+    position: 'absolute',
   },
   iconlycurvedprofileParent: {
     left: 22,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   tabbarHomeParent: {
-    flexDirection: "row",
-    justifyContent: "center",
-    position: "absolute",
+    flexDirection: 'row',
+    justifyContent: 'center',
+    position: 'absolute',
   },
   tabs: {
     height: 65,
-    left: "50%",
+    left: '50%',
     top: 0,
-    overflow: "hidden",
+    overflow: 'hidden',
   },
   tabbar: {
-    height: "88.49%",
-    top: "11.51%",
-    right: "0%",
-    bottom: "0%",
-    left: "0%",
+    height: '88.49%',
+    top: '11.51%',
+    right: '0%',
+    bottom: '0%',
+    left: '0%',
     backgroundColor: Color.purple,
-    position: "absolute",
-    width: "100%",
+    position: 'absolute',
+    width: '100%',
   },
   nav: {
     bottom: 0,
@@ -626,13 +509,13 @@ const styles = StyleSheet.create({
   },
   videosKnowledgeBase: {
     // height: 1075,
-    overflow: "hidden",
-    width: "100%",
+    overflow: 'hidden',
+    width: '100%',
     // flex: 1,
     backgroundColor: Color.labelColorDarkPrimary,
     borderRadius: Border.br_11xl,
-    marginBottom:130,
-    alignItems:'center',
+    marginBottom: 130,
+    alignItems: 'center',
   },
 });
 

@@ -30,9 +30,10 @@ const DailyReflection2 = ({navigation}) => {
   useEffect(() => {
     setDatePlaceholder('Select Date');
   }, []);
+  const dates=moment(new Date).format('YYYY-MM-DD')
   const savethoughts=()=>{
     const body={
-      dated:dob,
+      dated:dates,
       thoughts:sig
     }
 dispatch(setreflection(body,navigation))
@@ -57,10 +58,10 @@ dispatch(setreflection(body,navigation))
         
 
       <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between',width:'90%',marginHorizontal:20,}}>
-        <View>
+        {/* <View>
             <Text style={{color: dob === '' ? 'lightgrey' : 'black' }}> {datePlaceholder || moment(date).format('DD-MM-YYYY')}</Text>
-        </View>
-        <TouchableOpacity  onPress={() => {
+        </View> */}
+        {/* <TouchableOpacity  onPress={() => {
             setOpen(true);
             setDatePlaceholder('');
           }}>
@@ -81,7 +82,7 @@ dispatch(setreflection(body,navigation))
             }}
             mode="date"
             onDateChange={setDate}
-          />
+          /> */}
       </View>
 
 

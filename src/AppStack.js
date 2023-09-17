@@ -74,6 +74,8 @@ import PainAnalog from './screens/Recordandprogress/PainAnalog';
 import PainScale from './screens/Recordandprogress/PainScale';
 import Records from './screens/Recordandprogress/Records';
 import DeleteProfile from './screens/Profile/DeleteProfile';
+import Done from './screens/QuestionLES/Done';
+import Preview from './screens/Preview';
 const Appstack = () => {
     const Stack = createSharedElementStackNavigator();
     const options = {
@@ -157,6 +159,8 @@ const Appstack = () => {
             <Stack.Screen name="PainScale" component={PainScale} />
             <Stack.Screen name="Records" component={Records} />
             <Stack.Screen name="DeleteProfile" component={DeleteProfile} />
+            <Stack.Screen name="Done" component={Done} />
+            <Stack.Screen name="Preview" component={Preview} />
 
 
 

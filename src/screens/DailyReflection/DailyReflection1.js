@@ -25,35 +25,44 @@ import Swipeable from 'react-native-swipeable';
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch} from 'react-redux';
-import { getreflection } from '../../redux/actions/user.action';
+import { deleteReflection, getreflection } from '../../redux/actions/user.action';
 
 const DailyReflection1 = ({navigation}) => {
   const [dob, setDob] = useState('');
   const [date, setDate] = useState(new Date());
+  const [data, setdata] = useState();
   const [datePlaceholder, setDatePlaceholder] = useState('Select Date');
 
   const [open, setOpen] = useState(false);
   const [availableSurveys, setAvailableSurveys] = useState([]);
-
+  const dispatch = useDispatch();
   const handleSwipeToDelete = id => {
     // Log the state before the filter operation
     console.log('Before deletion:', availableSurveys);
     console.log('deleting with array', id);
     // Update the availableSurveys state by filtering out the deleted survey item
-    const filteredd = availableSurveys.filter(survey => survey._id !== id);
-    setAvailableSurveys(filteredd);
+    // const filteredd = availableSurveys.filter(survey => survey._id !== id);
+    // setAvailableSurveys(filteredd);
     // Log the state after the filter operation
-    console.log('After deletion:', availableSurveys);
+    // console.log('After deletion:', availableSurveys);
+    dispatch(deleteReflection(id));
+    setTimeout(() => {
+      getDetails()
+    }, 500);
   };
-  const dispatch = useDispatch();
+  
   useEffect(()=>{
     getDetails()
   },[dob])
+  console.log("dobbb",dob)
+  const dates=moment(new Date).format('YYYY-MM-DD')
+  console.log("nlhihlkhlk",dates)
   const getDetails = async () => {
-    const details=await dispatch(getreflection(dob))
-    console.log(JSON.stringify(details?.data))
+    const details=await dispatch(getreflection(dates))
+    console.log("loooooooo",JSON.stringify(details?.data))
+    setdata(details?.data?.data)
   };
-
+console.log("object",data)
   return (
     <View style={{flex: 1, backgroundColor: Color.labelColorDarkPrimary}}>
       <View style={{marginTop: 20, width: '95%', marginHorizontal: 10}}>
@@ -118,20 +127,20 @@ const DailyReflection1 = ({navigation}) => {
             width: '90%',
             marginHorizontal: 20,
           }}>
-          <View>
+          {/* <View>
             <Text style={{color: dob === '' ? 'lightgrey' : 'black'}}>
               {' '}
               {datePlaceholder || moment(date).format('DD-MM-YYYY')}
             </Text>
-          </View>
-          <TouchableOpacity
+          </View> */}
+          {/* <TouchableOpacity
             onPress={() => {
               setOpen(true);
               setDatePlaceholder('');
             }}>
             <Ionicons name="calendar" size={24} color="black" />
-          </TouchableOpacity>
-          <DatePicker
+          </TouchableOpacity> */}
+          {/* <DatePicker
             modal
             open={open}
             date={date}
@@ -146,7 +155,7 @@ const DailyReflection1 = ({navigation}) => {
             }}
             mode="date"
             onDateChange={setDate}
-          />
+          /> */}
         </View>
 
         {/* <ScrollView showsVerticalScrollIndicator={false}
@@ -158,8 +167,8 @@ const DailyReflection1 = ({navigation}) => {
           <ScrollView
             style={{maxHeight: '80%'}}
             contentContainerStyle={{paddingBottom: 40}}>
-            {availableSurveys.length != 0 ? (
-              availableSurveys.map((item, index) => (
+            {data?.length != 0 ? (
+              data?.map((item, index) => (
                 <Swipeable
                   key={item._id}
                   rightButtons={[

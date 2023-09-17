@@ -278,7 +278,7 @@ useEffect(()=>{
               activeTab === 'completed' && styles.activeTab,
             ]}
             onPress={() => handleTabChange('completed')}>
-            <Text style={[styles.tabText,{color:activeTab=="completed"?Color.gray_400:Color.gray_100}]}>Show Reports</Text>
+            <Text style={[styles.tabText,{color:activeTab=="completed"?Color.gray_400:Color.gray_100}]}>ports</Text>
           </TouchableOpacity>
         </View>
 

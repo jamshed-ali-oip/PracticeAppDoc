@@ -72,7 +72,7 @@ export const setreflection = (data, navigation) => async dispatch => {
   try {
     const response = await instance.post(`/appuser/daily-reflection`, data);
     if (response) {
-      navigation.navigate('DailyReflection1');
+      navigation.navigate('Tab2');
     }
     // alert("hogya")
   } catch (error) {
@@ -293,6 +293,41 @@ export const createNewPass = (body,navigation) => async dispatch => {
       console.log("response: " + JSON.stringify(response));
     }
   } catch (error) {
+    console.log(JSON.stringify(error?.response));
+  }
+};
+export const deleteReflection = (Id) => async dispatch => {
+
+  try {
+    const response = await instance.delete(`/appuser/daily-reflection/${Id}`);
+    if (response) {
+     
+    }
+  } catch (error) {
+    console.log(JSON.stringify(error?.response));
+  }
+};
+export const deleteaccount = (body,navigation,setError) => async dispatch => {
+
+  try {
+    const response = await instance.patch(`/appuser/app-user-delete`,body);
+    if (response) {
+     navigation?.navigate("Tab2")
+    }
+  } catch (error) {
+    setError(error?.response?.msg)
+    console.log(JSON.stringify(error?.response));
+  }
+};
+export const CareApi = () => async dispatch => {
+
+  try {
+    const response = await instance.get(`appuser/cares?content_type=English`);
+    if (response) {
+    return response?.data
+    }
+  } catch (error) {
+    setError(error?.response?.msg)
     console.log(JSON.stringify(error?.response));
   }
 };
