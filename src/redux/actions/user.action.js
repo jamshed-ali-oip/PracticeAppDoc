@@ -7,10 +7,11 @@ import {Alert} from 'react-native';
 // import { LOG_IN } from "../const/const";
 
 // ***************************Auth Screen ************************************
-export const userLogin = (data,setLoginError) => async dispatch => {
+export const userLogin = (data,setLoginError, setLoading) => async dispatch => {
   try {
     const response = await axios.post(`${base_Url}/appuser/login`, data);
     if (response) {
+      setLoading(false)
       await AsyncStorage.setItem('Token', response?.data?.access_token);
       dispatch({
         type: types.LOG_IN,
@@ -23,6 +24,7 @@ export const userLogin = (data,setLoginError) => async dispatch => {
       console.log("Login===================",response?.data?.user)
     }
   } catch (error) {
+    setLoading(false)
     setLoginError("Invalid Email or Password")
     // Alert.alert('Message', 'Invalid Email or Password', [
     //   {text: 'OK', onPress: () => console.log('OK Pressed')},
@@ -52,8 +54,11 @@ export const Register = (data, navigation) => async dispatch => {
 export const Activating = data => async dispatch => {
   try {
     const response = await axios.post(`${base_Url}/appuser/activate`, data);
-
+console.log(response?.data)
     if (response) {
+      await AsyncStorage.setItem('Token', response?.data?.access_token);
+      console.log(
+        "**************************************",response?.data?.access_token)
       dispatch({
         type: types.LOG_IN,
         payload: response?.data?.access_token,

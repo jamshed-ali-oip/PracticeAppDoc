@@ -132,7 +132,7 @@ useEffect(()=>{
   const dispatch = useDispatch();
   const getrecord = async () => {
     const ii = new Date();
-    const tarekh = moment(ii).format('DD-MM-YYYY');
+    const tarekh = moment(ii).format('YYYY-MM-DD');
     console.log('tareeekh', dob, 'jkggh', tarekh);
     const body = {
       date1: dob ? dob : tarekh,
@@ -178,7 +178,7 @@ useEffect(()=>{
     datasets: [
       {
         data:  [25, 37.5, 50, 62.5, 80, 90],
-        color: () => '#0F0ADE',
+        color: () => '#8853A7',
         strokeWidth: 1, // optional
       },
     ],
@@ -201,11 +201,11 @@ useEffect(()=>{
     backgroundGradientFromOpacity: 0,
     backgroundGradientTo: '#aaa',
     backgroundGradientToOpacity: 0.5,
-    color: () => '#0F0ADE',
+    color: () => "#8853A7",
     strokeWidth: 3, // optional, default 3
     barPercentage: 1,
     useShadowColorFromDataset: false, //
-    color: () => '#0F0ADE',
+    color: () => '#8853A7',
     propsForBackgroundLines: {
       strokeWidth: 1,
       stroke: 'gray',
@@ -215,7 +215,7 @@ useEffect(()=>{
       strokeWidth: '1.5',
       stroke: 'gray',
     },
-    labelColor: () => '#0F0ADE',
+    labelColor: () => '#8853A7',
   };
 
   const chartConfig1 = {
@@ -223,7 +223,7 @@ useEffect(()=>{
     backgroundGradientFromOpacity: 0,
     backgroundGradientTo: '#FFF',
     backgroundGradientToOpacity: 0.5,
-    color: () => 'red',
+    color: () => '#8853A7',
     strokeWidth: 2, // optional, default 3
     barPercentage: 0.5,
     useShadowColorFromDataset: false, //
@@ -231,7 +231,7 @@ useEffect(()=>{
     propsForDots: {
       r: '1',
       strokeWidth: '2',
-      stroke: 'blue',
+      stroke: '#8853A7',
     },
     propsForBackgroundLines: {
       strokeWidth: 0,
@@ -278,7 +278,7 @@ useEffect(()=>{
               activeTab === 'completed' && styles.activeTab,
             ]}
             onPress={() => handleTabChange('completed')}>
-            <Text style={[styles.tabText,{color:activeTab=="completed"?Color.gray_400:Color.gray_100}]}>ports</Text>
+            <Text style={[styles.tabText,{color:activeTab=="completed"?Color.gray_400:Color.gray_100}]}>Show Reports    </Text>
           </TouchableOpacity>
         </View>
 
@@ -579,7 +579,7 @@ useEffect(()=>{
                         onConfirm={date => {
                           setOpen(false);
                           setDate(date);
-                          const a = moment(date).format('DD-MM-YYYY');
+                          const a = moment(date).format('YYYY-MM-DD');
                           setDob(a);
                         }}
                         onCancel={() => {

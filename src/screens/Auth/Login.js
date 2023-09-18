@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Image, StyleSheet, Text, View, Pressable, TextInput, ScrollView } from "react-native";
+import { Image, StyleSheet, Text, View, Pressable, TextInput, ScrollView ,ActivityIndicator} from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import { FontFamily, Border, FontSize, Color, Padding } from "../../../GlobalStyles";
@@ -24,6 +24,7 @@ const Login1 = () => {
   const [securetextentry, setSecuretextentry] = useState(true)
   const [error, setError] = useState(null);
   const [Loginerror, setLoginError] = useState();
+  const [Loading, setLoading] = useState(false);
 
   const validateEmail = () => {
     // Simple email validation regex pattern
@@ -31,13 +32,16 @@ const Login1 = () => {
 
     if (email == '') {
       setEmailError('Enter email');
+      setLoading(false)
       return false
     }
     else if (!emailPattern.test(email)) {
       setEmailError('Invalid email');
+      setLoading(false)
       return false
     } else {
       setEmailError('');
+      setLoading(false)
       return true
     }
   };
@@ -45,12 +49,15 @@ const Login1 = () => {
   const validatePassword = () => {
     if (password == '') {
       setPasswordError('Enter password');
+      setLoading(false)
       return false
     }
     else if (password.length < 6) {
+      setLoading(false)
       setPasswordError('Password must be at least 6 characters');
       return false
     } else {
+      setLoading(false)
       setPasswordError('');
       return true
     }
@@ -64,14 +71,14 @@ const Login1 = () => {
       // email: "mzaryabuddin@gmail.com",
       // password: "Test@12345"
     }
-
+    setLoading(true)
     // alert("login api work")
     // Validate email and password
     let validatemail = validateEmail();
     let validatepass = validatePassword();
 
     if (validatemail == true && validatepass == true) {
-      dispatch(userLogin(data,setLoginError))
+      dispatch(userLogin(data,setLoginError, setLoading))
     }
     // console.log(data)
     // dispatch(userLogin(data))
@@ -222,7 +229,7 @@ const Login1 = () => {
                   style={[styles.pressable, styles.buttonFlexBox]}
                 >
                   <View style={[styles.button, styles.buttonFlexBox]}>
-                    <Text style={[styles.button1, styles.logInTypo]}>Sign in</Text>
+                    <Text style={[styles.button1, styles.logInTypo]}>{Loading==true?<ActivityIndicator color={"white"} size={"small"} />:"Sign in"}</Text>
                   </View>
                 </Pressable>
               </LinearGradient>

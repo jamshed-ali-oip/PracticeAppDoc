@@ -180,7 +180,7 @@ const Tutorial = () => {
                 borderRadius: 10,
               }}>
               <View style={{}}>
-                <Text style={{margin: 2, color: 'black'}}>
+                {/* <Text style={{margin: 2, color: 'black'}}>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                   Ut enim ad minim veniam, quis nostrud exercitation ullamco
@@ -189,7 +189,7 @@ const Tutorial = () => {
                   dolore eu fugiat nulla pariatur. Excepteur sint occaecat
                   cupidatat non proident, sunt in culpa qui officia deserunt
                   mollit anim id est laborum.
-                </Text>
+                </Text> */}
                 <Image
                   style={{width: '100%', marginTop: 10, borderRadius: 10}}
                   resizeMode="cover"

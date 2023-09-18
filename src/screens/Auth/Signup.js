@@ -61,8 +61,8 @@ const Signup = ({ navigation }) => {
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
     { label: 'Male', value: 'Male' },
-    { label: 'Female', value: 'Female' },
-    { label: 'Prefer not to say', value: 'prefer' },
+    { label: 'Female', value: 'Femal' },
+    { label: 'Prefer not to say', value: 'other' },
   ]);
 
   const [open2, setOpen2] = useState(false);
@@ -71,7 +71,7 @@ const Signup = ({ navigation }) => {
     { label: 'Single', value: 'Single' },
     { label: 'Married', value: 'Married' },
     { label: 'Divorced', value: 'Divorced' },
-    { label: 'Prefer not to say', value: 'prefer' },
+    { label: 'Prefer not to say', value: 'other' },
   ]);
 
   const [error, setError] = useState(null)
