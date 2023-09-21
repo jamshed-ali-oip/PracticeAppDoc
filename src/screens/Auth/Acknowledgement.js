@@ -117,9 +117,11 @@ const Acknowledgement = ({ navigation }) => {
       signature: sig,
       privacy_policy: toggleCheckBox,
       send_agreement_to_email: toggleCheckBox1,
-      severity_of_symptoms: data?.formthree?.severity_of_symptoms
+      severity_of_symptoms: data?.formthree?.severity_of_symptoms,
+      regular_doctors_appointments:data?.formthree?.regular_doctors_appointments
+      
     }
-    // console.log(body)
+    // console.log("bodyyyyyyy",body)
     dispatch(Register(body, navigation))
   }
 
@@ -155,7 +157,15 @@ const Acknowledgement = ({ navigation }) => {
           <View style={{}}>
             {error && <Text style={{ color: 'red', fontWeight: 'bold' }}>{error}</Text>}
           </View>
-
+          <Text
+          style={{
+            color:Color.darkslategray_100,
+            width:"90%",
+            marginTop:20,
+          }}
+          >
+          By my signature, I acknowledge that I have read, understand, and I certify all information is true and correct to the best of my knowledge.
+          </Text>
           <View style={{}}>
             <Text style={{ color: Colors.purple, fontWeight: 'bold', fontSize: 20, marginTop: 20 }}>Signature</Text>
 

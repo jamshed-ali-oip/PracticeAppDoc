@@ -65,7 +65,7 @@ import {
   get_Records_of_health,
   post_Records_of_health,
 } from '../../redux/actions/user.action';
-
+const {height,width}=Dimensions.get("window")
 const MyHealthSurvey = ({navigation}) => {
   const [dob, setDob] = useState('');
   const [date, setDate] = useState(new Date());
@@ -92,21 +92,22 @@ currentDate.setDate(currentDate.getDate() - 7);
 
 // Format the result as a string (e.g., "YYYY-MM-DD")
 var formattedDate = currentDate.toISOString().slice(0, 10);
-const mydate=moment(new Date).format('DD-MM-YYYY')
-
+const mydate=moment(new Date).format('YYYY-MM-DD')
+useEffect(()=>{
+  listing()
+},[])
 const listing=async()=>{
   const body={
-    date1:formattedDate,
+    date1:moment(formattedDate).format('YYYY-MM-DD'),
     date2:mydate
   }
+  console.log("body yesss",body)
  const data=await dispatch(get_Records_Body(body))
  console.log("data::::",data?.data?.data)
  setparts(data?.data?.data)
 }
 
-useEffect(()=>{
-  listing()
-},[])
+
   const handleTabChange = tab => {
     setActiveTab(tab);
   };
@@ -142,7 +143,7 @@ useEffect(()=>{
     console.log('myyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy', mydata?.data);
     setalldata(mydata?.data?.data);
   };
-
+console.log("***********************",alldata)
   const records = async () => {
     const body = {
       blood_pressure_systole: systole,
@@ -255,7 +256,7 @@ useEffect(()=>{
               style={{}}
             />
           </TouchableOpacity>
-          <View style={{marginHorizontal: '28%'}}>
+          <View style={{marginHorizontal:width*0.2}}>
             <Text
               style={{color: Colors.purple, fontWeight: 'bold', fontSize: 18}}>
               Record & Progress
@@ -713,6 +714,7 @@ useEffect(()=>{
                           fontSize: 16,
                           fontWeight: 'bold',
                           marginTop: 10,
+                          color:Color.darkslategray_200
                         }}>
                         Records
                       </Text>
@@ -725,17 +727,17 @@ useEffect(()=>{
                             marginTop: 20,
                           }}>
                           <View>
-                            <Text style={{fontWeight: 'bold'}}>
+                            <Text style={{fontWeight: 'bold',color:Color.darkslategray_100}}>
                               {moment(i?.createdAt).format('DD-MM-YYYY')}
                             </Text>
                           </View>
                           <View>
-                            <Text style={{fontWeight: 'bold'}}>
+                          <Text style={{fontWeight: 'bold',color:Color.darkslategray_100}}>
                               {moment(i?.createdAt).format('HH:MM A')}
                             </Text>
                           </View>
                           <View>
-                            <Text style={{fontWeight: 'bold'}}>
+                          <Text style={{fontWeight: 'bold',color:Color.darkslategray_100}}>
                               {i?.weight}
                             </Text>
                           </View>
@@ -819,6 +821,7 @@ useEffect(()=>{
                           fontSize: 16,
                           fontWeight: 'bold',
                           marginTop: 30,
+                          color:Color.darkslategray_200
                         }}>
                         Records
                       </Text>
@@ -830,17 +833,17 @@ useEffect(()=>{
                             marginTop: 20,
                           }}>
                           <View>
-                            <Text style={{fontWeight: 'bold'}}>
+                          <Text style={{fontWeight: 'bold',color:Color.darkslategray_100}}>
                               {moment(i?.createdAt).format('DD-MM-YYYY')}
                             </Text>
                           </View>
                           <View>
-                            <Text style={{fontWeight: 'bold'}}>
+                          <Text style={{fontWeight: 'bold',color:Color.darkslategray_100}}>
                               {moment(i?.createdAt).format('HH:MM A')}
                             </Text>
                           </View>
                           <View>
-                            <Text style={{fontWeight: 'bold'}}>
+                          <Text style={{fontWeight: 'bold',color:Color.darkslategray_100}}>
                               {i?.sugar_level}
                             </Text>
                           </View>
@@ -927,6 +930,7 @@ useEffect(()=>{
                           fontSize: 16,
                           fontWeight: 'bold',
                           marginTop: 10,
+                          color:Color.darkslategray_200
                         }}>
                         Records
                       </Text>
@@ -938,17 +942,17 @@ useEffect(()=>{
                             marginTop: 20,
                           }}>
                           <View>
-                            <Text style={{fontWeight: 'bold'}}>
+                          <Text style={{fontWeight: 'bold',color:Color.darkslategray_100}}>
                               {moment(i?.createdAt).format('DD-MM-YYYY')}
                             </Text>
                           </View>
                           <View>
-                            <Text style={{fontWeight: 'bold'}}>
+                          <Text style={{fontWeight: 'bold',color:Color.darkslategray_100}}>
                               {moment(i?.createdAt).format('HH:MM A')}
                             </Text>
                           </View>
                           <View>
-                            <Text style={{fontWeight: 'bold'}}>
+                          <Text style={{fontWeight: 'bold',color:Color.darkslategray_100}}>
                               {i?.sleeping_hours}
                             </Text>
                           </View>
@@ -1036,13 +1040,26 @@ useEffect(()=>{
                       <View
                         style={{
                           borderRadius: 100,
-                          backgroundColor: '#0F0ADE',
+                          backgroundColor: '#cf006e',
                           height: 10,
                           width: 10,
                         }}></View>
-                      <Text> Diastole</Text>
+                      <Text
+                      style={{color:"#cf006e", fontSize:14}}
+                      > Diastole</Text>
+                      <View
+                        style={{
+                          borderRadius: 100,
+                          backgroundColor: '#bf6bbb',
+                          height: 10,
+                          width: 10,
+                          marginLeft:10,
+                        }}></View>
+                      <Text
+                      style={{color:"#bf6bbb", fontSize:14}}
+                      > Systole</Text>
                     </View>
-                    <TouchableOpacity onPress={records}>
+                    {/* <TouchableOpacity onPress={records}>
                       <LinearGradient
                         style={{
                           height: 45,
@@ -1057,10 +1074,10 @@ useEffect(()=>{
                         useAngle={true}
                         angle={180}>
                         <Text style={[styles.button1, styles.logInTypo]}>
-                          Save
+                          Saveg
                         </Text>
                       </LinearGradient>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
 
                     <Modal
                       animationType="fade"
@@ -1130,6 +1147,7 @@ useEffect(()=>{
                           fontSize: 16,
                           fontWeight: 'bold',
                           marginTop: 10,
+                          color:Color.darkslategray_200
                         }}>
                         Records
                       </Text>
@@ -1141,17 +1159,17 @@ useEffect(()=>{
                             marginTop: 20,
                           }}>
                           <View>
-                            <Text style={{fontWeight: 'bold'}}>
+                          <Text style={{fontWeight: 'bold',color:Color.darkslategray_100}}>
                               {moment(i?.createdAt).format('DD-MM-YYYY')}
                             </Text>
                           </View>
                           <View>
-                            <Text style={{fontWeight: 'bold'}}>
+                          <Text style={{fontWeight: 'bold',color:Color.darkslategray_100}}>
                               {moment(i?.createdAt).format('HH:MM A')}
                             </Text>
                           </View>
                           <View>
-                            <Text style={{fontWeight: 'bold'}}>
+                          <Text style={{fontWeight: 'bold',color:Color.darkslategray_100}}>
                               {i?.blood_pressure}/{i?.blood_pressure_systole}
                             </Text>
                           </View>

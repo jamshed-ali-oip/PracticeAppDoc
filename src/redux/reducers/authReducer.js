@@ -7,7 +7,8 @@ const InitialState = {
   formthree: {},
   activation_token: null,
   profile:{},
-  questionar:[]
+  questionar:[],
+  profileImage:null
 
 };
 
@@ -63,6 +64,13 @@ const authReducer = (state = InitialState, action) => {
       return {
         ...state,
         questionar: action.payload,
+      };
+    case types.PROFILE_IMAGE:
+      console.log(action.payload);
+ 
+      return {
+        ...state,
+        profileImage: action.payload,
       };
 
     default:

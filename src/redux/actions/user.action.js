@@ -152,6 +152,7 @@ export const post_Records_of_health = (data, navigation) => async dispatch => {
   try {
     const response = await instance.post(`/appuser/myrecords`, data);
     if (response) {
+      console.log("::::::::::::::::::",response?.data)
       navigation.navigate('Tab2');
     }
     // alert("hogya")
@@ -163,9 +164,10 @@ export const get_Records_of_health = body => async dispatch => {
   //  alert(date1,date2)
   try {
     const response = await instance.get(
-      `/appuser/myrecords?from_date=${body?.date1}&till_date=${body?.date2}`,
+      `/appuser/myrecords?from_date=2023-08-01&till_date=${body?.date2}`,
     );
     if (response) {
+      console.log("*******************)0000000000000",response?.data?.data)
       return response;
     }
     // alert("hogya")
@@ -181,6 +183,7 @@ export const get_Records_Body = body => async dispatch => {
       `/appuser/pain-assessment?from_date=${body?.date1}&till_date=${body?.date2}`,
     );
     if (response) {
+      console.log("object4457456",response?.data)
       return response;
     }
     // alert("hogya")
@@ -224,6 +227,7 @@ export const CompleteDailyTask = (body,setModalVisible) => async dispatch => {
       `/appuser/complete-task/${body}`,
     );
     if (response) {
+      // alert("hogya")
       setModalVisible(true);
       setTimeout(() => {
         setModalVisible(false);
@@ -243,7 +247,7 @@ export const RemoveDailyTask = (body) => async dispatch => {
       `/appuser/remove-task/${body}`,
     );
     if (response) {
-      alert("removed")
+      // alert("removed")
       // setModalVisible(true);
       // setTimeout(() => {
       //   setModalVisible(false);
@@ -336,3 +340,15 @@ export const CareApi = () => async dispatch => {
     console.log(JSON.stringify(error?.response));
   }
 };
+// export const uploadAvatar = () => async dispatch => {
+
+//   try {
+//     const response = await instance.patch(`/appuser/app-user-update-avatar`);
+//     if (response) {
+//     return response?.data
+//     }
+//   } catch (error) {
+//     setError(error?.response?.msg)
+//     console.log(JSON.stringify(error?.response));
+//   }
+// };

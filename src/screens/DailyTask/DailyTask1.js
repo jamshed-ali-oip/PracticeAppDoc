@@ -98,7 +98,7 @@ const DailyTask1 = ({navigation}) => {
   var currentDate = new Date();
 
   // Subtract 7 days
-  currentDate.setDate(currentDate.getDate() - 7);
+  currentDate.setDate(currentDate.getDate() - 30);
   
   // Format the result as a string (e.g., "YYYY-MM-DD")
   const formattedDate = currentDate.toISOString().slice(0, 10);
@@ -166,20 +166,20 @@ const DailyTask1 = ({navigation}) => {
             width: '90%',
             marginHorizontal: 20,
           }}>
-          {/* <View>
+          <View>
             <Text style={{color: dob === '' ? 'lightgrey' : 'black'}}>
               {' '}
               {datePlaceholder || moment(date).format('DD-MM-YYYY')}
             </Text>
-          </View> */}
-          {/* <TouchableOpacity
+          </View>
+          <TouchableOpacity
             onPress={() => {
               setOpen(true);
               setDatePlaceholder('');
             }}>
             <Ionicons name="calendar" size={24} color="black" />
-          </TouchableOpacity> */}
-          {/* <DatePicker
+          </TouchableOpacity>
+          <DatePicker
             modal
             open={open}
             date={date}
@@ -194,7 +194,7 @@ const DailyTask1 = ({navigation}) => {
             }}
             mode="date"
             onDateChange={setDate}
-          /> */}
+          />
         </View>
 
         {activeTab === 'tasks' && (
@@ -269,7 +269,7 @@ const DailyTask1 = ({navigation}) => {
                           {surveyItem?.title?.toUpperCase()}
                         </Text>
                         <Text style={{fontSize: 13,color:Color.gray_100}}>
-                         {surveyItem?.description}
+                         {surveyItem?.description?.slice(0,115)}
                         </Text>
                       </View>
                     </View>

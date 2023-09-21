@@ -15,6 +15,10 @@ const CreateNewPassword = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const [password1, setPassword1] = useState('');
   const [password2, setPassword2] = useState('');
+  const [Cpassword2, setCPassword2] = useState('');
+  const [myerror, setmyerror] = useState('');
+
+
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword1, setShowPassword1] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
@@ -41,18 +45,18 @@ const CreateNewPassword = ({ navigation }) => {
     setPasswordError(false);
   };
 
-  const handleCreatePassword = () => {
-    Keyboard.dismiss();
+  // const handleCreatePassword = () => {
+  //   Keyboard.dismiss();
 
-    if (password1 === password2 && password1 !== '' && password2 !== '') {
-      // Passwords match and both fields are filled, navigate to the desired screen
-      navigation.navigate("Login");
-      setModalVisible(true);
-    } else {
-      // Passwords don't match or some fields are empty, show error
-      setPasswordError(true);
-    }
-  };
+  //   if (password1 === password2 && password1 !== '' && password2 !== '') {
+  //     // Passwords match and both fields are filled, navigate to the desired screen
+  //     navigation.navigate("Login");
+  //     setModalVisible(true);
+  //   } else {
+  //     // Passwords don't match or some fields are empty, show error
+  //     setPasswordError(true);
+  //   }
+  // };
 
 const dispatch=useDispatch()
   const changepass = async () => {
@@ -61,7 +65,13 @@ const dispatch=useDispatch()
     old_password: password,
     password: password1
   } 
-  dispatch(ChangePassword(body,navigation)) 
+  if(password1==Cpassword2){
+    dispatch(ChangePassword(body,navigation)) 
+  }else{
+    setmyerror("*New Password and Confirm Password does not matched")
+    // alert("askldh")
+  }
+  
     // await fetch('https://ntamtech.com/appuser/app-user', {
     //   method: 'PATCH',
     //   headers: {
@@ -101,27 +111,41 @@ const dispatch=useDispatch()
 
 
   return (
-    <KeyboardAvoidingView style={{ flex: 1 }} behavior="height" keyboardVerticalOffset={10}>
+    <KeyboardAvoidingView style={{ flex: 1 }}>
       <View style={{ flex: 1 }}>
         <View style={{ width: '95%', marginHorizontal: 10 }}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Ionicons name='chevron-back-outline' size={25} color={Colors.purple} style={{ marginTop: 40, width: '95%', marginHorizontal: 5 }} />
-          </TouchableOpacity>
+        <View style={{ marginTop: 20, flexDirection: 'row', alignItems: 'center' }}>
+            <View style={{ marginLeft: 20, }}>
+              <TouchableOpacity onPress={()=>navigation?.goBack()}>
+                <Ionicons
+                  name='arrow-back'
+                  size={25}
+                  color={Colors.purple} />
+              </TouchableOpacity>
+            </View>
+            <View style={{ marginHorizontal: '10%' }}><Text style={{ color: Colors.purple, fontSize: 20, fontWeight: 'bold' }}>Change Password</Text></View>
+          </View>
+
           <View style={{ width: '95%', marginHorizontal: 10, marginTop: 40 }}>
             <View style={{ justifyContent: 'center' }}>
-              <Text style={{ fontSize: 24, color: Colors.black, fontWeight: 'bold', fontFamily: FontFamily.AllisonRegular, letterSpacing: 1 }}>
-                Create New Password
-              </Text>
+            
               <Text style={{ fontSize: 14, marginTop: 10, fontFamily: 'Poppins-Regular',color:'black',marginBottom:30, }}>
                 Make a new password that's different from your old password
               </Text>
             </View>
           </View>
+          <Text
+          style={{
+            color:"red",
+            marginLeft:20,
+            fontSize:14
+          }}
+          >{myerror}</Text>
           <View style={styles.container}>
             <TextInput
               style={styles.input}
               secureTextEntry={!showPassword}
-              placeholder="Enter password"
+              placeholder="Old Password"
               placeholderTextColor='black'
               value={password}
               onChangeText={value => setPassword(value)}
@@ -134,10 +158,23 @@ const dispatch=useDispatch()
             <TextInput
               style={styles.input}
               secureTextEntry={!showPassword1}
-              placeholder="Enter new password"
+              placeholder="New Password"
               placeholderTextColor='black'
               value={password1}
               onChangeText={value => setPassword1(value)}
+            />
+            <TouchableOpacity style={styles.toggleButton} onPress={togglePasswordVisibility1}>
+              <Feather name={showPassword1 ? 'eye-off' : 'eye'} size={24} color={Colors.purple} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.container}>
+            <TextInput
+              style={styles.input}
+              secureTextEntry={!showPassword1}
+              placeholder="Confirm New Password"
+              placeholderTextColor='black'
+              value={Cpassword2}
+              onChangeText={value => setCPassword2(value)}
             />
             <TouchableOpacity style={styles.toggleButton} onPress={togglePasswordVisibility1}>
               <Feather name={showPassword1 ? 'eye-off' : 'eye'} size={24} color={Colors.purple} />

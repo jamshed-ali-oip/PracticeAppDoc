@@ -25,6 +25,7 @@ import DatePicker from 'react-native-date-picker';
 import moment from 'moment';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import LinearGradient from 'react-native-linear-gradient';
+const {height,width}=Dimensions.get("window")
 const data = [
   {
     id: 1,
@@ -189,6 +190,15 @@ const PainAnalog = ({ navigation }) => {
             </View>
           </TouchableOpacity>
         </View>
+        <Text
+        style={{
+          fontSize:width*0.035,
+          marginTop:height*0.025,
+          width:width*0.88,
+          alignSelf:"center",
+          color:"#000000"
+        }}
+        >Choose a region of pain so we can determine what to recommend for you.</Text>
         <View style={{ alignItems: 'center', marginTop: 20, }}>
           <Image style={{ width: 400, height: 400, resizeMode: 'contain' }} source={require('../../../assets/group-1000005758.png')} />
           <View
@@ -221,15 +231,24 @@ const PainAnalog = ({ navigation }) => {
           {/* <Image style={{ width: 400, height: 400, resizeMode: 'contain' }} source={require('../../../as')} /> */}
         </View>
       </View>
+      {/* <View
+      style={{flexDirection:"row"}}
+      > */}
       <Text
         style={{
           color: Colors.purple,
           fontWeight: 'bold',
-          alignSelf: "center",
-          padding: 10
+          alignSelf: "flex-start",
+          paddingLeft: 10,
+          marginTop:30,
+          marginLeft:20
           // backgroundColor: "lightgrey"
         }}
-      >{name?.toUpperCase()}</Text>
+      >{name?.toUpperCase()}<Text style={{color:"#c9c9c9"}}>*</Text></Text>
+      {/* <Image 
+      style={{resizeMode:"contain",position:"absolute",marginLeft:100,marginBottom:-300}}
+      source={require("../../../assets/Close.png")} />
+      </View> */}
       <View style={{ width: '90%', alignSelf: 'center', }}>
         <LinearGradient
           style={[styles.buttons, styles.buttonsPosition]}

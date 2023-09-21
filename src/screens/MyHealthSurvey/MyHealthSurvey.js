@@ -235,7 +235,9 @@ const MyHealthSurvey = ({navigation}) => {
             <ScrollView showsVerticalScrollIndicator={false}>
               {Completed?.map((i, index) => (
                 <TouchableOpacity
-                  onPress={() => navigation.navigate('Question1LES')}>
+                disabled={true}  
+                // onPress={() => navigation.navigate('Question1LES')}
+                  >
                   <View
                     style={{
                       borderWidth: 1,

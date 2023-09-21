@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -23,15 +23,15 @@ import {
   Padding,
 } from '../../../GlobalStyles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useDispatch } from 'react-redux';
+import {useDispatch} from 'react-redux';
 // import {firstform} from '../../redux';
 import DatePicker from 'react-native-date-picker';
 import moment from 'moment';
 import Colors from '../../constants/Colors';
 import Feather from 'react-native-vector-icons/Feather';
-import { FORMONE } from '../../redux/const/const';
+import {FORMONE} from '../../redux/const/const';
 
-const Signup = ({ navigation }) => {
+const Signup = ({navigation}) => {
   const dispatch = useDispatch();
   const [date, setDate] = useState(new Date());
   const [datePlaceholder, setDatePlaceholder] = useState('Date of birth');
@@ -41,12 +41,11 @@ const Signup = ({ navigation }) => {
   console.log(drop1, '==========');
   console.log(drop2, 'haahha');
 
-
   const [firstname, setFisrtname] = useState('');
   const [lastname, setLastname] = useState('');
   const [dob, setDob] = useState('');
   // const [age,setAge] = useState('')
-  console.log(dob, '====dob')
+  console.log(dob, '====dob');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [cpassword, setCPassword] = useState('');
@@ -60,84 +59,79 @@ const Signup = ({ navigation }) => {
   const [gender, setGender] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
-    { label: 'Male', value: 'Male' },
-    { label: 'Female', value: 'Femal' },
-    { label: 'Prefer not to say', value: 'other' },
+    {label: 'Male', value: 'Male'},
+    {label: 'Female', value: 'Femal'},
+    {label: 'Prefer not to say', value: 'other'},
   ]);
 
   const [open2, setOpen2] = useState(false);
   const [value2, setValue2] = useState(null);
   const [items2, setItems2] = useState([
-    { label: 'Single', value: 'Single' },
-    { label: 'Married', value: 'Married' },
-    { label: 'Divorced', value: 'Divorced' },
-    { label: 'Prefer not to say', value: 'other' },
+    {label: 'Single', value: 'Single'},
+    {label: 'Married', value: 'Married'},
+    {label: 'Divorced', value: 'Divorced'},
+    {label: 'Prefer not to say', value: 'other'},
   ]);
 
-  const [error, setError] = useState(null)
+  const [error, setError] = useState(null);
 
+  const [securetextentry, setSecuretextentry] = useState(true);
+  const [securetextentry1, setSecuretextentry1] = useState(true);
 
-
-  const [securetextentry, setSecuretextentry] = useState(true)
-  const [securetextentry1, setSecuretextentry1] = useState(true)
-
-
-const datee=moment(new Date).format('DD-MM-YYYY')
+  const datee = moment(new Date()).format('DD-MM-YYYY');
   const validation = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
     const uppercaseCharRegex = /[A-Z]/;
 
     if (firstname === '') {
-      setError({ firstname: 'Please enter first name' });
+      setError({firstname: 'Please enter first name'});
       return false;
     } else if (lastname === '') {
-      setError({ lastname: 'Please enter last name' });
+      setError({lastname: 'Please enter last name'});
       return false;
     } else if (drop1 === '') {
-      setError({ drop1: 'Please select gender' });
+      setError({drop1: 'Please select gender'});
       return false;
     } else if (dob === '') {
-      setError({ dob: 'Please select date of birth' });
+      setError({dob: 'Please select date of birth'});
       return false;
     } else if (drop2 === '') {
-      setError({ drop2: 'Please select status' });
+      setError({drop2: 'Please select status'});
       return false;
     } else if (!emailRegex.test(email)) {
-      setError({ email: 'Invalid email format' });
+      setError({email: 'Invalid email format'});
       return false;
-    }
-    else if (password === '') {
-      setError({ password: 'Please enter password' });
+    } else if (password === '') {
+      setError({password: 'Please enter password'});
       return false;
-    }
-    else if (password.length < 6) {
-      setError({ password: 'Password must be at least 6 characters long' });
+    } else if (password.length < 6) {
+      setError({password: 'Password must be at least 6 characters long'});
       return false;
-    }
-    else if (!specialCharRegex.test(password)) {
-      setError({ password: 'Password must contain at least one special character' });
+    } else if (!specialCharRegex.test(password)) {
+      setError({
+        password: 'Password must contain at least one special character',
+      });
       return false;
-    }
-    else if (!uppercaseCharRegex.test(password)) {
-      setError({ password: 'Password must contain at least one uppercase character' });
+    } else if (!uppercaseCharRegex.test(password)) {
+      setError({
+        password: 'Password must contain at least one uppercase character',
+      });
       return false;
-    }
-    else if (dob==datee) {
-      setError({ password: 'Select correct Date' });
+    } else if (dob == datee) {
+      setError({password: 'Select correct Date'});
       return false;
-    }
-    else if (password !== cpassword) {
-      setError({ cpassword: 'Password Does Not Match' });
+    } else if (password !== cpassword) {
+      setError({cpassword: 'Password Does Not Match'});
       return false;
     } else {
       return true;
     }
-  }
+  };
 
   const onSignUp = () => {
     validate = validation();
-    console.log('ssd====', validate)
+    console.log('ssd====', validate);
     if (validate) {
       const body = {
         first_name: firstname,
@@ -150,8 +144,8 @@ const datee=moment(new Date).format('DD-MM-YYYY')
       };
       dispatch({
         type: FORMONE,
-        payload: body
-      })
+        payload: body,
+      });
       navigation.navigate('Demographics');
     }
     // navigation.navigate('Demographics');
@@ -161,15 +155,12 @@ const datee=moment(new Date).format('DD-MM-YYYY')
     setDatePlaceholder('Date of birth');
   }, []);
 
-
-
-
   return (
     <ScrollView>
-      <View style={{ flex: 1, backgroundColor: Colors.white, marginBottom: 10, }}>
-        <View style={{ marginTop: 20, alignItems: 'center' }}>
+      <View style={{flex: 1, backgroundColor: Colors.white, marginBottom: 10}}>
+        <View style={{marginTop: 20, alignItems: 'center'}}>
           <Image
-            style={{ width: '40%', height: 150 }}
+            style={{width: '40%', height: 150}}
             resizeMode="contain"
             source={require('../../../assets/group1.png')}
           />
@@ -211,7 +202,12 @@ const datee=moment(new Date).format('DD-MM-YYYY')
             marginTop: 20,
           }}>
           <TextInput
-            style={{ fontSize: 16, color: Color.systemBlack, alignItems: 'center', marginLeft: 5, }}
+            style={{
+              fontSize: 16,
+              color: Color.systemBlack,
+              alignItems: 'center',
+              marginLeft: 5,
+            }}
             placeholder=" First Name"
             placeholderTextColor={'lightgrey'}
             placeholderStyle={{}}
@@ -219,7 +215,11 @@ const datee=moment(new Date).format('DD-MM-YYYY')
             onChangeText={value => setFisrtname(value)}
           />
         </View>
-        {error?.firstname && <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', }}>{error?.firstname}</Text>}
+        {error?.firstname && (
+          <Text style={{color: 'red', fontWeight: 'bold', textAlign: 'center'}}>
+            {error?.firstname}
+          </Text>
+        )}
 
         <View
           style={{
@@ -236,7 +236,7 @@ const datee=moment(new Date).format('DD-MM-YYYY')
             marginTop: 15,
           }}>
           <TextInput
-            style={{ fontSize: 16, color: Color.systemBlack, marginLeft: 5, }}
+            style={{fontSize: 16, color: Color.systemBlack, marginLeft: 5}}
             placeholder=" Last Name"
             placeholderTextColor={'lightgrey'}
             placeholderStyle={{}}
@@ -244,10 +244,45 @@ const datee=moment(new Date).format('DD-MM-YYYY')
             onChangeText={value => setLastname(value)}
           />
         </View>
-        {error?.lastname && <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginTop: 10 }}>{error?.lastname}</Text>}
+        {error?.lastname && (
+          <Text
+            style={{
+              color: 'red',
+              fontWeight: 'bold',
+              textAlign: 'center',
+              marginTop: 10,
+            }}>
+            {error?.lastname}
+          </Text>
+        )}
+        <View
+          style={{
+            height: 50,
+            width: '90%',
+            backgroundColor: 'transparent',
+            alignSelf: 'center',
 
+            borderRadius: 10,
+            // paddingLeft: 10,
+            // paddingRight: 5,
+            borderWidth: 1,
+            borderColor: 'lightgrey',
+            marginTop: 15,
+          }}>
+          <TextInput
+            style={{fontSize: 16, color: Color.systemBlack, marginLeft: 5}}
+            placeholder="Age"
+            placeholderTextColor={'lightgrey'}
+            placeholderStyle={{}}
+            value={lastname}
+            keyboardType='decimal-pad'
+            onChangeText={value => setLastname(value)}
+          />
+        </View>
+       
 
-        <View style={{ marginTop: 5, zIndex: 9999,marginBottom:gender?100:0 }}>
+        <View
+          style={{marginTop: 5, zIndex: 9999, marginBottom: gender ? 100 : 0}}>
           <DropDown
             placeholder={'Gender'}
             items={items}
@@ -263,16 +298,25 @@ const datee=moment(new Date).format('DD-MM-YYYY')
             }}
           />
         </View>
-        <View style={{ top: 30, }}>
-          {error?.drop1 && <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginTop: 10 }}>{error?.drop1}</Text>}
+        <View style={{top: 30}}>
+          {error?.drop1 && (
+            <Text
+              style={{
+                color: 'red',
+                fontWeight: 'bold',
+                textAlign: 'center',
+                marginTop: 10,
+              }}>
+              {error?.drop1}
+            </Text>
+          )}
         </View>
         <TouchableOpacity
           onPress={() => {
             setOpen(true);
             setDatePlaceholder('');
           }}
-          style=
-          {{
+          style={{
             height: 55,
             width: '90%',
             backgroundColor: 'transparent',
@@ -284,10 +328,14 @@ const datee=moment(new Date).format('DD-MM-YYYY')
             borderWidth: 1,
             borderColor: 'lightgrey',
             marginTop: 40,
-          }}
-        >
-          <View style={{ top: 10, left: 10 }}>
-            <Text style={{ fontSize: 16, marginTop: 5, color: dob === '' ? 'lightgrey' : 'black' }}>
+          }}>
+          <View style={{top: 10, left: 10}}>
+            <Text
+              style={{
+                fontSize: 16,
+                marginTop: 5,
+                color: dob === '' ? 'lightgrey' : 'black',
+              }}>
               {datePlaceholder || moment(date).format('DD-MM-YYYY')}
             </Text>
           </View>
@@ -298,8 +346,8 @@ const datee=moment(new Date).format('DD-MM-YYYY')
             onConfirm={date => {
               setOpen(false);
               setDate(date);
-              const a = moment(date).format('DD-MM-YYYY')
-              setDob(a)
+              const a = moment(date).format('DD-MM-YYYY');
+              setDob(a);
             }}
             onCancel={() => {
               setOpen(false);
@@ -308,29 +356,43 @@ const datee=moment(new Date).format('DD-MM-YYYY')
             onDateChange={setDate}
           />
         </TouchableOpacity>
-        <View style={{ top: 10, }}>
-          {error?.dob && <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginBottom: 5 }}>{error?.dob}</Text>}
+        <View style={{top: 10}}>
+          {error?.dob && (
+            <Text
+              style={{
+                color: 'red',
+                fontWeight: 'bold',
+                textAlign: 'center',
+                marginBottom: 5,
+              }}>
+              {error?.dob}
+            </Text>
+          )}
         </View>
-        {/* <View style ={{flexDirection:'row',alignItems:'center',marginLeft:20,marginTop:10}}>
-
-        <CheckBox
-    disabled={false}
-    value={toggleCheckBox}
-    onValueChange={(newValue) => setToggleCheckBox(newValue)}
-    // onFillColor='red'
-    // onCheckColor='red'
-    // tintColor='#FFFF'
-    tintColors={{ true: 'purple', false: 'lightgrey' }}
-  />
-        <Text style={{color:'black'}} >Under 18?</Text>
-
-
-        </View> */}
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginLeft: 20,
+            marginTop: 10,
+          }}>
+          <CheckBox
+            disabled={false}
+            value={toggleCheckBox}
+            onValueChange={newValue => setToggleCheckBox(newValue)}
+            // onFillColor='red'
+            // onCheckColor='red'
+            // tintColor='#FFFF'
+            tintColors={{true: 'purple', false: 'lightgrey'}}
+          />
+          <Text style={{color: 'black'}}>Under 18?</Text>
+        </View>
         {/* <View style={{width:'90%',marginHorizontal:22,borderWidth:0.5,padding:5,borderRadius:5,marginTop:10,}}>
           <Text style={{fontSize:16,fontWeight:'bold'}}>Note<Text style={{fontSize:14,fontWeight:'400'}}> : You must be 18 years or above to use this app , otherwise you wont be able to signup</Text> </Text>
         </View> */}
 
-        <View style={{ marginTop: 0, zIndex: 9999 ,marginBottom:open2?150:0}}>
+        <View
+          style={{marginTop: 0, zIndex: 9999, marginBottom: open2 ? 150 : 0}}>
           <DropDown
             placeholder={'Marital Status'}
             items={items2}
@@ -346,8 +408,18 @@ const datee=moment(new Date).format('DD-MM-YYYY')
             }}
           />
         </View>
-        <View style={{  }}>
-          {error?.drop2 && <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginTop: 10 }}>{error?.drop2}</Text>}
+        <View style={{}}>
+          {error?.drop2 && (
+            <Text
+              style={{
+                color: 'red',
+                fontWeight: 'bold',
+                textAlign: 'center',
+                marginTop: 10,
+              }}>
+              {error?.drop2}
+            </Text>
+          )}
         </View>
         {/* <View>
         <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginTop: 10 }}>
@@ -369,7 +441,12 @@ const datee=moment(new Date).format('DD-MM-YYYY')
             marginTop: 40,
           }}>
           <TextInput
-            style={{ fontSize: 16, color: Color.systemBlack, zIndex: 1, marginLeft: 5, }}
+            style={{
+              fontSize: 16,
+              color: Color.systemBlack,
+              zIndex: 1,
+              marginLeft: 5,
+            }}
             placeholder=" Email"
             placeholderTextColor={'lightgrey'}
             placeholderStyle={{}}
@@ -377,7 +454,17 @@ const datee=moment(new Date).format('DD-MM-YYYY')
             onChangeText={value => setEmail(value)}
           />
         </View>
-        {error?.email && <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginTop: 10 }}>{error?.email}</Text>}
+        {error?.email && (
+          <Text
+            style={{
+              color: 'red',
+              fontWeight: 'bold',
+              textAlign: 'center',
+              marginTop: 10,
+            }}>
+            {error?.email}
+          </Text>
+        )}
 
         <View
           style={{
@@ -392,10 +479,11 @@ const datee=moment(new Date).format('DD-MM-YYYY')
             borderWidth: 1,
             borderColor: 'lightgrey',
             marginTop: 15,
-            flexDirection: 'row', justifyContent: 'space-between'
+            flexDirection: 'row',
+            justifyContent: 'space-between',
           }}>
           <TextInput
-            style={{ fontSize: 16, color: Color.systemBlack, width: '85%' }}
+            style={{fontSize: 16, color: Color.systemBlack, width: '85%'}}
             placeholder=" Password"
             placeholderTextColor={'lightgrey'}
             placeholderStyle={{}}
@@ -405,7 +493,7 @@ const datee=moment(new Date).format('DD-MM-YYYY')
           />
 
           {/* {password != '' ? */}
-          <View style={{ justifyContent: 'center' }}>
+          <View style={{justifyContent: 'center'}}>
             {/* <Ionicons
                             name={securetextentry ? 'eye-off' : 'eye'}
                             color={Colors.white}
@@ -413,15 +501,27 @@ const datee=moment(new Date).format('DD-MM-YYYY')
                             style={{  marginRight: 10 }}
                             onPress={() => setSecuretextentry(!securetextentry)}
                         /> */}
-            <Feather name={securetextentry ? 'eye-off' : 'eye'} size={18} color={Colors.purple}
-              style={{ marginRight: 10 }}
+            <Feather
+              name={securetextentry ? 'eye-off' : 'eye'}
+              size={18}
+              color={Colors.purple}
+              style={{marginRight: 10}}
               onPress={() => setSecuretextentry(!securetextentry)}
             />
           </View>
           {/* : null} */}
-
         </View>
-        {error?.password && <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginTop: 10 }}>{error?.password}</Text>}
+        {error?.password && (
+          <Text
+            style={{
+              color: 'red',
+              fontWeight: 'bold',
+              textAlign: 'center',
+              marginTop: 10,
+            }}>
+            {error?.password}
+          </Text>
+        )}
         <View
           style={{
             height: 55,
@@ -435,10 +535,11 @@ const datee=moment(new Date).format('DD-MM-YYYY')
             borderWidth: 1,
             borderColor: 'lightgrey',
             marginTop: 15,
-            flexDirection: 'row', justifyContent: 'space-between'
+            flexDirection: 'row',
+            justifyContent: 'space-between',
           }}>
           <TextInput
-            style={{ fontSize: 16, color: Color.systemBlack, width: '85%' }}
+            style={{fontSize: 16, color: Color.systemBlack, width: '85%'}}
             placeholder=" Confirm Password"
             placeholderTextColor={'lightgrey'}
             placeholderStyle={{}}
@@ -447,7 +548,7 @@ const datee=moment(new Date).format('DD-MM-YYYY')
             secureTextEntry={securetextentry1}
           />
           {/* {cpassword != '' ? */}
-          <View style={{ justifyContent: 'center' }}>
+          <View style={{justifyContent: 'center'}}>
             {/* <Ionicons
                             name={securetextentry ? 'eye-off' : 'eye'}
                             color={Colors.white}
@@ -455,16 +556,27 @@ const datee=moment(new Date).format('DD-MM-YYYY')
                             style={{  marginRight: 10 }}
                             onPress={() => setSecuretextentry(!securetextentry)}
                         /> */}
-            <Feather name={securetextentry1 ? 'eye-off' : 'eye'} size={18} color={Colors.purple}
-              style={{ marginRight: 10 }}
+            <Feather
+              name={securetextentry1 ? 'eye-off' : 'eye'}
+              size={18}
+              color={Colors.purple}
+              style={{marginRight: 10}}
               onPress={() => setSecuretextentry1(!securetextentry1)}
             />
           </View>
           {/* : null} */}
-
-
         </View>
-        {error?.cpassword && <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginTop: 10 }}>{error?.cpassword}</Text>}
+        {error?.cpassword && (
+          <Text
+            style={{
+              color: 'red',
+              fontWeight: 'bold',
+              textAlign: 'center',
+              marginTop: 10,
+            }}>
+            {error?.cpassword}
+          </Text>
+        )}
 
         {/* <View style={{ alignSelf: 'center' }}>
           <Text
@@ -502,10 +614,9 @@ const datee=moment(new Date).format('DD-MM-YYYY')
             source={require('../../../assets/apple-logo.png')}
           />
         </View> */}
-        <View style={{ alignSelf: 'center', width: 350, }}>
+        <View style={{alignSelf: 'center', width: 350}}>
           <Text
             style={{
-
               color: 'black',
               fontSize: 12,
               marginTop: 15,
@@ -513,8 +624,8 @@ const datee=moment(new Date).format('DD-MM-YYYY')
               fontFamily: FontFamily.poppinsSemibold,
             }}>
             By signing up to you account, you are agree to our{' '}
-            <Text style={{ fontWeight: 'bold' }}>Privacy & Policy</Text> and{' '}
-            <Text style={{ fontWeight: 'bold' }}>Terms & Conditions.</Text>
+            <Text style={{fontWeight: 'bold'}}>Privacy & Policy</Text> and{' '}
+            <Text style={{fontWeight: 'bold'}}>Terms & Conditions.</Text>
           </Text>
         </View>
 
@@ -526,15 +637,14 @@ const datee=moment(new Date).format('DD-MM-YYYY')
           angle={180}>
           <Pressable
             style={[styles.pressable, styles.buttonFlexBox]}
-            onPress={onSignUp}
-          >
+            onPress={onSignUp}>
             <View style={[styles.button, styles.buttonFlexBox]}>
               <Text style={styles.button1}>Sign Up</Text>
             </View>
           </Pressable>
         </LinearGradient>
 
-        <View style={{ alignSelf: 'center' }}>
+        <View style={{alignSelf: 'center'}}>
           <TouchableOpacity onPress={() => navigation.navigate('Login')}>
             <Text
               style={{
@@ -544,16 +654,21 @@ const datee=moment(new Date).format('DD-MM-YYYY')
                 fontFamily: FontFamily.poppinsSemibold,
               }}>
               Have an account?{' '}
-              <Text style={{ color: 'black', fontSize: 16, fontWeight: 'bold' }}>
+              <Text style={{color: 'black', fontSize: 16, fontWeight: 'bold'}}>
                 Sign In
               </Text>
             </Text>
           </TouchableOpacity>
         </View>
-        <View style={{ alignSelf: 'center', marginTop: 15, }}>
-          <Text style={{ color: 'black' }}>Powered by <Text style={{ color: 'black', fontWeight: '500', fontSize: 12 }}>NTAM Group</Text></Text>
+        <View style={{alignSelf: 'center', marginTop: 15}}>
+          <Text style={{color: 'black'}}>
+            Powered by{' '}
+            <Text style={{color: 'black', fontWeight: '500', fontSize: 12}}>
+              NTAM Group
+            </Text>
+          </Text>
         </View>
-        <View style={{ marginTop: 10 }}></View>
+        <View style={{marginTop: 10}}></View>
       </View>
     </ScrollView>
   );

@@ -32,16 +32,16 @@ const Login1 = () => {
 
     if (email == '') {
       setEmailError('Enter email');
-      setLoading(false)
+      // setLoading(false)
       return false
     }
     else if (!emailPattern.test(email)) {
       setEmailError('Invalid email');
-      setLoading(false)
+      // setLoading(false)
       return false
     } else {
       setEmailError('');
-      setLoading(false)
+      // setLoading(false)
       return true
     }
   };
@@ -49,15 +49,15 @@ const Login1 = () => {
   const validatePassword = () => {
     if (password == '') {
       setPasswordError('Enter password');
-      setLoading(false)
+      // setLoading(false)
       return false
     }
     else if (password.length < 6) {
-      setLoading(false)
+      // setLoading(false)
       setPasswordError('Password must be at least 6 characters');
       return false
     } else {
-      setLoading(false)
+      // setLoading(false)
       setPasswordError('');
       return true
     }
@@ -65,13 +65,14 @@ const Login1 = () => {
   // JSD WORK 
 
   const handleSignIn = async () => {
+    setLoading(true)
     const data = {
       email: email,
       password: password
       // email: "mzaryabuddin@gmail.com",
       // password: "Test@12345"
     }
-    setLoading(true)
+    // setLoading(true)
     // alert("login api work")
     // Validate email and password
     let validatemail = validateEmail();
@@ -118,7 +119,7 @@ const Login1 = () => {
                 <TextInput
                   style={styles.input}
                   placeholder="Email"
-                  placeholderTextColor='black'
+                  placeholderTextColor='#a1b0b5'
                   value={email}
                   onChangeText={(text) => setEmail(text)}
                   // onBlur={validateEmail}
@@ -145,7 +146,7 @@ const Login1 = () => {
                 <TextInput
                   style={{ fontSize: 14, color: Color.systemBlack, width: '85%' }}
                   placeholder="Password"
-                  placeholderTextColor='black'
+                  placeholderTextColor='#a1b0b5'
                   value={password}
                   onChangeText={(text) => setPassword(text)}
                   // onBlur={validatePassword}
@@ -237,7 +238,7 @@ const Login1 = () => {
             <View style={{ marginTop: 20, }}>
               <View style={{ width: 240, alignItems: 'center' }}>
                 <Pressable onPress={() => navigation.navigate('Signup')}>
-                  <Text style={{ color: 'black', fontSize: 16 }}>Don't have an accout ? <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 16 }}>Sign Up</Text></Text>
+                  <Text style={{ color: '#8b8b8b', fontSize: 16 }}>Don't have an accout ? <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 16 }}>Sign Up</Text></Text>
                 </Pressable>
               </View>
             </View>

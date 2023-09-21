@@ -145,6 +145,13 @@ const Chat = ({navigation}) => {
           </TouchableOpacity>
         </View>
         <GiftedChat
+         textInputProps={{
+          style: {
+            color: 'black',
+            width:"85%" // Set your desired text color here
+            // backgroundColor: 'yourBackgroundColor', // Set your desired background color here
+          },
+        }}
          renderBubble={props => {
           return (
             <Bubble

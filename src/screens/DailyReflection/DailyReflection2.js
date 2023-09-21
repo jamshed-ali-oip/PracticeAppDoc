@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet,TextInput,ScrollView,Pressable,Image,Modal } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet,TextInput,ScrollView,Pressable,Image,Modal, Dimensions } from 'react-native'
 import React,{useState, useEffect} from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Feather from 'react-native-vector-icons/Feather'
@@ -13,7 +13,7 @@ import { useDispatch } from 'react-redux'
 import { setreflection } from '../../redux/actions/user.action'
 
 
-
+const {height,width}=Dimensions.get("window")
 
 const DailyReflection2 = ({navigation}) => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -93,7 +93,7 @@ dispatch(setreflection(body,navigation))
 
 
 
-      <View style={{marginHorizontal:20,width:'90%',height:500,borderWidth:1,borderColor:'grey',marginTop:10}}>
+      <View style={{marginHorizontal:20,width:width*0.85,height:height*0.5,borderWidth:1,borderColor:'grey',marginTop:10}}>
 
       <TextInput
             style={{fontSize: 16, color: 'black',  marginTop: 5}}

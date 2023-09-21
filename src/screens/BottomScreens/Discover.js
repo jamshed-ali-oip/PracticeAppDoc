@@ -122,7 +122,7 @@ const handledata=(i)=>{
                     <Image
                       style={[styles.frameChild, styles.childLayout]}
                       resizeMode="cover"
-                      source={require('../../../assets/rectangle-22604.png')}
+                      source={{uri:i?.media_url}}
                     />
                     <View style={styles.caloriesParent}>
                       <Text style={styles.calories}>ARTICLE</Text>
@@ -132,7 +132,7 @@ const handledata=(i)=>{
                       </Text>
                       <Text
                         style={[styles.calories2, styles.caloriesSpaceBlock]}>
-                        {i?.description?.slice(0,170)}...
+                        {i?.description?.slice(0,120)}...
                       </Text>
                     </View>
                   </View>

@@ -5,8 +5,8 @@ import Colors from "../../constants/Colors";
 import { Color, Border, FontSize, FontFamily, Padding } from "../../../GlobalStyles";
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { LOG_OUT } from "../../redux/const/const";
-import { useDispatch } from "react-redux";
+import { LOG_OUT, PROFILE_IMAGE } from "../../redux/const/const";
+import { useDispatch, useSelector } from "react-redux";
 
 const Profile = () => {
   const navigation = useNavigation();
@@ -26,12 +26,23 @@ const Profile = () => {
     };
 
     launchImageLibrary(options, (response) => {
-      if (response.uri) {
-        setSelectedImage(response.uri);
-      }
+     console.log("imagessssssssss", response)
+    //  setSelectedImage(response?.assets?.[0]?.uri) 
+     dispatch({
+      type: PROFILE_IMAGE,
+      payload:response?.assets?.[0]?.uri
+     })
+     // const data={
+      //   file:{
+      //     uri: response?.uri,
+      //     type: response?.type,
+      //     name: response?.fileName,  
+      //   }
+      // }
+      // dispatch()
     });
   };
-
+const mypic=useSelector((state)=>state?.auth?.profileImage)
 
 
 
@@ -119,8 +130,9 @@ const Profile = () => {
                 ) : ( */}
                   <Image
                     style={styles.profilePlaceholderImage}
-                    source={{ uri: avatar }}
+                    source={{ uri: `${mypic}` }}
                   />
+{/* file:///data/user/0/com.circlecare/cache/rn_image_picker_lib_temp_08b77cd8-74b6-45b2-b425-286d46a36985.jpg */}
                 {/* )} */}
               </View>
             </TouchableOpacity>
@@ -181,6 +193,8 @@ const Profile = () => {
         </View> */}
 
           <ScrollView style={[styles.content]}>
+          <Text style={{ fontSize: 14, fontWeight:"500",color:Color?.darkslategray_200,marginBottom:10,marginLeft:10 }}>Profile</Text>
+
             <View style={styles.profileParent}>
               <View style={styles.frameGroup}>
                 <Pressable
@@ -237,6 +251,7 @@ const Profile = () => {
                 </Pressable>
               </View>
             </View>
+            <Text style={{ fontSize: 14, fontWeight:"500",color:Color?.darkslategray_200,marginBottom:20,marginLeft:10 }}>Support</Text>
             <View style={{ marginBottom: -30 }}></View>
             <View style={styles.frameContainer}>
               <View style={styles.frameGroup}>

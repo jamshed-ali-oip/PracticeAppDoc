@@ -41,10 +41,6 @@ const Question1 = ({navigation, route}) => {
   const dispatch = useDispatch();
   const Questionss = async () => {
     const data = await dispatch(Questions(mainId?.data));
-    // console.log(
-    //   'Ques##################',
-    //   JSON?.stringify(data?.data?.data?.[0]?.questions?.[0]?.question),
-    // );
     setsawal(data?.data?.data);
   };
   useEffect(() => {
@@ -63,6 +59,9 @@ const Question1 = ({navigation, route}) => {
       question => question.type === 'Dropdown',
     );
     setDropdownQuestions(filteredDropdownQuestions);
+    if(filteredCheckboxQuestions?.length==0){
+      navigation?.navigate("Question3",{data:mainId?.data});
+    }
   }, [sawal]);
  
   const handleButtonClick = () => {

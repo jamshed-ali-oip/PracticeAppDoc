@@ -38,7 +38,7 @@ const Care = () => {
                   <Image
                     style={[styles.frameChild, styles.childLayout]}
                     resizeMode="cover"
-                    source={require('../../../assets/rectangle-22604.png')}
+                    source={{uri:i?.media_url}}
                   />
                   <View style={styles.caloriesParent}>
                     <Text style={styles.calories}>{i?.article_type?.toUpperCase()}</Text>
@@ -46,7 +46,7 @@ const Care = () => {
                      {i?.title?.toUpperCase()}
                     </Text>
                     <Text style={[styles.calories2, styles.caloriesSpaceBlock]}>
-                     {i?.description}
+                     {i?.description?.slice(0,120)}...
                     </Text>
                   </View>
                 </View>

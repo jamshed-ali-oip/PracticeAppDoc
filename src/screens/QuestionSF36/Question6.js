@@ -58,6 +58,7 @@ const Question6 = ({navigation, route}) => {
     const filteredMultipleChoiceQuestions = sawal?.[0].questions.filter(
       question => question.type === 'Multiple Choice',
     );
+    if(filteredMultipleChoiceQuestions?.length==0){ navigation?.navigate("Done",{data:mainId?.data});}
     setMultipleChoiceQuestions(filteredMultipleChoiceQuestions);
 
     const filteredCheckboxQuestions = sawal?.[0].questions.filter(

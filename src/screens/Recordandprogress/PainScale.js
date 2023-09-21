@@ -100,9 +100,14 @@ const PainScale = ({ navigation, route }) => {
             </Text>
           </View>
         </View>
-        <View style={{ marginHorizontal: 10, }}>
-          <Text style={{ fontWeight: 'bold', color: Colors.purple, fontSize: 20, }}>{name?.data?.toUpperCase()}</Text>
+        <View style={{ marginHorizontal: 10 }}>
+          <Text style={{ fontWeight: 'bold', color: Colors.purple, fontSize: 20, }}>{name?.data?.toUpperCase()}<Text style={{color:"#c9c9c9",position:"absolute"}}>*</Text></Text>
         </View>
+        <View
+        style={{
+          borderBottomColor:"#c9c9c9",borderBottomWidth:1,width:"100%"
+        }}
+        ></View>
         <View>
           <Text style={{ marginTop: 10, marginHorizontal: 5, marginBottom: 10,color:Color.dimgray_200 }}>
             Choose a number from 0 to 10 that best describes your pain
@@ -114,6 +119,7 @@ const PainScale = ({ navigation, route }) => {
             step={1}
             minimumTrackTintColor={Colors.purple}
             thumbTintColor={Colors.purple}
+            maximumTrackTintColor={Color.darkslategray_200}
             value={painLevel}
             onValueChange={(value) => setPainLevel(value)}
           />
@@ -142,7 +148,7 @@ const PainScale = ({ navigation, route }) => {
             <Text>  No Pain                               Distresting                       Unbearable  {"\n"}                                                     pain                                   pain                                                 </Text>
           </View> */}
           <View style={{ marginHorizontal: 10, marginTop: 10, }}>
-            <Text style={{ fontWeight: 'bold', }}>You Select <Text style={{ color: Colors.purple, fontWeight: 'bold' }}> {painLevel} </Text></Text>
+            <Text style={{ fontWeight: 'bold',color:Color.darkslategray_100 }}>You Select <Text style={{ color: Colors.purple, fontWeight: 'bold' }}> {painLevel} </Text></Text>
           </View>
         </View>
         <View style={{ marginTop: 20, marginHorizontal: 10, }}>
@@ -208,7 +214,7 @@ const PainScale = ({ navigation, route }) => {
           </TouchableOpacity>
 
         </View>
-        <View style={{ width: '90%', alignSelf: 'center', }}>
+        <View style={{ width: '90%', alignSelf: 'center',marginTop:-50 }}>
           <LinearGradient
             style={[styles.buttons, styles.buttonsPosition]}
             locations={[0, 1]}
