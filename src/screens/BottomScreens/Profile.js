@@ -7,6 +7,7 @@ import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LOG_OUT, PROFILE_IMAGE } from "../../redux/const/const";
 import { useDispatch, useSelector } from "react-redux";
+import { uploadAvatar } from "../../redux/actions/user.action";
 
 const Profile = () => {
   const navigation = useNavigation();
@@ -28,6 +29,7 @@ const Profile = () => {
     launchImageLibrary(options, (response) => {
      console.log("imagessssssssss", response)
     //  setSelectedImage(response?.assets?.[0]?.uri) 
+    // dispatch(uploadAvatar(response?.assets?.[0]))
      dispatch({
       type: PROFILE_IMAGE,
       payload:response?.assets?.[0]?.uri

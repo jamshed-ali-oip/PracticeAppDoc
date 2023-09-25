@@ -274,9 +274,9 @@ const Signup = ({navigation}) => {
             placeholder="Age"
             placeholderTextColor={'lightgrey'}
             placeholderStyle={{}}
-            value={lastname}
+            // value={lastname}
             keyboardType='decimal-pad'
-            onChangeText={value => setLastname(value)}
+            // onChangeText={value => setLastname(value)}
           />
         </View>
        

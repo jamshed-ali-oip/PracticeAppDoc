@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Modal, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Modal, TextInput, ActivityIndicator } from 'react-native';
 import RadioButtonRN from 'radio-buttons-react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Colors from '../../constants/Colors';
@@ -26,6 +26,8 @@ const Acknowledgement = ({ navigation }) => {
   const [sig, setSig] = useState('')
   const [toggleCheckBox, setToggleCheckBox] = useState(false)
   const [toggleCheckBox1, setToggleCheckBox1] = useState(false)
+  const [loading, setloading] = useState(false)
+  
 
   const [modalVisible, setModalVisible] = useState(false);
   const [error, setError] = useState('')
@@ -98,6 +100,7 @@ const Acknowledgement = ({ navigation }) => {
   //   navigation.navigate('VerifyEmail')
   // }
   const onComplete = () => {
+    setloading(true)
     const body = {
       first_name: data?.formone?.first_name,
       last_name: data?.formone?.last_name,
@@ -122,7 +125,7 @@ const Acknowledgement = ({ navigation }) => {
       
     }
     // console.log("bodyyyyyyy",body)
-    dispatch(Register(body, navigation))
+    dispatch(Register(body, navigation,setloading))
   }
 
   return (
@@ -231,7 +234,7 @@ const Acknowledgement = ({ navigation }) => {
               onPress={onNext}
             >
               <View >
-                <Text style={styles.button1}>Complete</Text>
+                <Text style={styles.button1}>{loading==true?<ActivityIndicator size={"small"} color="white"/>:"Complete"}</Text>
               </View>
             </TouchableOpacity>
           </LinearGradient>

@@ -32,10 +32,10 @@ export const userLogin = (data,setLoginError, setLoading) => async dispatch => {
     // console.log(JSON.stringify(error));
   }
 };
-export const Register = (data, navigation) => async dispatch => {
+export const Register = (data, navigation,setloading) => async dispatch => {
   try {
     const response = await axios.post(`${base_Url}/appuser/register`, data);
-
+    setloading(false)
     if (response) {
       dispatch({
         type: types.ACTIVATION_TOKEN,
@@ -44,6 +44,7 @@ export const Register = (data, navigation) => async dispatch => {
       navigation.navigate('VerifyEmail');
     }
   } catch (error) {
+    setloading(false)
     // Alert.alert('Message', error?.response?.data?.error, [
     //   {text: 'OK', onPress: () => console.log('OK Pressed')},
     // ]);
@@ -51,11 +52,12 @@ export const Register = (data, navigation) => async dispatch => {
     console.log('EROROROOR', JSON.stringify(error?.response?.data?.error));
   }
 };
-export const Activating = data => async dispatch => {
+export const Activating = (data,setLoading) => async dispatch => {
   try {
     const response = await axios.post(`${base_Url}/appuser/activate`, data);
 console.log(response?.data)
     if (response) {
+      setLoading(false)
       await AsyncStorage.setItem('Token', response?.data?.access_token);
       console.log(
         "**************************************",response?.data?.access_token)
@@ -69,6 +71,7 @@ console.log(response?.data)
       });
     }
   } catch (error) {
+    setLoading(false)
     console.log('EROROROOR', JSON.stringify(error.response));
   }
 };
@@ -340,15 +343,22 @@ export const CareApi = () => async dispatch => {
     console.log(JSON.stringify(error?.response));
   }
 };
-// export const uploadAvatar = () => async dispatch => {
+// export const uploadAvatar = (data) => async dispatch => {
 
 //   try {
-//     const response = await instance.patch(`/appuser/app-user-update-avatar`);
-//     if (response) {
-//     return response?.data
-//     }
+//     var bodyFormData=new FormData();
+//     bodyFormData.append('file',{
+//       uri:data?.uri,
+//       type:data?.type,
+//       name:data?.fileName
+//     });
+//     console.log("dsadsadas",bodyFormData)
+//     // const response = await instance.patch(`/appuser/app-user-update-avatar`,bodyFormData);
+// //     if (response) {
+// //  console.log("###############333333333333333333333",response)
+// //     }
 //   } catch (error) {
-//     setError(error?.response?.msg)
+//     // setError(error?.response?.msg)
 //     console.log(JSON.stringify(error?.response));
 //   }
 // };

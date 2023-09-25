@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, View, Text, StyleSheet, TouchableOpacity, Button, Modal } from 'react-native';
+import { SafeAreaView, View, Text, StyleSheet, TouchableOpacity, Button, Modal, ActivityIndicator } from 'react-native';
 import {
   CodeField,
   Cursor,
@@ -19,9 +19,11 @@ import { Activating } from '../../redux/actions/user.action';
 const VerifyEmail = ({ navigation }) => {
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('')
   // const [otp,setOtp] = useState('')
   const [token, setToken] = useState('')
+  
 
   const data = useSelector((state) => state?.auth)
   // console.log("llllllllllllllllllllllllllll", data)
@@ -33,11 +35,12 @@ const VerifyEmail = ({ navigation }) => {
   const verify = async () => {
     console.log("object8755", `${data?.activation_token}`)
     // console.log("88888888888888888888888888888888888888888888", data)
+    setLoading(true)
     const body = {
       activation_token: `${data?.activation_token}`
     }
     // console.log("activation_tokenactivation_token", `${data?.activation_token}`)
-    dispatch(Activating(body))
+    dispatch(Activating(body,setLoading))
     // alert("signup work will be done")
   }
 
@@ -100,7 +103,7 @@ const VerifyEmail = ({ navigation }) => {
 
 
             <View style={{}}>
-              <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 12, textAlign: 'center' }}>Verification Completed</Text>
+              <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 12, textAlign: 'center' }}>{loading==true?<ActivityIndicator size={"small"} color="White"/>:"Verification Completed"}</Text>
 
             </View>
           </View>
