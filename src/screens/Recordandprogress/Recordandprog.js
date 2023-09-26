@@ -334,6 +334,8 @@ console.log("***********************",alldata)
                   borderWidth: 1,
                   borderColor: 'lightgrey',
                   marginTop: 20,
+                  justifyContent:"center",
+                  paddingLeft:10
                 }}>
                 <TextInput
                   style={{fontSize: 16, color: Color.systemBlack}}
@@ -355,9 +357,12 @@ console.log("***********************",alldata)
                   borderRadius: 10,
                   // paddingLeft: 10,
                   // paddingRight: 5,
+                  
                   borderWidth: 1,
                   borderColor: 'lightgrey',
                   marginTop: 20,
+                  justifyContent:"center",
+                  paddingLeft:10
                 }}>
                 <TextInput
                   style={{fontSize: 16, color: Color.systemBlack}}
@@ -382,6 +387,8 @@ console.log("***********************",alldata)
                   borderWidth: 1,
                   borderColor: 'lightgrey',
                   marginTop: 20,
+                  justifyContent:"center",
+                  paddingLeft:10
                 }}>
                 <TextInput
                   style={{fontSize: 16, color: Color.systemBlack}}
@@ -406,6 +413,8 @@ console.log("***********************",alldata)
                   borderWidth: 1,
                   borderColor: 'lightgrey',
                   marginTop: 20,
+                  justifyContent:"center",
+                  paddingLeft:10
                 }}>
                 <TextInput
                   style={{fontSize: 16, color: Color.systemBlack}}
@@ -430,6 +439,8 @@ console.log("***********************",alldata)
                   borderWidth: 1,
                   borderColor: 'lightgrey',
                   marginTop: 20,
+                  justifyContent:"center",
+                  paddingLeft:10
                 }}>
                 <TextInput
                   style={{fontSize: 16, color: Color.systemBlack}}

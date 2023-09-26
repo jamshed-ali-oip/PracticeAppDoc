@@ -1,17 +1,18 @@
 import * as React from "react";
-import { Image, StyleSheet, View, Text, Pressable,TouchableOpacity } from "react-native";
+import { Image, StyleSheet, View, Text, Pressable,TouchableOpacity,Dimensions } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import { Border, Color, FontFamily, FontSize, Padding } from "../../../GlobalStyles";
 import { ScrollView } from "react-native-gesture-handler";
 import Colors from '../../constants/Colors';
 
+const {height, width} = Dimensions.get('window');
 
 const BottomHome = () => {
   const navigation = useNavigation();
 
   return (
-    <View style={{alignItems:'center',marginTop:20,height:'85%'}}>
+    <View style={{alignItems:'center',marginTop:20,height:height}}>
 <ScrollView showsVerticalScrollIndicator={false}>
     <View>
    
