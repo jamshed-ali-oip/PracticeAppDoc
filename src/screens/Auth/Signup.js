@@ -11,7 +11,8 @@ import {
   SafeAreaView,
   Keyboard,
   Pressable,
-  Platform
+  Platform,
+  Dimensions,
 } from 'react-native';
 import DropDown from '../../components/DropDown';
 import CheckBox from '@react-native-community/checkbox';
@@ -32,6 +33,7 @@ import Colors from '../../constants/Colors';
 import Feather from 'react-native-vector-icons/Feather';
 import {FORMONE} from '../../redux/const/const';
 
+const {height, width} = Dimensions.get('window');
 const Signup = ({navigation}) => {
   const dispatch = useDispatch();
   const [date, setDate] = useState(new Date());
@@ -161,16 +163,16 @@ const Signup = ({navigation}) => {
       <View style={{flex: 1, backgroundColor: Colors.white, marginBottom: 10}}>
         <View style={{marginTop: 20, alignItems: 'center'}}>
           <Image
-            style={{width: '40%', height: 150}}
+            style={{width: width * 0.7, height: height * 0.18}}
             resizeMode="contain"
-            source={require('../../../assets/group1.png')}
+            source={require('../../../assets/logos/ntlogo.png')}
           />
           <Text
             style={{
               color: 'black',
               fontSize: 30,
               fontWeight: 'bold',
-              marginTop: 20,
+              // marginTop: 10,
             }}>
             Sign Up
           </Text>
@@ -199,7 +201,7 @@ const Signup = ({navigation}) => {
             // paddingLeft: 10,
             // paddingRight: 5,
             // alignItems:"center",
-            justifyContent:"center",
+            justifyContent: 'center',
             borderWidth: 1,
             borderColor: 'lightgrey',
             marginTop: 20,
@@ -234,7 +236,7 @@ const Signup = ({navigation}) => {
             borderRadius: 10,
             // paddingLeft: 10,
             // paddingRight: 5,
-            justifyContent:"center",
+            justifyContent: 'center',
             borderWidth: 1,
             borderColor: 'lightgrey',
             marginTop: 15,
@@ -269,7 +271,7 @@ const Signup = ({navigation}) => {
             borderRadius: 10,
             // paddingLeft: 10,
             // paddingRight: 5,
-            justifyContent:"center",
+            justifyContent: 'center',
             borderWidth: 1,
             borderColor: 'lightgrey',
             marginTop: 15,
@@ -280,11 +282,10 @@ const Signup = ({navigation}) => {
             placeholderTextColor={'lightgrey'}
             placeholderStyle={{}}
             // value={lastname}
-            keyboardType='decimal-pad'
+            keyboardType="decimal-pad"
             // onChangeText={value => setLastname(value)}
           />
         </View>
-       
 
         <View
           style={{marginTop: 5, zIndex: 9999, marginBottom: gender ? 100 : 0}}>
@@ -390,7 +391,7 @@ const Signup = ({navigation}) => {
             // tintColor='#FFFF'
             tintColors={{true: 'purple', false: 'lightgrey'}}
           />
-          <Text style={{color: 'black',marginLeft:10}}>Under 18?</Text>
+          <Text style={{color: 'black', marginLeft: 10}}>Under 18?</Text>
         </View>
         {/* <View style={{width:'90%',marginHorizontal:22,borderWidth:0.5,padding:5,borderRadius:5,marginTop:10,}}>
           <Text style={{fontSize:16,fontWeight:'bold'}}>Note<Text style={{fontSize:14,fontWeight:'400'}}> : You must be 18 years or above to use this app , otherwise you wont be able to signup</Text> </Text>
@@ -441,7 +442,7 @@ const Signup = ({navigation}) => {
             borderRadius: 10,
             // paddingLeft: 10,
             // paddingRight: 5,
-            justifyContent:"center",
+            justifyContent: 'center',
             borderWidth: 1,
             borderColor: 'lightgrey',
             marginTop: 40,
