@@ -7,6 +7,7 @@ import {
   Pressable,
   ScrollView,
   TouchableOpacity,
+  Dimensions
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {useNavigation} from '@react-navigation/native';
@@ -18,7 +19,7 @@ import {
   FontFamily,
 } from '../../../GlobalStyles';
 import {FlatList} from 'react-native-gesture-handler';
-
+const {height,width}=Dimensions.get("window")
 const TutorialProfile = () => {
   const navigation = useNavigation();
 
@@ -45,10 +46,14 @@ const TutorialProfile = () => {
       </View> */}
           <View style={{alignItems: 'center', justifyContent: 'center'}}>
             <View style={{}}>
-              <Image
-                style={{width: 220, height: 220}}
+            <Image
+                style={{
+                  width:width*0.7,
+                   height:height*0.18,
+                  // backgroundColor:"red"
+                  }}
                 resizeMode="contain"
-                source={require('../../../assets/group1.png')}
+                source={require('../../../assets/logos/ntlogo.png')}
               />
             </View>
             <Text style={styles.takingCareOf}>
@@ -213,7 +218,7 @@ const TutorialProfile = () => {
                       Done
                     </Text>
                   </View>
-                </LinearGradient>
+              </LinearGradient>
               </View>
             </TouchableOpacity>
           </View>
@@ -241,7 +246,7 @@ const styles = StyleSheet.create({
     lineHeight: 35,
     fontFamily: FontFamily.AllisonRegular,
     color: Color.crimson_100,
-    marginTop: 8,
+    marginTop: 0,
     width: 343,
     textAlign: 'center',
   },

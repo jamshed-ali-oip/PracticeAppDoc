@@ -59,7 +59,7 @@ const AppHeader = ({route, navigation}) => {
             <Image
               style={styles.groupIcon}
               resizeMode="contain"
-              source={require("../../assets/group.png")}
+              source={require("../../assets/logos/headerLogo.png")}
             />
           </View>
 		  <View style={{marginLeft:5,}}>

@@ -34,7 +34,7 @@ const MyHealthSurvey = ({navigation}) => {
   const [availableSurveys, setAvailableSurveys] = useState([]);
   const [dattta, setdattta] = useState([]);
   const [Completed, setCompleted] = useState([]);
-
+  const [deletedSurveyIds, setDeletedSurveyIds] = useState([]);
   const handleTabChange = tab => {
     setActiveTab(tab);
   };
@@ -60,15 +60,14 @@ const MyHealthSurvey = ({navigation}) => {
       }, 1000); // Replace this delay with your actual API call
     });
   };
-
+  const clickedIds = [];
   const handleSwipeToDelete = item => {
-    // Update the availableSurveys state by filtering out the deleted survey item
-    setAvailableSurveys(prevSurveys =>
-      prevSurveys.filter(survey => survey.id !== item.id),
-    );
-  };
-
-  useEffect(() => {
+    clickedIds.push(item._id);
+    // Log the current array of clicked IDs (for demonstration purposes)
+    console.log("hjgkjglkhgkjhkjhkjhkjhkjhkj777777777777777",clickedIds);
+    Serveys();
+}; 
+useEffect(() => {
     Serveys();
   }, []);
 
@@ -93,7 +92,8 @@ const MyHealthSurvey = ({navigation}) => {
     // console.log('888888888888888888888888888888888888', dattta);
     // const filteredObjects = dattta.filter(obj => CHECKERR.includes(`${obj?._id}`));
     // console.log("555555555555",filteredObjects)
-    setdattta(notKHKH);
+    const lkl55=notKHKH?.filter(obj => !clickedIds.includes(obj?._id))
+    setdattta(lkl55);
     setCompleted(kjkkjk);
   };
   console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%', Completed);
@@ -799,6 +799,7 @@ const styles = StyleSheet.create({
     width: 80,
     height: '85%',
     marginTop: 20,
+    borderRadius:10,
   },
   deleteButtonText: {
     color: 'white',

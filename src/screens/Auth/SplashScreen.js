@@ -1,12 +1,12 @@
 import * as React from "react";
-import { Image, StyleSheet, Text, View, Pressable } from "react-native";
+import { Image, StyleSheet, Text, View, Pressable,Dimensions } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import { FontFamily, FontSize, Color, Border, Padding } from "../../../GlobalStyles";
 import languageChange from "./LanguageChange";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Colors from "../../constants/Colors";
-
+const {height,width}=Dimensions.get("window")
 const SplashScreen = () => {
   const navigation = useNavigation();
 
@@ -28,9 +28,13 @@ const SplashScreen = () => {
         <View style={{alignItems:'center'}}>
           <View>
             <Image
-              style={{}}
-              resizeMode="cover"
-              source={require("../../../assets/group1.png")}
+             style={{
+              width:width*0.7,
+               height:height*0.24,
+              // backgroundColor:"red"
+              }}
+              resizeMode="contain"
+              source={require("../../../assets/logos/ntlogo.png")}
             />
           </View>
           <Text style={styles.takingCareOf}>

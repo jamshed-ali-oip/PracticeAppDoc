@@ -1,27 +1,43 @@
-import React, { useState } from "react";
-import { Image, StyleSheet, Text, View, Pressable, TextInput, ScrollView ,ActivityIndicator} from "react-native";
-import LinearGradient from "react-native-linear-gradient";
-import { useNavigation } from "@react-navigation/native";
-import { FontFamily, Border, FontSize, Color, Padding } from "../../../GlobalStyles";
+import React, {useState} from 'react';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  Pressable,
+  TextInput,
+  ScrollView,
+  ActivityIndicator,
+  Dimensions,
+} from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+import {useNavigation} from '@react-navigation/native';
+import {
+  FontFamily,
+  Border,
+  FontSize,
+  Color,
+  Padding,
+} from '../../../GlobalStyles';
 import Colors from '../../constants/Colors';
-import BottomHome from "../BottomScreens/BottomHome";
-import ColorScreen from "../ColorScreen";
+import BottomHome from '../BottomScreens/BottomHome';
+import ColorScreen from '../ColorScreen';
 
 // import AnimTab1 from "../../bottomTab/AnimTab1";
 import Feather from 'react-native-vector-icons/Feather';
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useDispatch } from "react-redux";
-import { mytest, userLogin } from "../../redux/actions/user.action";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useDispatch} from 'react-redux';
+import {mytest, userLogin} from '../../redux/actions/user.action';
 
-
+const {height, width} = Dimensions.get('window');
 const Login1 = () => {
   const navigation = useNavigation();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [securetextentry, setSecuretextentry] = useState(true)
+  const [securetextentry, setSecuretextentry] = useState(true);
   const [error, setError] = useState(null);
   const [Loginerror, setLoginError] = useState();
   const [Loading, setLoading] = useState(false);
@@ -33,16 +49,15 @@ const Login1 = () => {
     if (email == '') {
       setEmailError('Enter email');
       // setLoading(false)
-      return false
-    }
-    else if (!emailPattern.test(email)) {
+      return false;
+    } else if (!emailPattern.test(email)) {
       setEmailError('Invalid email');
       // setLoading(false)
-      return false
+      return false;
     } else {
       setEmailError('');
       // setLoading(false)
-      return true
+      return true;
     }
   };
 
@@ -50,28 +65,27 @@ const Login1 = () => {
     if (password == '') {
       setPasswordError('Enter password');
       // setLoading(false)
-      return false
-    }
-    else if (password.length < 6) {
+      return false;
+    } else if (password.length < 6) {
       // setLoading(false)
       setPasswordError('Password must be at least 6 characters');
-      return false
+      return false;
     } else {
       // setLoading(false)
       setPasswordError('');
-      return true
+      return true;
     }
   };
-  // JSD WORK 
+  // JSD WORK
 
   const handleSignIn = async () => {
-    setLoading(true)
+    setLoading(true);
     const data = {
       email: email,
-      password: password
+      password: password,
       // email: "mzaryabuddin@gmail.com",
       // password: "Test@12345"
-    }
+    };
     // setLoading(true)
     // alert("login api work")
     // Validate email and password
@@ -79,83 +93,79 @@ const Login1 = () => {
     let validatepass = validatePassword();
 
     if (validatemail == true && validatepass == true) {
-      dispatch(userLogin(data,setLoginError, setLoading))
+      dispatch(userLogin(data, setLoginError, setLoading));
     }
     // console.log(data)
     // dispatch(userLogin(data))
-  }
-
-
-
-
-
+  };
 
   return (
-    <View style={{ backgroundColor: Color.labelColorDarkPrimary, flex: 1, }}>
+    <View style={{backgroundColor: Color.labelColorDarkPrimary, flex: 1}}>
       <ScrollView>
-        <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: '10%', }}>
-
-
-
+        <View
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginTop: '10%',
+          }}>
           <View style={styles.groupParent}>
             <Image
               style={styles.groupIcon}
-              resizeMode="cover"
-              source={require("../../../assets/group2.png")}
+              resizeMode="contain"
+              source={require('../../../assets/logos/ntlogo.png')}
             />
             <View style={styles.titleContainer}>
               <View style={[styles.textContainer, styles.buttonFlexBox]}>
                 <Text style={[styles.logIn, styles.logInTypo]}>Log in</Text>
               </View>
               <View style={[styles.textContainer, styles.buttonFlexBox]}>
-                {error && <Text style={{ color: 'red' }}>{error}</Text>}
+                {error && <Text style={{color: 'red'}}>{error}</Text>}
               </View>
             </View>
 
-
             <View style={styles.inputFieldParent}>
               <View>
-              {Loginerror ? <Text style={styles.error}>{"*"+Loginerror}</Text> : null}
+                {Loginerror ? (
+                  <Text style={styles.error}>{'*' + Loginerror}</Text>
+                ) : null}
                 <TextInput
                   style={styles.input}
                   placeholder="Email"
-                  placeholderTextColor='#a1b0b5'
+                  placeholderTextColor="#a1b0b5"
                   value={email}
-                  onChangeText={(text) => setEmail(text)}
+                  onChangeText={text => setEmail(text)}
                   // onBlur={validateEmail}
                   keyboardType="email-address"
                 />
-
               </View>
               <View>
-                
-                {emailError ? <Text style={styles.error}>{emailError}</Text> : null}
+                {emailError ? (
+                  <Text style={styles.error}>{emailError}</Text>
+                ) : null}
               </View>
-              <View style={{
-                height: 40,
-                width: 310,
-                backgroundColor: 'transparent',
-                alignSelf: 'center',
-                borderRadius: 7,
-                borderWidth: 1,
-                borderColor: Colors.light,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                paddingHorizontal: 5
-              }}>
+              <View
+                style={{
+                  height: 40,
+                  width: 310,
+                  backgroundColor: 'transparent',
+                  alignSelf: 'center',
+                  borderRadius: 7,
+                  borderWidth: 1,
+                  borderColor: Colors.light,
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  paddingHorizontal: 5,
+                }}>
                 <TextInput
-                  style={{ fontSize: 14, color: Color.systemBlack, width: '85%' }}
+                  style={{fontSize: 14, color: Color.systemBlack, width: '85%'}}
                   placeholder="Password"
-                  placeholderTextColor='#a1b0b5'
+                  placeholderTextColor="#a1b0b5"
                   value={password}
-                  onChangeText={(text) => setPassword(text)}
+                  onChangeText={text => setPassword(text)}
                   // onBlur={validatePassword}
                   secureTextEntry={securetextentry}
-
-
-
                 />
-                <View style={{ justifyContent: 'center' }}>
+                <View style={{justifyContent: 'center'}}>
                   {/* <Ionicons
                             name={securetextentry ? 'eye-off' : 'eye'}
                             color={Colors.white}
@@ -163,22 +173,24 @@ const Login1 = () => {
                             style={{  marginRight: 10 }}
                             onPress={() => setSecuretextentry(!securetextentry)}
                         /> */}
-                  <Feather name={securetextentry ? 'eye-off' : 'eye'} size={18} color={Colors.purple}
-                    style={{ marginRight: 10 }}
+                  <Feather
+                    name={securetextentry ? 'eye-off' : 'eye'}
+                    size={18}
+                    color={Colors.purple}
+                    style={{marginRight: 10}}
                     onPress={() => setSecuretextentry(!securetextentry)}
                   />
                 </View>
-
               </View>
-              <View style={{ marginTop: 10 }}>
-                {passwordError ? <Text style={styles.error}>{passwordError}</Text> : null}
+              <View style={{marginTop: 10}}>
+                {passwordError ? (
+                  <Text style={styles.error}>{passwordError}</Text>
+                ) : null}
               </View>
-
 
               <Pressable
                 style={styles.forgotPassword}
-                onPress={() => navigation.navigate('ForgotPassword')}
-              >
+                onPress={() => navigation.navigate('ForgotPassword')}>
                 <Text style={[styles.forgotPassword1, styles.dontHaveAnTypo]}>
                   Forgot Password
                 </Text>
@@ -189,7 +201,7 @@ const Login1 = () => {
                 <Image
                   style={styles.groupChild}
                   resizeMode="cover"
-                  source={require("../../../assets/vector-2161.png")}
+                  source={require('../../../assets/vector-2161.png')}
                 />
                 {/* <View style={[styles.rectangleParent, styles.groupItemLayout]}>
                   <View style={[styles.groupItem, styles.groupItemLayout]} />
@@ -221,35 +233,51 @@ const Login1 = () => {
               <LinearGradient
                 style={styles.buttons}
                 locations={[0, 1]}
-                colors={["#bf6bbb", "#716eaa"]}
+                colors={['#bf6bbb', '#716eaa']}
                 useAngle={true}
-                angle={180}
-              >
+                angle={180}>
                 <Pressable
                   onPress={handleSignIn}
-                  style={[styles.pressable, styles.buttonFlexBox]}
-                >
+                  style={[styles.pressable, styles.buttonFlexBox]}>
                   <View style={[styles.button, styles.buttonFlexBox]}>
-                    <Text style={[styles.button1, styles.logInTypo]}>{Loading==true?<ActivityIndicator color={"white"} size={"small"} />:"Sign in"}</Text>
+                    <Text style={[styles.button1, styles.logInTypo]}>
+                      {Loading == true ? (
+                        <ActivityIndicator color={'white'} size={'small'} />
+                      ) : (
+                        'Sign in'
+                      )}
+                    </Text>
                   </View>
                 </Pressable>
               </LinearGradient>
             </View>
-            <View style={{ marginTop: 20, }}>
-              <View style={{ width: 240, alignItems: 'center' }}>
+            <View style={{marginTop: 20}}>
+              <View style={{width: 240, alignItems: 'center'}}>
                 <Pressable onPress={() => navigation.navigate('Signup')}>
-                  <Text style={{ color: '#8b8b8b', fontSize: 16 }}>Don't have an accout ? <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 16 }}>Sign Up</Text></Text>
+                  <Text style={{color: '#8b8b8b', fontSize: 16}}>
+                    Don't have an accout ?{' '}
+                    <Text
+                      style={{
+                        color: 'black',
+                        fontWeight: 'bold',
+                        fontSize: 16,
+                      }}>
+                      Sign Up
+                    </Text>
+                  </Text>
                 </Pressable>
               </View>
             </View>
-
           </View>
-
         </View>
-
       </ScrollView>
-      <View style={{ position: 'relative', alignSelf: 'center', bototm: 20, }}>
-        <Text style={{ fontSize: 11, color:"black" }}>Powered by <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 12 }}>NTAM Group</Text></Text>
+      <View style={{position: 'relative', alignSelf: 'center', bototm: 20}}>
+        <Text style={{fontSize: 11, color: 'black'}}>
+          Powered by{' '}
+          <Text style={{color: 'black', fontWeight: 'bold', fontSize: 12}}>
+            NTAM Group
+          </Text>
+        </Text>
       </View>
     </View>
   );
@@ -263,11 +291,11 @@ const styles = StyleSheet.create({
   timeLayout: {
     height: 21,
     width: 54,
-    position: "absolute",
+    position: 'absolute',
   },
   textTypo: {
     fontFamily: FontFamily.interMedium,
-    fontWeight: "500",
+    fontWeight: '500',
     // position: "absolute",
   },
   homeindicatorPosition: {
@@ -276,16 +304,16 @@ const styles = StyleSheet.create({
     // position: "absolute",
   },
   buttonFlexBox: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   logInTypo: {
     fontFamily: FontFamily.poppinsSemibold,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   buttons1Layout: {
     borderRadius: Border.br_xs,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   orSignInTypo: {
     fontFamily: FontFamily.poppinsRegular,
@@ -294,13 +322,13 @@ const styles = StyleSheet.create({
   },
   dontHaveAnTypo: {
     fontFamily: FontFamily.poppinsMedium,
-    fontWeight: "500",
+    fontWeight: '500',
   },
   groupItemLayout: {
     width: 129,
     height: 26,
     top: 0,
-    position: "absolute",
+    position: 'absolute',
   },
   frameItemLayout: {
     marginLeft: 9,
@@ -309,14 +337,14 @@ const styles = StyleSheet.create({
   },
   text1Layout: {
     lineHeight: 18,
-    textAlign: "center",
+    textAlign: 'center',
   },
   rightSideIcon: {
     top: 17,
     right: 15,
     width: 67,
     height: 11,
-    position: "absolute",
+    position: 'absolute',
   },
   text: {
     top: 1,
@@ -324,11 +352,11 @@ const styles = StyleSheet.create({
     letterSpacing: 0,
     color: Color.systemBlack,
     height: 20,
-    textAlign: "center",
+    textAlign: 'center',
     lineHeight: 20,
     width: 54,
     fontFamily: FontFamily.interMedium,
-    fontWeight: "500",
+    fontWeight: '500',
     left: 0,
   },
   time: {
@@ -344,56 +372,57 @@ const styles = StyleSheet.create({
     height: 44,
     width: 375,
     left: 0,
-    position: "absolute",
-    overflow: "hidden",
+    position: 'absolute',
+    overflow: 'hidden',
   },
   homeIndicator: {
     marginLeft: -66.5,
     bottom: 8,
-    left: "50%",
+    left: '50%',
     borderRadius: Border.br_81xl,
     backgroundColor: Color.systemBlack,
     width: 134,
     height: 5,
-    position: "absolute",
+    position: 'absolute',
   },
   homeindicator: {
     // bottom: 0,
     // height: 34,
   },
   groupIcon: {
-    width: 118,
-    height: 138,
+    width: width * 0.7,
+    height: height * 0.18,
+    // backgroundColor:"red"
   },
   logIn: {
     fontSize: FontSize.size_9xl,
     lineHeight: 36,
     color: Color.dimgray_300,
-    alignSelf: "stretch",
-    textAlign: "center",
+    alignSelf: 'stretch',
+    textAlign: 'center',
   },
   textContainer: {
     height: 59,
-    alignSelf: "stretch",
+    alignSelf: 'stretch',
   },
   titleContainer: {
     paddingHorizontal: Padding.p_base,
     paddingVertical: Padding.p_9xs,
-    marginTop: 20,
+    marginTop: 10,
     width: 375,
   },
   dateOfBirth: {
     color: Color.neutral500,
-    textAlign: "left",
-    display: "flex",
+    textAlign: 'left',
+    display: 'flex',
     width: 212,
-    alignItems: "center",
+    alignItems: 'center',
   },
   dateOfBirthDdmmyyWrapper: {
     marginTop: -28,
-    top: "50%",
-    borderStyle: "solid",
-    borderColor: "#e7eaeb",
+    top: '50%',
+    borderStyle: 'solid',
+    borderColor: '#e7eaeb',
     borderWidth: 1,
     paddingLeft: Padding.p_sm,
     paddingTop: Padding.p_6xs,
@@ -402,7 +431,7 @@ const styles = StyleSheet.create({
     height: 56,
     right: 0,
     left: 0,
-    position: "absolute",
+    position: 'absolute',
     backgroundColor: Color.labelColorDarkPrimary,
   },
   inputField: {
@@ -415,9 +444,9 @@ const styles = StyleSheet.create({
     width: 343,
   },
   forgotPassword1: {
-    color: "#265565",
+    color: '#265565',
     lineHeight: 18,
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: FontSize.defaultRegularFootnote_size,
   },
   forgotPassword: {
@@ -433,7 +462,7 @@ const styles = StyleSheet.create({
     height: 1,
     width: 321,
     left: 0,
-    position: "absolute",
+    position: 'absolute',
   },
   groupItem: {
     left: 0,
@@ -443,8 +472,8 @@ const styles = StyleSheet.create({
     top: 4,
     left: 15,
     color: Color.lightgray,
-    textAlign: "center",
-    position: "absolute",
+    textAlign: 'center',
+    position: 'absolute',
   },
   rectangleParent: {
     left: 98,
@@ -458,34 +487,34 @@ const styles = StyleSheet.create({
     width: 41,
   },
   facebook31: {
-    overflow: "hidden",
+    overflow: 'hidden',
   },
   frameView: {
-    flexDirection: "row",
+    flexDirection: 'row',
     marginTop: 24,
   },
   groupContainer: {
     // width:'100%',
     marginTop: 20,
-    alignItems: "center",
+    alignItems: 'center',
   },
   button1: {
     fontSize: FontSize.size_base,
     color: Color.labelColorDarkPrimary,
-    textAlign: "center",
+    textAlign: 'center',
     lineHeight: 20,
   },
   button: {
     paddingHorizontal: '34%',
     paddingVertical: 0,
-    alignSelf: "stretch",
+    alignSelf: 'stretch',
     flex: 1,
   },
   pressable: {
     borderRadius: Border.br_47xl,
-    height: "100%",
-    backgroundColor: "transparent",
-    width: "100%",
+    height: '100%',
+    backgroundColor: 'transparent',
+    width: '100%',
   },
   buttons: {
     height: 40,
@@ -509,11 +538,11 @@ const styles = StyleSheet.create({
     height: 50,
     marginTop: 16,
     width: 343,
-    alignItems: "center",
+    alignItems: 'center',
   },
   groupParent: {
     // top: 76,
-    alignItems: "center",
+    alignItems: 'center',
     left: 0,
     // position: "absolute",
   },
@@ -528,8 +557,8 @@ const styles = StyleSheet.create({
     left: 139,
     fontSize: FontSize.size_5xs,
     fontFamily: FontFamily.interMedium,
-    fontWeight: "500",
-    position: "absolute",
+    fontWeight: '500',
+    position: 'absolute',
   },
   login: {
     // borderRadius: Border.br_11xl,
@@ -548,8 +577,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 7,
     color: 'black',
-    alignSelf: 'center'
-
+    alignSelf: 'center',
   },
   error: {
     color: 'red',
