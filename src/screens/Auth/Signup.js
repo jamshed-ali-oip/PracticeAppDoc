@@ -11,6 +11,7 @@ import {
   SafeAreaView,
   Keyboard,
   Pressable,
+  Platform
 } from 'react-native';
 import DropDown from '../../components/DropDown';
 import CheckBox from '@react-native-community/checkbox';
@@ -156,7 +157,7 @@ const Signup = ({navigation}) => {
   }, []);
 
   return (
-    <ScrollView>
+    <ScrollView automaticallyAdjustKeyboardInsets={true}>
       <View style={{flex: 1, backgroundColor: Colors.white, marginBottom: 10}}>
         <View style={{marginTop: 20, alignItems: 'center'}}>
           <Image
@@ -197,6 +198,8 @@ const Signup = ({navigation}) => {
             borderRadius: 10,
             // paddingLeft: 10,
             // paddingRight: 5,
+            // alignItems:"center",
+            justifyContent:"center",
             borderWidth: 1,
             borderColor: 'lightgrey',
             marginTop: 20,
@@ -231,6 +234,7 @@ const Signup = ({navigation}) => {
             borderRadius: 10,
             // paddingLeft: 10,
             // paddingRight: 5,
+            justifyContent:"center",
             borderWidth: 1,
             borderColor: 'lightgrey',
             marginTop: 15,
@@ -265,6 +269,7 @@ const Signup = ({navigation}) => {
             borderRadius: 10,
             // paddingLeft: 10,
             // paddingRight: 5,
+            justifyContent:"center",
             borderWidth: 1,
             borderColor: 'lightgrey',
             marginTop: 15,
@@ -385,7 +390,7 @@ const Signup = ({navigation}) => {
             // tintColor='#FFFF'
             tintColors={{true: 'purple', false: 'lightgrey'}}
           />
-          <Text style={{color: 'black'}}>Under 18?</Text>
+          <Text style={{color: 'black',marginLeft:10}}>Under 18?</Text>
         </View>
         {/* <View style={{width:'90%',marginHorizontal:22,borderWidth:0.5,padding:5,borderRadius:5,marginTop:10,}}>
           <Text style={{fontSize:16,fontWeight:'bold'}}>Note<Text style={{fontSize:14,fontWeight:'400'}}> : You must be 18 years or above to use this app , otherwise you wont be able to signup</Text> </Text>
@@ -436,6 +441,7 @@ const Signup = ({navigation}) => {
             borderRadius: 10,
             // paddingLeft: 10,
             // paddingRight: 5,
+            justifyContent:"center",
             borderWidth: 1,
             borderColor: 'lightgrey',
             marginTop: 40,

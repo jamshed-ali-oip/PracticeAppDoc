@@ -148,7 +148,11 @@ const Chat = ({navigation}) => {
          textInputProps={{
           style: {
             color: 'black',
-            width:"85%" // Set your desired text color here
+            width:"85%" ,
+            height:50,
+            textalign: 'center'
+            // height:"20%"
+            // Set your desired text color here
             // backgroundColor: 'yourBackgroundColor', // Set your desired background color here
           },
         }}

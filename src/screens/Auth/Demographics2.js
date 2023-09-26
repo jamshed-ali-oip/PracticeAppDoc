@@ -401,6 +401,7 @@ const Demographics2 = ({navigation}) => {
                   borderRadius: 10,
                   // paddingLeft: 10,
                   // paddingRight: 5,
+                  justifyContent:"center",
                   borderWidth: 1,
                   borderColor: 'lightgrey',
                   marginTop: 40,
@@ -449,10 +450,10 @@ const Demographics2 = ({navigation}) => {
 
               <View
                 style={{
-                  marginTop: 30,
+                  // marginTop: 30,
                   marginLeft: -10,
                   zIndex: 9999999999999999,
-                  // marginBottom:100
+                  marginTop:open5?300:30
 
                 }}>
                 <DropDown
@@ -483,7 +484,7 @@ const Demographics2 = ({navigation}) => {
 
               <View
                 style={{
-                  marginTop: 30,
+                  marginTop:open6?300:30,
                   marginLeft: -10,
                   zIndex: 99999999999999,
                 }}>
