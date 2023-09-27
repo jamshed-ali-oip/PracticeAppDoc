@@ -12,7 +12,7 @@ const BottomHome = () => {
   const navigation = useNavigation();
 
   return (
-    <View style={{alignItems:'center',marginTop:20,height:height}}>
+    <View style={{alignItems:'center',marginTop:10,height:height}}>
 <ScrollView showsVerticalScrollIndicator={false}>
     <View>
    

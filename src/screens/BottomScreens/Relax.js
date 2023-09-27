@@ -25,7 +25,7 @@ const Relax = () => {
       </View>
       </View>
       <View style={{backgroundColor:'white',height:200,}}>
-        <View style={{alignItems:'center',marginTop:40,}}>
+        <View style={{alignItems:'center',marginTop:20,}}>
       <Text style={{color:Colors.purple,fontWeight:'bold',fontSize:26,}}>Meet Kalyana</Text>
       </View>
       <View style={{height:45,width:'90%',marginHorizontal:20,marginTop:20,}}>
