@@ -10,7 +10,7 @@ import {
   Dimensions
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import {
   Padding,
   Color,
@@ -18,13 +18,13 @@ import {
   FontSize,
   FontFamily,
 } from '../../../GlobalStyles';
-import {FlatList} from 'react-native-gesture-handler';
-const {height,width}=Dimensions.get("window")
+import { FlatList } from 'react-native-gesture-handler';
+const { height, width } = Dimensions.get("window")
 const Tutorial = () => {
   const navigation = useNavigation();
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <ScrollView>
         <View
           style={{
@@ -44,14 +44,14 @@ const Tutorial = () => {
           </View>
         </View>
       </View> */}
-          <View style={{alignItems: 'center', justifyContent: 'center'}}>
+          <View style={{ alignItems: 'center', justifyContent: 'center' }}>
             <View style={{}}>
               <Image
                 style={{
-                  width:width*0.7,
-                   height:height*0.18,
+                  width: width * 0.7,
+                  height: height * 0.18,
                   // backgroundColor:"red"
-                  }}
+                }}
                 resizeMode="contain"
                 source={require('../../../assets/logos/ntlogo.png')}
               />
@@ -61,7 +61,7 @@ const Tutorial = () => {
             </Text>
           </View>
 
-          <View style={{width: '80%', marginTop: 10}}>
+          <View style={{ width: '80%', marginTop: 10 }}>
             <View
               style={{
                 backgroundColor: Color.whitesmoke_300,
@@ -69,28 +69,28 @@ const Tutorial = () => {
                 borderRadius: 10,
               }}>
               <View style={{}}>
-                <Text style={{margin: 2, color: 'black'}}>
+                <Text style={{ margin: 2, color: 'black' }}>
                   • Welcome to your trusted companion for enhancing your mental
                   well-being during your oncology journey
                 </Text>
-                <Text style={{margin: 2, color: 'black'}}>
+                <Text style={{ margin: 2, color: 'black' }}>
                   • Circle care is a trusted, informative, and supportive
                   platform that patients and caregivers can rely on to help
                   improve patient's quality of life.
                 </Text>
 
-                <Text style={{margin: 2, color: 'black'}}>
+                <Text style={{ margin: 2, color: 'black' }}>
                   • It's a platform that helps them assess their physical and
                   psychological condition and gives them the tips and support
                   they need.
                 </Text>
-                <Text style={{margin: 2, color: 'black'}}>
+                <Text style={{ margin: 2, color: 'black' }}>
                   • On contrary to the majority of health mobile applications ,
                   Circle Care provides both mental health and oncological
                   support, in addition to regular symptoms assessments, also
                   some practical tools to make their life better.
                 </Text>
-                <Text style={{margin: 2, color: 'black'}}>
+                <Text style={{ margin: 2, color: 'black' }}>
                   • This application combines the two parts that both genders
                   need, the rational and emotional ones. It empowers both
                   genders in the ways they need and provide them both the type
@@ -98,14 +98,14 @@ const Tutorial = () => {
                 </Text>
 
                 <Image
-                  style={{width: '100%', marginTop: 10, borderRadius: 10}}
+                  style={{ width: '100%', marginTop: 10, borderRadius: 10 }}
                   resizeMode="cover"
                   source={require('../../../assets/rectangle-22608.png')}
                 />
               </View>
             </View>
           </View>
-          <View style={{width: '80%', marginTop: 20}}>
+          <View style={{ width: '80%', marginTop: 20 }}>
             <View
               style={{
                 backgroundColor: Color.whitesmoke_300,
@@ -113,71 +113,71 @@ const Tutorial = () => {
                 borderRadius: 10,
               }}>
               <View style={{}}>
-                <Text style={{margin: 2, color: 'black'}}>
+                <Text style={{ margin: 2, color: 'black' }}>
                   • To begin, let's get you started with the app.
                 </Text>
-                <Text style={{margin: 2, color: 'black'}}>
+                <Text style={{ margin: 2, color: 'black' }}>
                   • Download Circle care from the App Store or Google Play
                   Store.
                 </Text>
-                <Text style={{margin: 2, color: 'black'}}>
+                <Text style={{ margin: 2, color: 'black' }}>
                   • Sign up with your email and create a secure password.
                 </Text>
-                <Text style={{margin: 2, color: 'black'}}>
+                <Text style={{ margin: 2, color: 'black' }}>
                   • This is your app's home screen.
                 </Text>
-                <Text style={{margin: 2, color: 'black'}}>
+                <Text style={{ margin: 2, color: 'black' }}>
                   • Access different sections through the menu at the bottom.
                 </Text>
-                <Text style={{margin: 2, color: 'black'}}>
+                <Text style={{ margin: 2, color: 'black' }}>
                   • Swipe left and right to explore various features.
                 </Text>
-                <Text style={{margin: 2, color: 'black'}}>
+                <Text style={{ margin: 2, color: 'black' }}>
                   • Explore the app's key features: .
                 </Text>
-                <Text style={{margin: 2, color: 'black'}}>
+                <Text style={{ margin: 2, color: 'black' }}>
                   • Goal Setting: Set personalized mental health goals.
                 </Text>
-                <Text style={{margin: 2, color: 'black'}}>
+                <Text style={{ margin: 2, color: 'black' }}>
                   • Mood Tracking& Assessment: Monitor your emotional and mental
                   well-being
                 </Text>
-                <Text style={{margin: 2, color: 'black'}}>
+                <Text style={{ margin: 2, color: 'black' }}>
                   • CBT Exercises: Access cognitive behavior therapy tools.
                 </Text>
-                <Text style={{margin: 2, color: 'black'}}>
+                <Text style={{ margin: 2, color: 'black' }}>
                   • Mindfulness: Practice relaxation and mindfulness exercises.
                 </Text>
-                <Text style={{margin: 2, color: 'black'}}>
-              
-                •	Make Circle care truly yours!
+                <Text style={{ margin: 2, color: 'black' }}>
+
+                  •	Make Circle care truly yours!
 
 
 
 
 
                 </Text>
-                <Text style={{margin: 2, color: 'black'}}>
-                •	Personalize your goals, preferences, and reminders in the settings menu.
+                <Text style={{ margin: 2, color: 'black' }}>
+                  •	Personalize your goals, preferences, and reminders in the settings menu.
                 </Text>
-                <Text style={{margin: 2, color: 'black'}}>
-                •	The Initial phase, only filled once
+                <Text style={{ margin: 2, color: 'black' }}>
+                  •	The Initial phase, only filled once
                 </Text>
-                <Text style={{margin: 2, color: 'black'}}>
-                •	Adjusting the App options to fit the needs.
+                <Text style={{ margin: 2, color: 'black' }}>
+                  •	Adjusting the App options to fit the needs.
                 </Text>
-                <Text style={{margin: 2, color: 'black'}}>
-                •	Building reliance
+                <Text style={{ margin: 2, color: 'black' }}>
+                  •	Building reliance
                 </Text>
                 <Image
-                  style={{width: '100%', marginTop: 10, borderRadius: 10}}
+                  style={{ width: '100%', marginTop: 10, borderRadius: 10 }}
                   resizeMode="cover"
                   source={require('../../../assets/rectangle-226081.png')}
                 />
               </View>
             </View>
           </View>
-          <View style={{width: '80%', marginTop: 20}}>
+          <View style={{ width: '80%', marginTop: 20 }}>
             <View
               style={{
                 backgroundColor: Color.whitesmoke_300,
@@ -196,16 +196,16 @@ const Tutorial = () => {
                   mollit anim id est laborum.
                 </Text> */}
                 <Image
-                  style={{width: '100%', marginTop: 10, borderRadius: 10}}
+                  style={{ width: '100%', marginTop: 10, borderRadius: 10 }}
                   resizeMode="cover"
                   source={require('../../../assets/rectangle-226082.png')}
                 />
               </View>
             </View>
           </View>
-          <View style={{marginTop: 10, marginBottom: 10, width: '80%'}}>
+          <View style={{ marginTop: 10, marginBottom: 10, width: '80%' }}>
             <TouchableOpacity
-              onPress={() => navigation.navigate('SplashScreen')}>
+              onPress={() => navigation.navigate('Tab2')}>
               <View style={{}}>
                 <LinearGradient
                   style={styles.buttons}

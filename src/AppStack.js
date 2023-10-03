@@ -76,6 +76,7 @@ import Records from './screens/Recordandprogress/Records';
 import DeleteProfile from './screens/Profile/DeleteProfile';
 import Done from './screens/QuestionLES/Done';
 import Preview from './screens/Preview';
+import Tutorial from './screens/Auth/Tutorial';
 const Appstack = () => {
     const Stack = createSharedElementStackNavigator();
     const options = {
@@ -93,6 +94,8 @@ const Appstack = () => {
 
 
             {/* after login screen  */}
+
+            <Stack.Screen name="Tutorial" component={Tutorial} />
             <Stack.Screen name="Tab2" component={AnimTab2} />
             <Stack.Screen name="Screen" component={Screen} />
             <Stack.Screen name="MyHeader" component={MyHeader} />

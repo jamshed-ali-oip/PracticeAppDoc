@@ -29,7 +29,7 @@ const Authstack = () => {
         // initialRouteName='Demographics2'
         >
             {/* authscreens  */}
-            <Stack.Screen name="Tutorial" component={Tutorial} />
+            {/* <Stack.Screen name="Tutorial" component={Tutorial} /> */}
             <Stack.Screen name="SplashScreen" component={SplashScreen} />
             <Stack.Screen name="LanguageChange" component={languageChange} />
             <Stack.Screen name="Login" component={Login1} />
