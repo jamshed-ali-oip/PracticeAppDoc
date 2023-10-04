@@ -6,9 +6,10 @@ const InitialState = {
   formtwo: {},
   formthree: {},
   activation_token: null,
-  profile:{},
-  questionar:[],
-  profileImage:null
+  profile: {},
+  questionar: [],
+  profileImage: null,
+  language: "ENGLISH"
 
 };
 
@@ -67,10 +68,17 @@ const authReducer = (state = InitialState, action) => {
       };
     case types.PROFILE_IMAGE:
       console.log(action.payload);
- 
+
       return {
         ...state,
         profileImage: action.payload,
+      };
+    case types.LANGUAGE:
+      console.log(action.payload);
+
+      return {
+        ...state,
+        language: action.payload,
       };
 
     default:

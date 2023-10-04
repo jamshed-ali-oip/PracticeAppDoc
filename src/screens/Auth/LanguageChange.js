@@ -5,6 +5,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Colors from '../../constants/Colors';
 import LinearGradient from 'react-native-linear-gradient';
 import { Color, FontFamily, Border, FontSize, Padding } from '../../../GlobalStyles';
+import { useDispatch } from 'react-redux';
+import { LANGUAGE } from '../../redux/const/const';
 
 const languageChange = ({ navigation }) => {
   const data = [
@@ -21,10 +23,23 @@ const languageChange = ({ navigation }) => {
   const handleBackButton = () => {
     navigation.goBack();
   };
-
+  const dispatch = useDispatch()
+  // alert(selectedOption)
   const handleContinueButton = () => {
     if (selectedOption) {
+
       // Option selected, navigate to the next screen
+      if (selectedOption == "English") {
+        dispatch({
+          type: LANGUAGE,
+          payload: "ENGLISH"
+        })
+      } else {
+        dispatch({
+          type: LANGUAGE,
+          payload: "ARABIC"
+        })
+      }
       navigation.navigate('Login');
     } else {
       // No option selected, show an error message
@@ -33,7 +48,7 @@ const languageChange = ({ navigation }) => {
   };
 
   const handleOptionSelect = (option) => {
-    setSelectedOption(option);
+    setSelectedOption(option?.label);
   };
 
   return (
@@ -48,7 +63,7 @@ const languageChange = ({ navigation }) => {
           <Text style={{ color: Colors.purple, fontWeight: 'bold', fontSize: 20 }}>
             We would like to switch language
           </Text>
-          <Text style={{ fontSize: 18, fontWeight: '600', marginTop: 50, color:'black' }}>I am a:</Text>
+          <Text style={{ fontSize: 18, fontWeight: '600', marginTop: 50, color: 'black' }}>I am a:</Text>
         </View>
         <View style={{ marginTop: 10 }}>
           <RadioButtonRN

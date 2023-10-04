@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   Image,
   StyleSheet,
@@ -11,7 +11,7 @@ import {
   Dimensions,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import {
   FontFamily,
   Border,
@@ -26,10 +26,10 @@ import ColorScreen from '../ColorScreen';
 // import AnimTab1 from "../../bottomTab/AnimTab1";
 import Feather from 'react-native-vector-icons/Feather';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useDispatch} from 'react-redux';
-import {mytest, userLogin} from '../../redux/actions/user.action';
+import { useDispatch, useSelector } from 'react-redux';
+import { mytest, userLogin } from '../../redux/actions/user.action';
 
-const {height, width} = Dimensions.get('window');
+const { height, width } = Dimensions.get('window');
 const Login1 = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -41,7 +41,8 @@ const Login1 = () => {
   const [error, setError] = useState(null);
   const [Loginerror, setLoginError] = useState();
   const [Loading, setLoading] = useState(false);
-
+  const LANG = useSelector((state) => state?.auth?.language)
+  // alert(lang)
   const validateEmail = () => {
     // Simple email validation regex pattern
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -100,7 +101,7 @@ const Login1 = () => {
   };
 
   return (
-    <View style={{backgroundColor: Color.labelColorDarkPrimary, flex: 1}}>
+    <View style={{ backgroundColor: Color.labelColorDarkPrimary, flex: 1 }}>
       <ScrollView>
         <View
           style={{
@@ -119,7 +120,7 @@ const Login1 = () => {
                 <Text style={[styles.logIn, styles.logInTypo]}>Log in</Text>
               </View>
               <View style={[styles.textContainer, styles.buttonFlexBox]}>
-                {error && <Text style={{color: 'red'}}>{error}</Text>}
+                {error && <Text style={{ color: 'red' }}>{error}</Text>}
               </View>
             </View>
 
@@ -157,7 +158,7 @@ const Login1 = () => {
                   paddingHorizontal: 5,
                 }}>
                 <TextInput
-                  style={{fontSize: 14, color: Color.systemBlack, width: '85%'}}
+                  style={{ fontSize: 14, color: Color.systemBlack, width: '85%' }}
                   placeholder="Password"
                   placeholderTextColor="#a1b0b5"
                   value={password}
@@ -165,7 +166,7 @@ const Login1 = () => {
                   // onBlur={validatePassword}
                   secureTextEntry={securetextentry}
                 />
-                <View style={{justifyContent: 'center'}}>
+                <View style={{ justifyContent: 'center' }}>
                   {/* <Ionicons
                             name={securetextentry ? 'eye-off' : 'eye'}
                             color={Colors.white}
@@ -177,12 +178,12 @@ const Login1 = () => {
                     name={securetextentry ? 'eye-off' : 'eye'}
                     size={18}
                     color={Colors.purple}
-                    style={{marginRight: 10}}
+                    style={{ marginRight: 10 }}
                     onPress={() => setSecuretextentry(!securetextentry)}
                   />
                 </View>
               </View>
-              <View style={{marginTop: 10}}>
+              <View style={{ marginTop: 10 }}>
                 {passwordError ? (
                   <Text style={styles.error}>{passwordError}</Text>
                 ) : null}
@@ -251,10 +252,10 @@ const Login1 = () => {
                 </Pressable>
               </LinearGradient>
             </View>
-            <View style={{marginTop: 20}}>
-              <View style={{width: 240, alignItems: 'center'}}>
+            <View style={{ marginTop: 20 }}>
+              <View style={{ width: 240, alignItems: 'center' }}>
                 <Pressable onPress={() => navigation.navigate('Signup')}>
-                  <Text style={{color: '#8b8b8b', fontSize: 16}}>
+                  <Text style={{ color: '#8b8b8b', fontSize: 16 }}>
                     Don't have an accout ?{' '}
                     <Text
                       style={{
@@ -271,10 +272,10 @@ const Login1 = () => {
           </View>
         </View>
       </ScrollView>
-      <View style={{position: 'relative', alignSelf: 'center', bototm: 20}}>
-        <Text style={{fontSize: 11, color: 'black'}}>
+      <View style={{ position: 'relative', alignSelf: 'center', bototm: 20 }}>
+        <Text style={{ fontSize: 11, color: 'black' }}>
           Powered by{' '}
-          <Text style={{color: 'black', fontWeight: 'bold', fontSize: 12}}>
+          <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 12 }}>
             NTAM Group
           </Text>
         </Text>
