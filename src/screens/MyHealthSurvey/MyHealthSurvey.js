@@ -240,12 +240,12 @@ useEffect(() => {
                   >
                   <View
                     style={{
-                      borderWidth: 1,
+                      borderWidth: 2,
                       borderRadius: 10,
-                      borderColor: 'gray',
+                      // borderColor: 'gray',
                       marginTop: 20,
                       padding: 5,
-                      borderColor: '#78A44D',
+                      borderColor: '#78a44d',
                     }}>
                     <View
                       style={{
@@ -261,8 +261,8 @@ useEffect(() => {
                           flexDirection: 'row',
                           justifyContent: 'space-between',
                         }}>
-                        <Feather name="check-circle" size={20} />
-                        <Text>Done</Text>
+                        <Feather  name="check-circle" size={20} color="#78a44d" />
+                        <Text style={{color:"#78a44d"}}>Done</Text>
                       </View>
                     </View>
                     <View style={{padding: 5, marginBottom: 10}}>
