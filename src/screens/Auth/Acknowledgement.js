@@ -1,19 +1,33 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Modal, TextInput, ActivityIndicator } from 'react-native';
+import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Modal,
+  TextInput,
+  ActivityIndicator,
+} from 'react-native';
 import RadioButtonRN from 'radio-buttons-react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import Colors from '../../constants/Colors';
-import LinearGradient from "react-native-linear-gradient";
-import { Color, FontFamily, Border, FontSize, Padding } from "../../../GlobalStyles";
+import LinearGradient from 'react-native-linear-gradient';
+import {
+  Color,
+  FontFamily,
+  Border,
+  FontSize,
+  Padding,
+} from '../../../GlobalStyles';
 import CheckBox from '@react-native-community/checkbox';
-import { useDispatch, useSelector } from 'react-redux';
-import { fourthform } from '../../redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {fourthform} from '../../redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ScrollView } from 'react-native-gesture-handler';
-import { Register } from '../../redux/actions/user.action';
+import {ScrollView} from 'react-native-gesture-handler';
+import {Register} from '../../redux/actions/user.action';
 
-const Acknowledgement = ({ navigation }) => {
-  const dispatch = useDispatch()
+const Acknowledgement = ({navigation}) => {
+  const dispatch = useDispatch();
   // const {formone,formtwo,formthree,formfour}  = useSelector(state=>state.signup)
 
   // console.log(formone,'=======from1')
@@ -21,36 +35,32 @@ const Acknowledgement = ({ navigation }) => {
   // console.log(formthree,'=======from3')
   // console.log(formfour,'=======from4')
 
-  const data = useSelector((state) => state?.auth)
+  const data = useSelector(state => state?.auth);
   // console.log("++++++++++++++++++++++object", data)
-  const [sig, setSig] = useState('')
-  const [toggleCheckBox, setToggleCheckBox] = useState(false)
-  const [toggleCheckBox1, setToggleCheckBox1] = useState(false)
-  const [loading, setloading] = useState(false)
-  
+  const [sig, setSig] = useState('');
+  const [toggleCheckBox, setToggleCheckBox] = useState(false);
+  const [toggleCheckBox1, setToggleCheckBox1] = useState(true);
+  const [loading, setloading] = useState(false);
 
   const [modalVisible, setModalVisible] = useState(false);
-  const [error, setError] = useState('')
-
+  const [error, setError] = useState('');
 
   const handleBackButton = () => {
     navigation.goBack();
   };
-  console.log(sig, 'signature')
-  console.log(toggleCheckBox, 'toggleCheckBox')
-  console.log(toggleCheckBox1, 'toggleCheckBox1')
+  console.log(sig, 'signature');
+  console.log(toggleCheckBox, 'toggleCheckBox');
+  console.log(toggleCheckBox1, 'toggleCheckBox1');
 
   const onNext = () => {
-    if (sig == '' || toggleCheckBox == false || toggleCheckBox1 == false) {
-      setError('Your acknowledgement is required')
-    }
-    else {
+    if (sig == '' || toggleCheckBox == false) {
+      setError('Your acknowledgement is required');
+    } else {
       onComplete();
     }
 
     // onComplete();
-  }
-
+  };
 
   // const onComplete = async () => {
   //   const body = {
@@ -81,8 +91,6 @@ const Acknowledgement = ({ navigation }) => {
   //   //       // setModalVisible(true);
   //   //       navigation.navigate('VerifyEmail')
 
-
-
   //   //     }
   //   //     else {
   //   //       // alert(responseJson?.error)
@@ -100,7 +108,7 @@ const Acknowledgement = ({ navigation }) => {
   //   navigation.navigate('VerifyEmail')
   // }
   const onComplete = () => {
-    setloading(true)
+    setloading(true);
     const body = {
       first_name: data?.formone?.first_name,
       last_name: data?.formone?.last_name,
@@ -121,36 +129,34 @@ const Acknowledgement = ({ navigation }) => {
       privacy_policy: toggleCheckBox,
       send_agreement_to_email: toggleCheckBox1,
       severity_of_symptoms: data?.formthree?.severity_of_symptoms,
-      regular_doctors_appointments:data?.formthree?.regular_doctors_appointments
-      
-    }
+      regular_doctors_appointments:
+        data?.formthree?.regular_doctors_appointments,
+    };
     // console.log("bodyyyyyyy",body)
-    dispatch(Register(body, navigation,setloading))
-  }
+    dispatch(Register(body, navigation, setloading));
+  };
 
   return (
-    <View style={{ flex: 1, }}>
+    <View style={{flex: 1}}>
       <ScrollView>
-        <View style={{ width: '95%', marginHorizontal: 20 }}>
-          <View style={{ marginTop: 20, flexDirection: 'row', }}>
+        <View style={{width: '95%', marginHorizontal: 20}}>
+          <View style={{marginTop: 20, flexDirection: 'row'}}>
             <TouchableOpacity onPress={handleBackButton}>
-              <Ionicons
-                name='arrow-back'
-                size={25}
-                color={Colors.purple} />
+              <Ionicons name="arrow-back" size={25} color={Colors.purple} />
             </TouchableOpacity>
 
             <View style={{}}>
-              <Text style={{ color: Colors.purple, fontWeight: 'bold', fontSize: 20, textAlign: 'center', marginLeft: '20%' }}>Acknowledgement</Text>
-
+              <Text
+                style={{
+                  color: Colors.purple,
+                  fontWeight: 'bold',
+                  fontSize: 20,
+                  textAlign: 'center',
+                  marginLeft: '20%',
+                }}>
+                Acknowledgement
+              </Text>
             </View>
-
-
-
-
-
-
-
           </View>
 
           {/* <View>
@@ -158,88 +164,116 @@ const Acknowledgement = ({ navigation }) => {
           </View> */}
 
           <View style={{}}>
-            {error && <Text style={{ color: 'red', fontWeight: 'bold' }}>{error}</Text>}
+            {error && (
+              <Text style={{color: 'red', fontWeight: 'bold'}}>{error}</Text>
+            )}
           </View>
           <Text
-          style={{
-            color:Color.darkslategray_100,
-            width:"90%",
-            marginTop:20,
-          }}
-          >
-          By my signature, I acknowledge that I have read, understand, and I certify all information is true and correct to the best of my knowledge.
+            style={{
+              color: Color.darkslategray_100,
+              width: '90%',
+              marginTop: 20,
+            }}>
+            By my signature, I acknowledge that I have read, understand, and I
+            certify all information is true and correct to the best of my
+            knowledge.
           </Text>
           <View style={{}}>
-            <Text style={{ color: Colors.purple, fontWeight: 'bold', fontSize: 20, marginTop: 20 }}>Signature</Text>
-
+            <Text
+              style={{
+                color: Colors.purple,
+                fontWeight: 'bold',
+                fontSize: 20,
+                marginTop: 20,
+              }}>
+              Signature
+            </Text>
           </View>
 
-          <View style={{ width: '94%', height: 300, borderWidth: 1, borderColor: 'grey', marginTop: 10 }}>
-
+          <View
+            style={{
+              width: '94%',
+              height: 100,
+              borderWidth: 1,
+              borderColor: 'grey',
+              marginTop: 10,
+              borderRadius:10
+            }}>
             <TextInput
-              style={{ fontSize: 16, color: 'black', marginTop: 5 }}
+              style={{fontSize: 16, color: 'black', marginTop: 5}}
               placeholder=" Enter Signature"
               placeholderTextColor={'black'}
               placeholderStyle={{}}
               value={sig}
               onChangeText={value => setSig(value)}
-
             />
-
           </View>
 
-
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 0, marginTop: 10 }}>
-
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginLeft: 0,
+              marginTop: 10,
+            }}>
             <CheckBox
               disabled={false}
               value={toggleCheckBox}
-              onValueChange={(newValue) => setToggleCheckBox(newValue)}
+              onValueChange={newValue => setToggleCheckBox(newValue)}
               // onFillColor='red'
               // onCheckColor='red'
               // tintColor='#FFFF'
-              tintColors={{ true: 'purple', false: 'lightgrey' }}
+              tintColors={{true: 'purple', false: 'lightgrey'}}
             />
-            <Text style={{ color: 'black', fontSize: 12 }} >  I accept the Terms of Use and Privacy Policy</Text>
-
-
+            <Text style={{color: 'black', fontSize: 12}}>
+              {' '}
+              I accept the Terms of Use and Privacy Policy
+            </Text>
           </View>
 
-
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 0, marginTop: 10 }}>
-
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginLeft: 0,
+              marginTop: 10,
+            }}>
             <CheckBox
               disabled={false}
               value={toggleCheckBox1}
-              onValueChange={(newValue) => setToggleCheckBox1(newValue)}
+              onValueChange={newValue => setToggleCheckBox1(newValue)}
               // onFillColor='red'
               // onCheckColor='red'
               // tintColor='#FFFF'
-              tintColors={{ true: 'purple', false: 'lightgrey' }}
+              tintColors={{true: 'purple', false: 'lightgrey'}}
             />
-            <Text style={{ color: 'black', fontSize: 12 }} >  Automatically send the signed agreement to my email</Text>
-
-
+            <Text style={{color: 'black', fontSize: 12}}>
+              {' '}
+              Automatically send the signed agreement to my email
+            </Text>
           </View>
 
           <LinearGradient
             style={[styles.buttons, styles.buttonsPosition]}
             locations={[0, 1]}
-            colors={["#bf6bbb", "#716eaa"]}
+            colors={['#bf6bbb', '#716eaa']}
             useAngle={true}
-            angle={180}
-          >
+            angle={180}>
             <TouchableOpacity
               style={[styles.pressable, styles.parentFlexBox]}
-              onPress={onNext}
-            >
-              <View >
-                <Text style={styles.button1}>{loading==true?<ActivityIndicator size={"small"} color="white"/>:"Complete"}</Text>
+              onPress={onNext}>
+              <View>
+                <Text style={styles.button1}>
+                  {loading == true ? (
+                    <ActivityIndicator size={'small'} color="white" />
+                  ) : (
+                    'Complete'
+                  )}
+                </Text>
               </View>
             </TouchableOpacity>
           </LinearGradient>
         </View>
-
 
         <Modal
           animationType="fade"
@@ -247,26 +281,40 @@ const Acknowledgement = ({ navigation }) => {
           visible={modalVisible}
           onRequestClose={() => {
             setModalVisible(!modalVisible);
-          }}
-        >
-          <View style={{ backgroundColor: '#8BB561', height: 80, width: '90%', justifyContent: 'center', alignSelf: 'center', position: 'absolute', bottom: 40, borderRadius: 10 }}>
-
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          }}>
+          <View
+            style={{
+              backgroundColor: '#8BB561',
+              height: 80,
+              width: '90%',
+              justifyContent: 'center',
+              alignSelf: 'center',
+              position: 'absolute',
+              bottom: 40,
+              borderRadius: 10,
+            }}>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <Ionicons
-                style={{ marginLeft: 20 }}
-                name='checkmark-circle'
+                style={{marginLeft: 20}}
+                name="checkmark-circle"
                 size={65}
-                color={'white'} />
-
+                color={'white'}
+              />
 
               <View style={{}}>
-                <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 12, textAlign: 'center' }}>You have successfully created an account</Text>
-
+                <Text
+                  style={{
+                    color: 'white',
+                    fontWeight: 'bold',
+                    fontSize: 12,
+                    textAlign: 'center',
+                  }}>
+                  You have successfully created an account
+                </Text>
               </View>
             </View>
           </View>
         </Modal>
-
       </ScrollView>
     </View>
   );
@@ -282,27 +330,26 @@ const styles = StyleSheet.create({
   buttons: {
     // top: '165%',
     height: 47,
-    marginTop: 30
+    marginTop: 30,
   },
   pressable: {
     borderRadius: Border.br_47xl,
-    height: "100%",
-    backgroundColor: "transparent",
-    width: "100%",
-
+    height: '100%',
+    backgroundColor: 'transparent',
+    width: '100%',
   },
   parentFlexBox: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   button1: {
     fontSize: FontSize.size_base,
     fontFamily: FontFamily.poppinsSemibold,
     color: Color.labelColorDarkPrimary,
-    fontWeight: "bold",
-    textAlign: "center",
+    fontWeight: 'bold',
+    textAlign: 'center',
     lineHeight: 20,
   },
-})
+});
 
 export default Acknowledgement;

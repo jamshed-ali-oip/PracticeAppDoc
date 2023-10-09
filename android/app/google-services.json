@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "584141500398",
+    "project_id": "circlecare-a52c7",
+    "storage_bucket": "circlecare-a52c7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:584141500398:android:24bb35ef199e1f09f1e8ff",
+        "android_client_info": {
+          "package_name": "com.circlecare"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnj0g-m7vrzzGDmyf6-PIunhup9tVipI8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

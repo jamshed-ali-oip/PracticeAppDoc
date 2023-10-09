@@ -61,7 +61,7 @@ const languageChange = ({ navigation }) => {
         </View>
         <View style={{ marginTop: 15 }}>
           <Text style={{ color: Colors.purple, fontWeight: 'bold', fontSize: 20 }}>
-            We would like to switch language
+          Choose your preferred language
           </Text>
           <Text style={{ fontSize: 18, fontWeight: '600', marginTop: 50, color: 'black' }}>I am a:</Text>
         </View>

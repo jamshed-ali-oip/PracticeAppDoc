@@ -9,6 +9,7 @@ import {
   ScrollView,
   ActivityIndicator,
   Dimensions,
+  TouchableOpacity
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
@@ -28,7 +29,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch, useSelector } from 'react-redux';
 import { mytest, userLogin } from '../../redux/actions/user.action';
-
+import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 const { height, width } = Dimensions.get('window');
 const Login1 = () => {
   const navigation = useNavigation();
@@ -99,6 +100,24 @@ const Login1 = () => {
     // console.log(data)
     // dispatch(userLogin(data))
   };
+
+  const googleLoginHandle=async()=>{
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      // setState({ userInfo });
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // user cancelled the login flow
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        // operation (e.g. sign in) is in progress already
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        // play services not available or outdated
+      } else {
+        // some other error happened
+      }
+    }
+  }
 
   return (
     <View style={{ backgroundColor: Color.labelColorDarkPrimary, flex: 1 }}>
@@ -204,21 +223,25 @@ const Login1 = () => {
                   resizeMode="cover"
                   source={require('../../../assets/vector-2161.png')}
                 />
-                {/* <View style={[styles.rectangleParent, styles.groupItemLayout]}>
+                <View style={[styles.rectangleParent, styles.groupItemLayout]}>
                   <View style={[styles.groupItem, styles.groupItemLayout]} />
                   <Text style={[styles.orSignIn, styles.orSignInTypo]}>
                     or sign in using
                   </Text>
-                </View> */}
+                </View>
               </View>
               {/* social logn  */}
-              {/* <View style={styles.frameView}>
+              <View style={styles.frameView}>
+                <TouchableOpacity
+                onPress={()=>{googleLoginHandle()}}
+                >
                 <Image
                   style={styles.frameChild}
                   resizeMode="cover"
                   source={require("../../../assets/group-1000001448.png")}
                 />
-                <Image
+                </TouchableOpacity>
+                {/* <Image
                   style={[styles.facebook31, styles.frameItemLayout]}
                   resizeMode="cover"
                   source={require("../../../assets/facebook-3-1.png")}
@@ -227,8 +250,8 @@ const Login1 = () => {
                   style={styles.frameItemLayout}
                   resizeMode="cover"
                   source={require("../../../assets/group-1000001450.png")}
-                />
-              </View> */}
+                /> */}
+              </View>
             </View>
             <View style={styles.groupContainer}>
               <LinearGradient
@@ -486,6 +509,7 @@ const styles = StyleSheet.create({
   frameChild: {
     height: 42,
     width: 41,
+    resizeMode:"contain"
   },
   facebook31: {
     overflow: 'hidden',

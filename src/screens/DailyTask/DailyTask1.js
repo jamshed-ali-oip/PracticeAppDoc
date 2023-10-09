@@ -140,7 +140,7 @@ const DailyTask1 = ({navigation}) => {
           <View style={{marginHorizontal: '28%'}}>
             <Text
               style={{color: Colors.purple, fontWeight: 'bold', fontSize: 18}}>
-              Daily Task
+              Daily Actions
             </Text>
           </View>
         </View>
@@ -148,7 +148,7 @@ const DailyTask1 = ({navigation}) => {
           <TouchableOpacity
             style={[styles.tabItem, activeTab === 'tasks' && styles.activeTab]}
             onPress={() => handleTabChange('tasks')}>
-          <Text style={[styles.tabText,{color:activeTab=="tasks"?Color.gray_400:Color.gray_100}]}>Tasks</Text>
+          <Text style={[styles.tabText,{color:activeTab=="tasks"?Color.gray_400:Color.gray_100}]}>Actions</Text>
           </TouchableOpacity>
 
           <TouchableOpacity

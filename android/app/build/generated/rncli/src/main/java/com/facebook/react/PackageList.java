@@ -21,6 +21,10 @@ import com.reactnativecommunity.clipboard.ClipboardPackage;
 import org.reactnative.maskedview.RNCMaskedViewPackage;
 // @react-native-community/slider
 import com.reactnativecommunity.slider.ReactSliderPackage;
+// @react-native-firebase/app
+import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
+// @react-native-google-signin/google-signin
+import com.reactnativegooglesignin.RNGoogleSigninPackage;
 // react-native-date-picker
 import com.henninghall.date_picker.DatePickerPackage;
 // react-native-gesture-handler
@@ -91,6 +95,8 @@ public class PackageList {
       new ClipboardPackage(),
       new RNCMaskedViewPackage(),
       new ReactSliderPackage(),
+      new ReactNativeFirebaseAppPackage(),
+      new RNGoogleSigninPackage(),
       new DatePickerPackage(),
       new RNGestureHandlerPackage(),
       new ImagePickerPackage(),
