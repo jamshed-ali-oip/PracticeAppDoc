@@ -26,7 +26,7 @@ const Relax = () => {
       </View>
       <View style={{backgroundColor:'white',height:200,}}>
         <View style={{alignItems:'center',marginTop:20,}}>
-      <Text style={{color:Colors.purple,fontWeight:'bold',fontSize:26,}}>Meet Kalyana</Text>
+      <Text style={{color:Colors.purple,fontWeight:'bold',fontSize:26,}}>Meet Amal</Text>
       </View>
       <View style={{height:45,width:'90%',marginHorizontal:20,marginTop:20,}}>
       <LinearGradient
@@ -38,7 +38,7 @@ const Relax = () => {
       >
         <TouchableOpacity
           style={[styles.pressable, styles.parentFlexBox]}
-          onPress={() => navigation.navigate("Chat")}
+          onPress={() => navigation.navigate("Amal")}
         >
           <View style={[styles.button, styles.parentFlexBox]}>
             <Text style={styles.button1}>Start The Journey</Text>

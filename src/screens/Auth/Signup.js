@@ -32,6 +32,7 @@ import moment from 'moment';
 import Colors from '../../constants/Colors';
 import Feather from 'react-native-vector-icons/Feather';
 import {FORMONE} from '../../redux/const/const';
+import { EmailCheck } from '../../redux/actions/user.action';
 
 const {height, width} = Dimensions.get('window');
 const Signup = ({navigation}) => {
@@ -80,7 +81,7 @@ const Signup = ({navigation}) => {
 
   const [securetextentry, setSecuretextentry] = useState(true);
   const [securetextentry1, setSecuretextentry1] = useState(true);
-
+  const [emailverify, setEmailverify] = useState()
   const datee = moment(new Date()).format('DD-MM-YYYY');
   const validation = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -131,11 +132,16 @@ const Signup = ({navigation}) => {
       return true;
     }
   };
-
+  const emailchecker=async()=>{
+    const data=await dispatch(EmailCheck(email))
+    // const data2=JSON?.stringify(data)
+    setEmailverify(data)
+   
+  }
   const onSignUp = () => {
     validate = validation();
-    console.log('ssd====', validate);
-    if (validate) {
+    emailchecker()
+    if (validate && emailverify==false) {
       const body = {
         first_name: firstname,
         last_name: lastname,
@@ -427,11 +433,7 @@ const Signup = ({navigation}) => {
             </Text>
           )}
         </View>
-        {/* <View>
-        <Text style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginTop: 10 }}>
-          {emailError}
-        </Text>
-      </View> */}
+        
         <View
           style={{
             height: 50,
@@ -470,6 +472,19 @@ const Signup = ({navigation}) => {
               marginTop: 10,
             }}>
             {error?.email}
+            
+          </Text>
+        )}
+        {emailverify==true && (
+          <Text
+            style={{
+              color: 'red',
+              fontWeight: 'bold',
+              textAlign: 'center',
+              marginTop: 10,
+            }}>
+           {emailverify==true?"Email already exist*":null}
+            
           </Text>
         )}
 
@@ -644,7 +659,9 @@ const Signup = ({navigation}) => {
           angle={180}>
           <Pressable
             style={[styles.pressable, styles.buttonFlexBox]}
-            onPress={onSignUp}>
+            onPress={onSignUp}
+            // onPress={emailchecker}
+            >
             <View style={[styles.button, styles.buttonFlexBox]}>
               <Text style={styles.button1}>Sign Up</Text>
             </View>

@@ -13,17 +13,23 @@ import { FontFamily, Border, FontSize, Color, Padding } from "../../../GlobalSty
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch, useSelector } from 'react-redux';
 import { Activating } from '../../redux/actions/user.action';
-
+// import {
+//   CodeField,
+//   Cursor,
+//   useBlurOnFulfill,
+//   useClearByFocusCell,
+// } from 'react-native-confirmation-code-field';
 
 
 const VerifyEmail = ({ navigation }) => {
-
+  const CELL_COUNT = 6
+  const [value, setValue] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('')
   // const [otp,setOtp] = useState('')
   const [token, setToken] = useState('')
-  
+  const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
 
   const data = useSelector((state) => state?.auth)
   // console.log("llllllllllllllllllllllllllll", data)
@@ -43,8 +49,10 @@ const VerifyEmail = ({ navigation }) => {
     dispatch(Activating(body,setLoading))
     // alert("signup work will be done")
   }
-
-
+  const [props, getCellOnLayoutHandler] = useClearByFocusCell({
+    value,
+    setValue,
+  });
 
 
 
@@ -60,11 +68,30 @@ const VerifyEmail = ({ navigation }) => {
             Verify Your Email Address
           </Text>
           <Text style={{ fontSize: 16, marginTop: 10, fontFamily: 'Poppins-Regular' }}>
-            To continue using Circle Care, please verify your email address
+           OTP send to your  <Text style={{ fontSize: 16, color: Colors.black, fontFamily: 'Poppins-Regular' }}>
+            {data?.formone?.email}
+          </Text>, please verify your email address
           </Text>
-          <Text style={{ fontSize: 16, color: Colors.black, fontFamily: 'Poppins-Regular' }}>
-            Email: {data?.formone?.email}
+         
+          <CodeField
+        ref={ref}
+        {...props}
+        // Use `caretHidden={false}` when users can't paste a text value, because context menu doesn't appear
+        value={value}
+        onChangeText={setValue}
+        cellCount={CELL_COUNT}
+        rootStyle={styles.codeFieldRoot}
+        keyboardType="number-pad"
+        textContentType="oneTimeCode"
+        renderCell={({index, symbol, isFocused}) => (
+          <Text
+            key={index}
+            style={[styles.cell, isFocused && styles.focusCell]}
+            onLayout={getCellOnLayoutHandler(index)}>
+            {symbol || (isFocused ? <Cursor /> : null)}
           </Text>
+        )}
+      />
         </View>
       </View>
 

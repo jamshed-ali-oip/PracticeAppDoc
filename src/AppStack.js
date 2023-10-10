@@ -77,6 +77,7 @@ import DeleteProfile from './screens/Profile/DeleteProfile';
 import Done from './screens/QuestionLES/Done';
 import Preview from './screens/Preview';
 import Tutorial from './screens/Auth/Tutorial';
+import Amal from './screens/Amal';
 const Appstack = () => {
     const Stack = createSharedElementStackNavigator();
     const options = {
@@ -164,6 +165,7 @@ const Appstack = () => {
             <Stack.Screen name="DeleteProfile" component={DeleteProfile} />
             <Stack.Screen name="Done" component={Done} />
             <Stack.Screen name="Preview" component={Preview} />
+            <Stack.Screen name="Amal" component={Amal} />
 
 
 

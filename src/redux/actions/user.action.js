@@ -334,9 +334,21 @@ export const deleteaccount = (body,navigation,setError) => async dispatch => {
 export const CareApi = () => async dispatch => {
 
   try {
-    const response = await instance.get(`appuser/cares?content_type=English`);
+    const response = await instance.get(`/appuser/cares?content_type=English`);
     if (response) {
     return response?.data
+    }
+  } catch (error) {
+    setError(error?.response?.msg)
+    console.log(JSON.stringify(error?.response));
+  }
+};
+export const EmailCheck = (email) => async dispatch => {
+
+  try {
+    const response = await instance.get(`/appuser/is-email-duplicate?email=${email}`);
+    if (response) {
+    return response?.data?.data
     }
   } catch (error) {
     setError(error?.response?.msg)

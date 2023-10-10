@@ -26,7 +26,7 @@ const Authstack = () => {
     //   const Stack = createSharedElementStackNavigator();
     return (
         <Stack.Navigator screenOptions={options}
-        // initialRouteName='Demographics2'
+        // initialRouteName='VerifyEmail'
         >
             {/* authscreens  */}
             {/* <Stack.Screen name="Tutorial" component={Tutorial} /> */}

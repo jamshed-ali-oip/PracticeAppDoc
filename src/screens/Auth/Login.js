@@ -118,7 +118,11 @@ const Login1 = () => {
       }
     }
   }
-
+  GoogleSignin.configure({
+ 
+    webClientId: '584141500398-lpmrsjg3phhnulf22ha655vuis6ev67q.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
+ // [iOS] The desired height (and width) of the profile image. Defaults to 120px
+  });
   return (
     <View style={{ backgroundColor: Color.labelColorDarkPrimary, flex: 1 }}>
       <ScrollView>
