@@ -460,6 +460,7 @@ const Signup = ({navigation}) => {
             placeholderTextColor={'lightgrey'}
             placeholderStyle={{}}
             value={email}
+            keyboardType='email-address'
             onChangeText={value => setEmail(value)}
           />
         </View>

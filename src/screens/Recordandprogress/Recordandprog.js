@@ -82,7 +82,11 @@ const MyHealthSurvey = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [token, setToken] = React.useState('');
   const [alldata, setalldata] = useState('');
+  const [A, setA] = useState([]);
   const [B, setB] = useState([]);
+  const [C, setC] = useState([]);
+  const [D, setD] = useState([]);
+  const [E, setE] = useState([]);
   const [parts,setparts]=useState()
   // Get the current date
 var currentDate = new Date();
@@ -156,29 +160,91 @@ console.log("***********************",alldata)
   };
   
   useEffect(()=>{
-    const blood_pressureArr=[]
+    const systol = [];
+    const blood_pressureArr=[];
+    const sleep=[];
+    const sugar=[];
+    const weight=[]
    if(alldata){
     alldata.forEach(item => {
       blood_pressureArr.push(item.blood_pressure);
     });
+    alldata.forEach(item => {
+      systol.push(item.blood_pressure_systole);
+    });
+    alldata.forEach(item => {
+      sleep.push(item.sleeping_hours);
+    });
+    alldata.forEach(item => {
+      sugar.push(item.sugar_level);
+    });
+    alldata.forEach(item => {
+      weight.push(item.weight);
+    });
    }
    console.log("faskk",blood_pressureArr)
+    setA(systol)
     setB(blood_pressureArr)
+    setC(sleep)
+    setD(sugar)
+    setE(weight)
+
   },[alldata,dob])
   console.log("0000000000000000000000000",B)
   const data = {
-    labels: [
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-      'Sunday',
-    ],
+    // labels: [
+    //   'Monday',
+    //   'Tuesday',
+    //   'Wednesday',
+    //   'Thursday',
+    //   'Friday',
+    //   'Saturday',
+    //   'Sunday',
+    // ],
     datasets: [
       {
-        data:  [25, 37.5, 50, 62.5, 80, 90],
+        data: A,
+        color: () => '#8853A7',
+        strokeWidth: 1, // optional
+      },
+    ],
+    // legend: ["Rainy Days"] // optional
+  };
+  const WData = {
+    // labels: [
+    //   'Mon',
+    //   'Tue',
+    //   'Wed',
+    //   'Thur',
+    //   'Fri',
+    //   'Sat',
+    //   'Sun',
+    // ],
+    datasets: [
+      {
+        data: E,
+        color: () => '#8853A7',
+        strokeWidth: 1, // optional
+      },
+    ],
+    // legend: ["Rainy Days"] // optional
+  };
+  const SHDATA = {
+  
+    datasets: [
+      {
+        data: C,
+        color: () => '#8853A7',
+        strokeWidth: 1, // optional
+      },
+    ],
+    // legend: ["Rainy Days"] // optional
+  };
+  const SLDATA = {
+  
+    datasets: [
+      {
+        data: D,
         color: () => '#8853A7',
         strokeWidth: 1, // optional
       },
@@ -189,7 +255,7 @@ console.log("***********************",alldata)
     // labels: ["January", "February", "March", "April", "May", "June"],
     datasets: [
       {
-        data: [0, 0, 100, 10, 40, 20],
+        data: B,
         color: () => 'red',
         strokeWidth: 1, // optional
       },
@@ -339,7 +405,7 @@ console.log("***********************",alldata)
                 }}>
                 <TextInput
                   style={{fontSize: 16, color: Color.systemBlack}}
-                  placeholder="Update Blod Pressure (Systole)"
+                  placeholder="Update Blood Pressure (Systole)"
                   placeholderTextColor={'lightgrey'}
                   placeholderStyle={{}}
                   value={systole}
@@ -366,7 +432,7 @@ console.log("***********************",alldata)
                 }}>
                 <TextInput
                   style={{fontSize: 16, color: Color.systemBlack}}
-                  placeholder="Update Blod Pressure"
+                  placeholder="Update Blood Pressure (Diastole)"
                   placeholderTextColor={'lightgrey'}
                   placeholderStyle={{}}
                   value={bp}
@@ -700,7 +766,7 @@ console.log("***********************",alldata)
                     <View style={{marginTop: 10}}>
                       <LineChart
                         // style={{backgroundColor:'red'}}
-                        data={data}
+                        data={WData}
                         width={screenWidth}
                         height={250}
                         verticalLabelRotation={80}
@@ -807,7 +873,7 @@ console.log("***********************",alldata)
                     <View style={{marginTop: 10}}>
                       <LineChart
                         // style={{backgroundColor:'red'}}
-                        data={data}
+                        data={SLDATA}
                         width={screenWidth}
                         height={250}
                         verticalLabelRotation={80}
@@ -916,7 +982,7 @@ console.log("***********************",alldata)
                           backgroundColor: Colors.light,
                           borderRadius: 10,
                         }}
-                        data={data}
+                        data={SHDATA}
                         width={screenWidth}
                         height={300}
                         verticalLabelRotation={80}
