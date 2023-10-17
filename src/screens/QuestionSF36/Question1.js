@@ -140,8 +140,8 @@ const Question1 = ({navigation, route}) => {
           </Text>
               <View style={{marginTop: 10}}>
           <RadioButtonRN
-            activeColor={'white'}
-            //   deactiveColor={''}
+            activeColor={'transparent'}
+              deactiveColor={'transparent'}
             box={true}
             boxStyle={{height: 80, width: '90%'}}
             data={question?.options.map((option) => ({

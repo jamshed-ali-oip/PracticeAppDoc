@@ -283,7 +283,7 @@ const mypic=useSelector((state)=>state?.auth?.profileImage)
                     <View style={styles.switcher} />
                   </View>
                 </Pressable>
-                {/* <Pressable
+                <Pressable
                   style={styles.settingsSingle3}
                   onPress={() => navigation.navigate("Support")}
                 >
@@ -307,7 +307,7 @@ const mypic=useSelector((state)=>state?.auth?.profileImage)
                       </Text>
                     </View>
                   </View>
-                </Pressable> */}
+                </Pressable>
                 <View style={styles.settingsSingle5} />
                 <Pressable
                   style={styles.settingsSingle3}
