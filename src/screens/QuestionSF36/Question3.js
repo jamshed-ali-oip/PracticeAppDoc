@@ -5,6 +5,7 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
+  ActivityIndicator,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Colors from '../../constants/Colors';
@@ -58,6 +59,9 @@ const Question3 = ({ navigation, route }) => {
 
   return (
     <ScrollView>
+      {
+        dropdownQuestions?.length?
+      
       <View style={{ flex: 1 }}>
         <View style={{ width: '98%' }}>
           <View style={{ marginTop: 20, marginLeft: 20 }}>
@@ -119,7 +123,17 @@ const Question3 = ({ navigation, route }) => {
           </LinearGradient>
           <View style={{ marginTop: 20 }}></View>
         </View>
-      </View>
+       
+      </View>:
+       <ActivityIndicator
+       style={{
+         alignSelf: 'center',
+         marginTop: '90%',
+       }}
+       size={'large'}
+       color={'#9a5ab1'}
+     />
+      }
     </ScrollView>
   );
 };

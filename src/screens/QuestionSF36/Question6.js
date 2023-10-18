@@ -26,6 +26,7 @@ import {
 import DropDown from '../../components/DropDown';
 import {useDispatch} from 'react-redux';
 import {Questions} from '../../redux/actions/user.action';
+import { ActivityIndicator } from 'react-native-paper';
 
 const Question6 = ({navigation, route}) => {
   const mainId = route?.params;
@@ -58,7 +59,9 @@ const Question6 = ({navigation, route}) => {
     const filteredMultipleChoiceQuestions = sawal?.[0].questions.filter(
       question => question.type === 'Multiple Choice',
     );
-    if(filteredMultipleChoiceQuestions?.length==0){ navigation?.navigate("Done",{data:mainId?.data});}
+    if (filteredMultipleChoiceQuestions?.length == 0) {
+      navigation?.navigate('Done', {data: mainId?.data});
+    }
     setMultipleChoiceQuestions(filteredMultipleChoiceQuestions);
 
     const filteredCheckboxQuestions = sawal?.[0].questions.filter(
@@ -82,7 +85,7 @@ const Question6 = ({navigation, route}) => {
     } else {
       // Handle when all questions have been displayed
       // alert('No more questions 6');
-      navigation?.navigate("Done",{data:mainId?.data});
+      navigation?.navigate('Done', {data: mainId?.data});
     }
   };
 
@@ -108,12 +111,10 @@ const Question6 = ({navigation, route}) => {
           <View style={{marginTop: 15, marginLeft: 20, width: '90%'}}>
             <Text
               style={{color: Colors.purple, fontWeight: 'bold', fontSize: 20}}>
-              Question 
+              Question
             </Text>
-           
+
             <View>
-           
-           
               {multipleChoiceQuestions?.map(
                 (question, index) =>
                   index === currentIndex && (
@@ -139,7 +140,7 @@ style={{color:"red"}}
                           }}
                           style={{}}
                           placeholder={'Choose Answer'}
-                          items={question?.options.map((option) => ({
+                          items={question?.options.map(option => ({
                             label: option,
                             value: option,
                           }))}
@@ -178,6 +179,16 @@ style={{color:"red"}}
 
           <View style={{marginTop: 5}}></View>
         </View>
+        {multipleChoiceQuestions?.length ? null : (
+          <ActivityIndicator
+            style={{
+              alignSelf: 'center',
+              marginTop: '50%',
+            }}
+            size={'large'}
+            color={'#9a5ab1'}
+          />
+        )}
       </View>
     </ScrollView>
   );
